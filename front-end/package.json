@@ -8,8 +8,7 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"format": "prettier --write .",
-		"lint": "eslint --fix . --ext .js,.jsx",
-		"prepare": "cd .. && husky install front-end/.husky"
+		"lint": "eslint --fix . --ext .js,.jsx"
 	},
 	"husky": {
 		"hooks": {
