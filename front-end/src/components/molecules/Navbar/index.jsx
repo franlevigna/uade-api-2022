@@ -7,6 +7,9 @@ export const Navbar = () => {
 	const handleRegisterRedirection = () => {
 		navigateTo('/register');
 	};
+	const handleLoginRedirection = () => {
+		navigateTo('/login');
+	};
 	return (
 		<AppBar>
 			<Toolbar>
@@ -19,7 +22,9 @@ export const Navbar = () => {
 				</Typography>
 				<Box sx={{ flexGrow: 1 }} />
 				<Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
-					<Button>Iniciar Sesion</Button>
+					<Button onClick={handleLoginRedirection}>
+						Iniciar Sesion
+					</Button>
 					<Button onClick={handleRegisterRedirection}>
 						Registrarse
 					</Button>

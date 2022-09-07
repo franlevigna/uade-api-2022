@@ -105,9 +105,13 @@ server.post("/auth/login", (req, res) => {
     res.status(status).json({ status, message });
     return;
   }
+  const userInfo = userdb.users.find(
+    (user) => user.email === email && user.password === password
+  );
   const access_token = createToken({ email, password });
   console.log("Access Token:" + access_token);
-  res.status(200).json({ access_token });
+  console.log("User Info:", userInfo);
+  res.status(200).json({ access_token, userInfo });
 });
 
 server.use(/^(?!\/auth).*$/, (req, res, next) => {
