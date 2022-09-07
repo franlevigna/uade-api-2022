@@ -16,6 +16,7 @@ import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useRegister } from '../../../hooks/register';
 import { Toast } from '../../molecules/Toast';
+import { displayErrorMessage } from '../../../utils';
 
 export const Register = () => {
 	const { registerMutation, isRegisterLoading } = useRegister();
@@ -29,7 +30,7 @@ export const Register = () => {
 			);
 			navigateTo('/profile');
 		} catch (error) {
-			Toast(error?.response?.data?.message, 'error');
+			Toast(displayErrorMessage(error), 'error');
 		}
 	};
 	const formik = useFormik({
@@ -162,7 +163,11 @@ export const Register = () => {
 					</LoadingButton>
 					<Grid container justifyContent='flex-end'>
 						<Grid item>
-							<Link component={RouterLink} to='/' variant='body2'>
+							<Link
+								component={RouterLink}
+								to='/login'
+								variant='body2'
+							>
 								¿Ya tienes una cuenta? Inicia sesion
 							</Link>
 						</Grid>
