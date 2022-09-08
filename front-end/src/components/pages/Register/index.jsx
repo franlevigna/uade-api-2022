@@ -17,17 +17,32 @@ import { useFormik } from 'formik';
 import { useRegister } from '../../../hooks/register';
 import { Toast } from '../../molecules/Toast';
 import { displayErrorMessage } from '../../../utils';
+import { Storage } from '../../../utils/storage';
+import { USER_INFO } from '../../../utils/storage/keyNames';
+import { useUserSession } from '../../../hooks/userSession';
+import usersDB from '../../../../../fake-back-end/users.json';
 
 export const Register = () => {
+	// eslint-disable-next-line no-unused-vars
+	const [_, saveUserInCache] = Storage(USER_INFO, true);
+	const { storeAuthToken } = useUserSession();
 	const { registerMutation, isRegisterLoading } = useRegister();
 	const navigateTo = useNavigate();
 
 	const handleSubmit = async (values) => {
 		try {
-			await registerMutation({ payload: values });
+			const {
+				// eslint-disable-next-line camelcase
+				data: { access_token, userInfo },
+			} = await registerMutation({ payload: values });
+
+			userInfo.id = usersDB.users.length + 1;
+			saveUserInCache(userInfo);
+			storeAuthToken(access_token);
 			Toast(
 				'Tu usuario ha sido creado, ahora vamos a completar tu perfil!'
 			);
+
 			navigateTo('/profile');
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
@@ -35,6 +50,7 @@ export const Register = () => {
 	};
 	const formik = useFormik({
 		initialValues: {
+			id: '',
 			firstName: '',
 			lastName: '',
 			email: '',

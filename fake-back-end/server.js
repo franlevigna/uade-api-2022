@@ -28,12 +28,8 @@ function verifyToken(token) {
 }
 
 // Check if the user exists in database
-function isAuthenticated({ email, password }) {
-  return (
-    userdb.users.findIndex(
-      (user) => user.email === email && user.password === password
-    ) !== -1
-  );
+function isAuthenticated({ email }) {
+  return userdb.users.findIndex((user) => user.email === email) !== -1;
 }
 
 // Register New User
@@ -42,9 +38,9 @@ server.post("/auth/register", (req, res) => {
   console.log(req.body);
   const { email, password, userType, firstName, lastName } = req.body;
 
-  if (isAuthenticated({ email, password }) === true) {
+  if (isAuthenticated({ email }) === true) {
     const status = 401;
-    const message = "Email and Password already exist";
+    const message = "Email already exist";
     res.status(status).json({ status, message });
     return;
   }
@@ -89,9 +85,18 @@ server.post("/auth/register", (req, res) => {
   });
 
   // Create token for new user
+
   const access_token = createToken({ email, password });
-  console.log("Access Token:" + access_token);
-  res.status(200).json({ access_token });
+  res.status(200).json({
+    access_token,
+    userInfo: {
+      email: email,
+      password: password,
+      userType: userType,
+      firstName: firstName,
+      lastName: lastName,
+    },
+  });
 });
 
 // Login to one of the users from ./users.json

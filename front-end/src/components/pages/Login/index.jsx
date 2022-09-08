@@ -14,18 +14,23 @@ import { useLogin } from '../../../hooks/login';
 import { useUserSession } from '../../../hooks/userSession';
 import { Toast } from '../../molecules/Toast';
 import { displayErrorMessage } from '../../../utils';
+import { USER_INFO } from '../../../utils/storage/keyNames';
+import { Storage } from '../../../utils/storage';
 
 export const Login = () => {
+	// eslint-disable-next-line no-unused-vars
+	const [_, saveUserInCache] = Storage(USER_INFO, true);
 	const { loginMutation, isLoginLoading } = useLogin();
 	const { storeAuthToken } = useUserSession();
 	const handleSubmit = async (values) => {
 		try {
 			const {
 				// eslint-disable-next-line camelcase
-				data: { access_token },
+				data: { access_token, userInfo },
 			} = await loginMutation({
 				payload: values,
 			});
+			saveUserInCache(userInfo);
 			storeAuthToken(access_token);
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');

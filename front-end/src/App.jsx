@@ -10,6 +10,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Login } from './components/pages/Login';
 import { CookiesProvider } from 'react-cookie';
+import { UserProfile } from './components/pages/UserProfile';
+import { UserProfileProvider } from './store/profile';
 
 const darkTheme = createTheme({
 	palette: {
@@ -27,16 +29,25 @@ function App() {
 					<CssBaseline />
 					<div className='App'>
 						<BrowserRouter>
-							<Layout>
-								<Routes>
-									<Route path='/' element={<Home />} />
-									<Route
-										path='/register'
-										element={<Register />}
-									/>
-									<Route path='/login' element={<Login />} />
-								</Routes>
-							</Layout>
+							<UserProfileProvider>
+								<Layout>
+									<Routes>
+										<Route path='/' element={<Home />} />
+										<Route
+											path='/register'
+											element={<Register />}
+										/>
+										<Route
+											path='/login'
+											element={<Login />}
+										/>
+										<Route
+											path='/profile'
+											element={<UserProfile />}
+										/>
+									</Routes>
+								</Layout>
+							</UserProfileProvider>
 						</BrowserRouter>
 					</div>
 				</ThemeProvider>
