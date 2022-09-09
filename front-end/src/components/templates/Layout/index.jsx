@@ -1,5 +1,5 @@
 import { Container } from '@mui/material';
-import { Navbar } from '../../molecules/Navbar';
+import { Navbar } from '../../organisms/Navbar';
 
 export const Layout = ({ children }) => {
 	return (
@@ -8,8 +8,8 @@ export const Layout = ({ children }) => {
 			<Container
 				maxWidth='lg'
 				style={{
-					minHeight: 'calc(100vh - 116px)',
-					marginTop: '82px',
+					minHeight: 'calc(100vh - 130px)',
+					marginTop: '104px',
 					marginBottom: '24px',
 				}}
 			>

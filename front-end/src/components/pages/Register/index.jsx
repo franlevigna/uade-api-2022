@@ -17,15 +17,14 @@ import { useFormik } from 'formik';
 import { useRegister } from '../../../hooks/register';
 import { Toast } from '../../molecules/Toast';
 import { displayErrorMessage } from '../../../utils';
-import { Storage } from '../../../utils/storage';
-import { USER_INFO } from '../../../utils/storage/keyNames';
 import { useUserSession } from '../../../hooks/userSession';
-import usersDB from '../../../../../fake-back-end/users.json';
+import database from '../../../../../fake-back-end/db.json';
+import { useUserProfile } from '../../../store/profile';
 
 export const Register = () => {
 	// eslint-disable-next-line no-unused-vars
-	const [_, saveUserInCache] = Storage(USER_INFO, true);
 	const { storeAuthToken } = useUserSession();
+	const { setUserData } = useUserProfile();
 	const { registerMutation, isRegisterLoading } = useRegister();
 	const navigateTo = useNavigate();
 
@@ -36,8 +35,9 @@ export const Register = () => {
 				data: { access_token, userInfo },
 			} = await registerMutation({ payload: values });
 
-			userInfo.id = usersDB.users.length + 1;
-			saveUserInCache(userInfo);
+			userInfo.id = database.users.length + 1;
+			console.log(userInfo);
+			setUserData(userInfo);
 			storeAuthToken(access_token);
 			Toast(
 				'Tu usuario ha sido creado, ahora vamos a completar tu perfil!'

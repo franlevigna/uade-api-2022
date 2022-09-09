@@ -1,16 +1,10 @@
 import { Divider, Grid, Typography } from '@mui/material';
-import { styled } from '@mui/system';
+import { useGetClasses } from '../../../hooks/classes';
+
 import { ClassCard } from '../../molecules/ClassCard';
 import { Hero } from '../../molecules/Hero';
-export const GridWrapper = styled('div')`
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	grid-auto-rows: 1fr;
-	grid-column-gap: 1rem;
-	grid-row-gap: 1rem;
-`;
 
-const classes = [
+export const classes = [
 	{
 		id: 'c65f5852-b2f8-4c14-a07c-f143883c8222',
 		professorName: 'Lion Jouhandeau',
@@ -50,6 +44,7 @@ const classes = [
 ];
 
 export const Home = () => {
+	const { dataGetClasses } = useGetClasses();
 	return (
 		<>
 			<Hero />
@@ -62,7 +57,7 @@ export const Home = () => {
 				rowSpacing={{ xs: 2, sm: 2, md: 3 }}
 				columnSpacing={{ xs: 2, sm: 2, md: 3 }}
 			>
-				{classes.map((c) => (
+				{dataGetClasses?.data.map((c) => (
 					<Grid key={c.id} item xs={12} sm={6} md={4}>
 						<ClassCard
 							{...{
@@ -73,6 +68,7 @@ export const Home = () => {
 								frequency: c.frequency,
 								duration: c.duration,
 								rating: c.rating,
+								type: c.type,
 							}}
 						/>
 					</Grid>
