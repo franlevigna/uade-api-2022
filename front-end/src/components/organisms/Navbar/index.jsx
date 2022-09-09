@@ -1,6 +1,7 @@
-import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { AppBar, Box, Button, Link, Toolbar } from '@mui/material';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useUserSession } from '../../../hooks/userSession';
+import { SearchInput } from '../../molecules/Search';
 
 export const Navbar = () => {
 	const { isLogged } = useUserSession();
@@ -15,16 +16,19 @@ export const Navbar = () => {
 	return (
 		<AppBar>
 			<Toolbar>
-				<Typography>
+				<Link component={RouterLink} to='/'>
 					<img
 						height='40 px'
 						alt='Profe flix'
 						src='\assets\profeFlix.svg'
 					></img>
-				</Typography>
+				</Link>
+
+				<Box sx={{ flexGrow: 1 }} />
+				<SearchInput />
 				<Box sx={{ flexGrow: 1 }} />
 				{!isLogged && (
-					<Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
+					<Box sx={{ display: { xs: 'block', md: 'flex' } }}>
 						<Button onClick={handleLoginRedirection}>
 							Iniciar Sesion
 						</Button>

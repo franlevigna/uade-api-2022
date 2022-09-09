@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
-import { register } from '../services/register';
+import { register } from '../services/Auth/register';
+
 export const useRegister = () => {
 	const {
 		mutateAsync: registerMutation,
