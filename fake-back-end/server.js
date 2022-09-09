@@ -4,8 +4,8 @@ const jsonServer = require("json-server");
 const jwt = require("jsonwebtoken");
 
 const server = jsonServer.create();
-const router = jsonServer.router("./database.json");
-const userdb = JSON.parse(fs.readFileSync("./users.json", "UTF-8"));
+const router = jsonServer.router("./db.json");
+const userdb = JSON.parse(fs.readFileSync("./db.json", "UTF-8"));
 
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
@@ -45,7 +45,7 @@ server.post("/auth/register", (req, res) => {
     return;
   }
 
-  fs.readFile("./users.json", (err, data) => {
+  fs.readFile("./db.json", (err, data) => {
     if (err) {
       const status = 401;
       const message = err;
@@ -70,7 +70,7 @@ server.post("/auth/register", (req, res) => {
     }); //add some data
     console.log(data);
     var writeData = fs.writeFile(
-      "./users.json",
+      "./db.json",
       JSON.stringify(data),
       (err, result) => {
         // WRITE
@@ -99,7 +99,7 @@ server.post("/auth/register", (req, res) => {
   });
 });
 
-// Login to one of the users from ./users.json
+// Login to one of the users from ./db.json
 server.post("/auth/login", (req, res) => {
   console.log("login endpoint called; request body:");
   console.log(req.body);

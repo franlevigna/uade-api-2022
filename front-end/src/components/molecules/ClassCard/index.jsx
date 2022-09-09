@@ -4,6 +4,7 @@ import {
 	Card,
 	CardActions,
 	CardContent,
+	Rating,
 	Typography,
 } from '@mui/material';
 
@@ -11,6 +12,7 @@ export const ClassCard = ({
 	name,
 	professorName,
 	duration,
+	type,
 	rating,
 	cost,
 	frequency,
@@ -29,7 +31,7 @@ export const ClassCard = ({
 					{name}
 				</Typography>
 				<Typography sx={{ mb: 1.5 }} color='text.secondary'>
-					{frequency}
+					{type} - {frequency}
 				</Typography>
 				<Typography variant='body2'>
 					well meaning and kindly.
@@ -38,6 +40,12 @@ export const ClassCard = ({
 				</Typography>
 			</CardContent>
 			<CardActions>
+				<Rating
+					sx={{ flexGrow: 1 }}
+					name='read-only'
+					value={rating}
+					readOnly
+				/>
 				<Button size='small'>Ver mas</Button>
 				<Box sx={{ flexGrow: 1 }} />
 				<Typography>{cost}</Typography>

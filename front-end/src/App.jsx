@@ -1,17 +1,14 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Layout } from './components/templates/Layout';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Home } from './components/pages/Home';
-import { Register } from './components/pages/Register';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Login } from './components/pages/Login';
 import { CookiesProvider } from 'react-cookie';
-import { UserProfile } from './components/pages/UserProfile';
 import { UserProfileProvider } from './store/profile';
+import { RouteViews } from './routes/RouteViews';
 
 const darkTheme = createTheme({
 	palette: {
@@ -31,21 +28,7 @@ function App() {
 						<BrowserRouter>
 							<UserProfileProvider>
 								<Layout>
-									<Routes>
-										<Route path='/' element={<Home />} />
-										<Route
-											path='/register'
-											element={<Register />}
-										/>
-										<Route
-											path='/login'
-											element={<Login />}
-										/>
-										<Route
-											path='/profile'
-											element={<UserProfile />}
-										/>
-									</Routes>
+									<RouteViews />
 								</Layout>
 							</UserProfileProvider>
 						</BrowserRouter>
