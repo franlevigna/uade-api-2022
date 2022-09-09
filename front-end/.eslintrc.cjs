@@ -22,5 +22,12 @@ module.exports = {
 	plugins: ['react'],
 	rules: {
 		'react/prop-types': ['off'],
+		'react/self-closing-comp': [
+			'error',
+			{
+				component: true,
+				html: true,
+			},
+		],
 	},
 };

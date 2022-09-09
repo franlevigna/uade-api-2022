@@ -80,7 +80,7 @@ export const FiltersDrawer = ({
 	const drawer = (
 		<div>
 			<Toolbar>
-				<FilterListIcon></FilterListIcon>
+				<FilterListIcon />
 				<Typography ml={2}>Filtros</Typography>
 				{isFiltered && (
 					<>
@@ -272,7 +272,7 @@ export const FiltersDrawer = ({
 					}}
 					size='large'
 				>
-					<FilterListIcon></FilterListIcon>
+					<FilterListIcon />
 				</IconButton>
 				{children}
 			</Box>
