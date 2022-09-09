@@ -11,3 +11,7 @@ export const getClasses = (parsedQuery) => {
 	};
 	return crudProfeFlix.get(BASE_URL, { params });
 };
+
+export const getClassByID = (classID) => {
+	return crudProfeFlix.get(`${BASE_URL}/${classID}`);
+};

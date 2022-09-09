@@ -1,1 +1,386 @@
-{"users":[{"id":1,"email":"bruno@email.com","password":"bruno"},{"id":2,"email":"mer.marcosr@gmail.com","password":"test","userType":"student","firstName":"Marcos Ezequiel","lastName":"Rodriguez"}],"classes":[{"id":1,"professorName":"Lion Jouhandeau","name":"Literatura","cost":"$76.93","frequency":"weekly","duration":1,"rating":3.6,"type":"individual"},{"id":2,"professorName":"Andi Burk","name":"Química","cost":"$29.88","frequency":"monthly","duration":2,"rating":2.7,"type":"individual"},{"id":3,"professorName":"Tanney Hinchon","name":"Italiano","cost":"$84.91","frequency":"unique","duration":3,"rating":4.9,"type":"groupal"},{"id":4,"professorName":"Eden Deaconson","name":"Ingles","cost":"$8.02","frequency":"monthly","duration":4,"rating":4,"type":"groupal"},{"id":5,"professorName":"Andi Burk","name":"Guitarra","cost":"$29.88","frequency":"monthly","duration":2,"rating":2,"type":"individual"},{"id":6,"professorName":"Tanney Hinchon","name":"Electricidad Domiciliaria","cost":"$84.91","frequency":"unique","duration":3,"rating":3,"type":"groupal"},{"id":7,"professorName":"Andi Burk","name":"Guitarra","cost":"$29.88","frequency":"monthly","duration":2,"rating":2,"type":"individual"},{"id":8,"professorName":"Tanney Hinchon","name":"Construcción","cost":"$84.91","frequency":"weekly","duration":3,"rating":3,"type":"groupal"}],"locations":[{"id":1,"name":"Location001"},{"id":2,"name":"Location002"},{"id":3,"name":"Location003"}],"families":[{"id":1,"name":"FM001"},{"id":2,"name":"FM002"},{"id":3,"name":"FM003"}],"transactions":[{"id":1,"cost":11,"quantity":10,"productId":1},{"id":2,"cost":12,"quantity":100,"productId":2},{"id":3,"cost":15,"quantity":101,"productId":3}]}
+{
+  "users": [
+    { "id": 1, "email": "bruno@email.com", "password": "bruno" },
+    {
+      "id": 2,
+      "email": "mer.marcosr@gmail.com",
+      "password": "test",
+      "userType": "student",
+      "firstName": "Marcos Ezequiel",
+      "lastName": "Rodriguez"
+    }
+  ],
+  "classes": [
+    {
+      "id": 1,
+      "professor": {
+        "id": 1,
+        "name": "Lion Jouhandeau",
+        "experience": "Profesional del area con mas de 10 años de trayectoria."
+      },
+      "comments": [
+        {
+          "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
+          "timestamp": "9/25/2021",
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
+        },
+        {
+          "message": "La mejor clase",
+          "timestamp": "12/1/2021",
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
+        },
+        {
+          "message": "Muy buena clase, aprendi muchisimo",
+          "timestamp": "2/3/2022",
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
+        }
+      ],
+      "name": "Literatura",
+      "cost": "$76.93",
+      "frequency": "weekly",
+      "duration": 1,
+      "rating": 3.6,
+      "type": "individual",
+      "description": "El teatro es literatura destinada a la representación. Casi todos los dramas tomaron forma de verso hasta hace relativamente poco tiempo."
+    },
+    {
+      "id": 2,
+      "professor": {
+        "id": 2,
+        "name": "Andi Burk",
+        "experience": "Profesional del area con mas de 10 años de trayectoria."
+      },
+      "comments": [
+        {
+          "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
+          "timestamp": "9/25/2021",
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
+        },
+        {
+          "message": "La mejor clase",
+          "timestamp": "12/1/2021",
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
+        },
+        {
+          "message": "Muy buena clase, aprendi muchisimo",
+          "timestamp": "2/3/2022",
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
+        }
+      ],
+      "name": "Química",
+      "cost": "$29.88",
+      "frequency": "monthly",
+      "duration": 2,
+      "rating": 2.7,
+      "type": "individual",
+      "description": "La definición de química ha cambiado con el tiempo, a medida que nuevos descubrimientos y teorías se suman a la funcionalidad de la ciencia."
+    },
+    {
+      "id": 3,
+      "professor": {
+        "id": 3,
+        "name": "Tanney Hinchon",
+        "experience": "Profesional del area con mas de 10 años de trayectoria."
+      },
+      "comments": [
+        {
+          "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
+          "timestamp": "9/25/2021",
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
+        },
+        {
+          "message": "La mejor clase",
+          "timestamp": "12/1/2021",
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
+        },
+        {
+          "message": "Muy buena clase, aprendi muchisimo",
+          "timestamp": "2/3/2022",
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
+        }
+      ],
+
+      "name": "Italiano",
+      "cost": "$84.91",
+      "frequency": "unique",
+      "duration": 3,
+      "rating": 4.9,
+      "type": "groupal",
+      "description": "Within the Catholic Church, Italian is known by a large part of the ecclesiastical hierarchy and is used in substitution for Latin in some official documents."
+    },
+    {
+      "id": 4,
+      "professor": {
+        "id": 4,
+        "name": "Eden Deaconson",
+        "experience": "Profesional del area con mas de 10 años de trayectoria."
+      },
+      "comments": [
+        {
+          "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
+          "timestamp": "9/25/2021",
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
+        },
+        {
+          "message": "La mejor clase",
+          "timestamp": "12/1/2021",
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
+        },
+        {
+          "message": "Muy buena clase, aprendi muchisimo",
+          "timestamp": "2/3/2022",
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
+        }
+      ],
+
+      "name": "Ingles",
+      "cost": "$8.02",
+      "frequency": "monthly",
+      "duration": 4,
+      "rating": 4,
+      "type": "groupal",
+      "description": "The phonetics and phonology of the English language differ from one dialect to another, usually without interfering with mutual communication."
+    },
+    {
+      "id": 5,
+      "professor": {
+        "id": 5,
+        "name": "Roña Castro",
+        "experience": "Profesional del area con mas de 10 años de trayectoria."
+      },
+      "comments": [
+        {
+          "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
+          "timestamp": "9/25/2021",
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
+        },
+        {
+          "message": "La mejor clase",
+          "timestamp": "12/1/2021",
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
+        },
+        {
+          "message": "Muy buena clase, aprendi muchisimo",
+          "timestamp": "2/3/2022",
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
+        }
+      ],
+      "name": "Guitarra",
+      "cost": "$29.88",
+      "frequency": "monthly",
+      "duration": 2,
+      "rating": 3,
+      "type": "individual",
+      "description": "Curso de guitarra por fax del profesor Roña Castro"
+    },
+    {
+      "id": 6,
+      "professor": {
+        "id": 6,
+        "name": "Tanney Hinchon",
+        "experience": "Profesional del area con mas de 10 años de trayectoria."
+      },
+      "comments": [
+        {
+          "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
+          "timestamp": "9/25/2021",
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
+        },
+        {
+          "message": "La mejor clase",
+          "timestamp": "12/1/2021",
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
+        },
+        {
+          "message": "Muy buena clase, aprendi muchisimo",
+          "timestamp": "2/3/2022",
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
+        }
+      ],
+
+      "name": "Electricidad Domiciliaria",
+      "cost": "$84.91",
+      "frequency": "unique",
+      "duration": 3,
+      "rating": 3,
+      "type": "groupal",
+      "description": "Para que no te vayas a eloctrocucutar, ni que tu mamá corte toda la luz"
+    },
+    {
+      "id": 7,
+      "professor": {
+        "id": 7,
+        "name": "Reinaldo Merlo",
+        "experience": "Profesional del area con mas de 10 años de trayectoria."
+      },
+      "comments": [
+        {
+          "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
+          "timestamp": "9/25/2021",
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
+        },
+        {
+          "message": "La mejor clase",
+          "timestamp": "12/1/2021",
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
+        },
+        {
+          "message": "Muy buena clase, aprendi muchisimo",
+          "timestamp": "2/3/2022",
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
+        }
+      ],
+      "name": "Guitarra y canto",
+      "cost": "$29.88",
+      "frequency": "weekly",
+      "duration": 15,
+      "rating": 5,
+      "type": "individual",
+      "description": "A no desanimarse, con el curso de guitarra y canto por fax de Mostaza Merlo sacas Confesiones de Invierno en 15 semanas!"
+    },
+    {
+      "id": 8,
+      "professor": {
+        "id": 8,
+        "name": "Tanney Hinchon",
+        "experience": "Profesional del area con mas de 10 años de trayectoria."
+      },
+      "comments": [
+        {
+          "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
+          "timestamp": "9/25/2021",
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
+        },
+        {
+          "message": "La mejor clase",
+          "timestamp": "12/1/2021",
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
+        },
+        {
+          "message": "Muy buena clase, aprendi muchisimo",
+          "timestamp": "2/3/2022",
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
+        }
+      ],
+
+      "name": "Construcción",
+      "cost": "$84.91",
+      "frequency": "weekly",
+      "duration": 3,
+      "rating": 3,
+      "type": "groupal",
+      "description": "Te haces la casa"
+    }
+  ],
+  "locations": [
+    { "id": 1, "name": "Location001" },
+    { "id": 2, "name": "Location002" },
+    { "id": 3, "name": "Location003" }
+  ],
+  "families": [
+    { "id": 1, "name": "FM001" },
+    { "id": 2, "name": "FM002" },
+    { "id": 3, "name": "FM003" }
+  ],
+  "transactions": [
+    { "id": 1, "cost": 11, "quantity": 10, "productId": 1 },
+    { "id": 2, "cost": 12, "quantity": 100, "productId": 2 },
+    { "id": 3, "cost": 15, "quantity": 101, "productId": 3 }
+  ]
+}

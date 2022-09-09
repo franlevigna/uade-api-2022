@@ -1,4 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
+import { ClassDetail } from '../../components/pages/ClassDetail';
 import { Home } from '../../components/pages/Home';
 import { Login } from '../../components/pages/Login';
 import { Register } from '../../components/pages/Register';
@@ -15,6 +16,7 @@ export const RouteViews = () => {
 			<Route element={<ProtectedRoute />}>
 				<Route path='/profile' element={<UserProfile />} />
 				<Route path='/search' element={<SearchResults />} />
+				<Route path='/class/:classID' element={<ClassDetail />} />
 			</Route>
 		</Routes>
 	);

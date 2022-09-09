@@ -6,6 +6,7 @@ export const Layout = ({ children }) => {
 		<div>
 			<Navbar />
 			<Container
+				className='template-layout-profe-flix-container'
 				maxWidth='lg'
 				style={{
 					minHeight: 'calc(100vh - 130px)',
