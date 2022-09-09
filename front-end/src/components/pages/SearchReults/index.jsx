@@ -61,20 +61,21 @@ export const SearchResults = () => {
 							<ClassCard
 								{...{
 									id: c.id,
-									professorName: c.professorName,
+									professorName: c.professor.name,
 									name: c.name,
 									cost: c.cost,
 									frequency: c.frequency,
 									duration: c.duration,
 									rating: c.rating,
 									type: c.type,
+									description: c.description,
 								}}
 							/>
 						</Grid>
 					))}
 				</Grid>
 			</FiltersDrawer>
-			<Loading loading={isDataGetClassesLoading}></Loading>
+			<Loading loading={isDataGetClassesLoading} />
 		</div>
 	);
 };

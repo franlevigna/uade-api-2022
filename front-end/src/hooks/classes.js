@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getClasses } from '../services/CRUD/classes';
+import { getClassByID, getClasses } from '../services/CRUD/classes';
 
 export const useGetClasses = (parsedQuery) => {
 	const {
@@ -18,6 +18,23 @@ export const useGetClasses = (parsedQuery) => {
 		refetchGetClasess,
 		dataGetClasses,
 		isDataGetClassesLoading,
+		error,
+	};
+};
+
+export const useGetClassByID = (classID) => {
+	const {
+		refetch: refetchGetClassByID,
+		data: dataGetClassByID,
+		isLoading: isDataGetClassByIDLoading,
+		error,
+	} = useQuery(['getClass', classID], () => getClassByID(classID), {
+		enabled: true,
+	});
+	return {
+		refetchGetClassByID,
+		dataGetClassByID,
+		isDataGetClassByIDLoading,
 		error,
 	};
 };

@@ -7,8 +7,10 @@ import {
 	Rating,
 	Typography,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export const ClassCard = ({
+	id,
 	name,
 	professorName,
 	duration,
@@ -16,10 +18,23 @@ export const ClassCard = ({
 	rating,
 	cost,
 	frequency,
+	description,
 }) => {
 	return (
 		<Card sx={{ minWidth: 275 }}>
-			<CardContent>
+			<CardContent sx={{ position: 'relative' }}>
+				<Button
+					sx={{
+						position: 'absolute',
+						top: 'initial',
+						right: '1rem',
+					}}
+					component={Link}
+					size='small'
+					to={`/class/${id}`}
+				>
+					Ver mas
+				</Button>
 				<Typography
 					sx={{ fontSize: 14 }}
 					color='text.secondary'
@@ -33,10 +48,8 @@ export const ClassCard = ({
 				<Typography sx={{ mb: 1.5 }} color='text.secondary'>
 					{type} - {frequency}
 				</Typography>
-				<Typography variant='body2'>
-					well meaning and kindly.
-					<br />
-					{'"a benevolent smile"'}
+				<Typography noWrap variant='body2'>
+					{description}
 				</Typography>
 			</CardContent>
 			<CardActions>
@@ -45,10 +58,11 @@ export const ClassCard = ({
 					name='read-only'
 					value={rating}
 					readOnly
+					precision={0.5}
 				/>
-				<Button size='small'>Ver mas</Button>
+
 				<Box sx={{ flexGrow: 1 }} />
-				<Typography>{cost}</Typography>
+				<Typography mr={1}>{cost}</Typography>
 			</CardActions>
 		</Card>
 	);
