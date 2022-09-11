@@ -260,8 +260,12 @@ export const FiltersDrawer = ({
 			<Box
 				component='main'
 				sx={{
+					flexShrink: { sm: 0 },
 					flexGrow: 1,
-					width: { sm: `calc(100% - ${drawerWidth}px)` },
+					width: {
+						sm: `calc(100% - ${drawerWidth}px)`,
+						xs: 'calc(100vw - 80px)',
+					},
 					margin: '0 1.5rem',
 				}}
 			>

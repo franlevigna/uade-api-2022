@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { ClassDetail } from '../../components/pages/ClassDetail';
 import { Home } from '../../components/pages/Home';
 import { Login } from '../../components/pages/Login';
+
 import { Register } from '../../components/pages/Register';
 import { SearchResults } from '../../components/pages/SearchReults';
 import { UserProfile } from '../../components/pages/UserProfile';

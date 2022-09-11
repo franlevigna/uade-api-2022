@@ -15,9 +15,28 @@ import { useFormik } from 'formik';
 import { LoadingButton } from '@mui/lab';
 import { useUserProfile } from '../../../store/profile';
 import { userRoles } from '../../../utils/enums';
+import { useUpdateUser } from '../../../hooks/users';
+import { Loading } from '../../molecules/Loading';
+import { Toast } from '../../molecules/Toast';
+import { displayErrorMessage } from '../../../utils';
 
 export const UserProfile = () => {
-	const { user } = useUserProfile();
+	const { user, setUserData } = useUserProfile();
+	const { updateUserMutation, isUpdateUserLoading } = useUpdateUser();
+
+	const handleSubmit = async (values) => {
+		try {
+			const { data } = await updateUserMutation({
+				id: user.id,
+				payload: values,
+			});
+			setUserData(data);
+			Toast('Perfil actualizado exitosamente!');
+		} catch (error) {
+			displayErrorMessage(error);
+		}
+	};
+
 	const formik = useFormik({
 		initialValues: {
 			id: user.id,
@@ -38,7 +57,7 @@ export const UserProfile = () => {
 			}),
 		},
 		onSubmit: (values) => {
-			// handleSubmit(values);
+			handleSubmit(values);
 		},
 	});
 
@@ -64,6 +83,7 @@ export const UserProfile = () => {
 				},
 			}}
 		>
+			<Loading Loading={isUpdateUserLoading} />
 			<Box
 				sx={{
 					gridArea: 'header',
@@ -97,7 +117,8 @@ export const UserProfile = () => {
 			>
 				<Stack spacing={2} sx={{ alignItems: 'center' }}>
 					<Avatar sx={{ width: '120px', height: '120px' }}>
-						{user.firstName[0] + user.lastName[0]}
+						{user.firstName[0]}
+						{user.lastName[0]}
 					</Avatar>
 
 					<Typography variant='h5' component='div'>
@@ -148,10 +169,7 @@ export const UserProfile = () => {
 										id='firstName'
 										label='Nombre'
 										autoFocus
-										value={
-											formik.values.firstName ||
-											user.firstName
-										}
+										value={formik.values.firstName}
 										onChange={formik.handleChange}
 										// disabled={isRegisterLoading}
 									/>
@@ -164,10 +182,7 @@ export const UserProfile = () => {
 										label='Apellido'
 										name='lastName'
 										autoComplete='family-name'
-										value={
-											formik.values.lastName ||
-											user.lastName
-										}
+										value={formik.values.lastName}
 										onChange={formik.handleChange}
 										// disabled={isRegisterLoading}
 									/>
@@ -180,9 +195,7 @@ export const UserProfile = () => {
 										label='Email'
 										name='email'
 										autoComplete='email'
-										value={
-											formik.values.email || user.email
-										}
+										value={formik.values.email}
 										onChange={formik.handleChange}
 										// disabled={isRegisterLoading}
 									/>
@@ -197,10 +210,7 @@ export const UserProfile = () => {
 												id='degree'
 												label='Título'
 												autoFocus
-												value={
-													formik.values.degree ||
-													user.degree
-												}
+												value={formik.values.degree}
 												onChange={formik.handleChange}
 												// disabled={isRegisterLoading}
 											/>
@@ -213,10 +223,7 @@ export const UserProfile = () => {
 												id='experience'
 												label='Experiencia'
 												autoFocus
-												value={
-													formik.values.experience ||
-													user.experience
-												}
+												value={formik.values.experience}
 												onChange={formik.handleChange}
 												multiline
 												minRows={3}
@@ -230,10 +237,13 @@ export const UserProfile = () => {
 									<>
 										<Grid item xs={12}>
 											<TextField
-												id='date'
+												id='birthDate'
 												label='Nacimiento'
 												type='date'
+												name='birthDate'
 												fullWidth
+												value={formik.values.birthDate}
+												onChange={formik.handleChange}
 												InputLabelProps={{
 													shrink: true,
 												}}
