@@ -1,5 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import { getClassByID, getClasses } from '../services/CRUD/classes';
+import {
+	useQuery,
+	useMutation
+} from '@tanstack/react-query';
+import {
+	getClassByID,
+	getClasses,
+	createClass
+} from '../services/CRUD/classes';
 
 export const useGetClasses = (parsedQuery) => {
 	const {
@@ -9,8 +16,7 @@ export const useGetClasses = (parsedQuery) => {
 		error,
 	} = useQuery(
 		parsedQuery ? ['getClasses', parsedQuery] : ['getClasses'],
-		() => getClasses(parsedQuery),
-		{
+		() => getClasses(parsedQuery), {
 			enabled: true,
 		}
 	);
@@ -38,3 +44,17 @@ export const useGetClassByID = (classID) => {
 		error,
 	};
 };
+
+export const useCreateClass = () => {
+	const {
+		mutateAsync: createClassMutation,
+		isLoading: isCreateClassLoading,
+	} = useMutation(({
+		payload
+	}) => createClass(payload));
+
+	return {
+		createClassMutation,
+		isCreateClassLoading
+	};
+}

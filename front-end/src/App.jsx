@@ -34,7 +34,7 @@ function App() {
 						</BrowserRouter>
 					</div>
 				</ThemeProvider>
-				<ToastContainer theme='dark' hideProgressBar />
+				<ToastContainer />
 				<ReactQueryDevtools initialIsOpen={false} />
 			</CookiesProvider>
 		</QueryClientProvider>

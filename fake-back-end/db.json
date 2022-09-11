@@ -17,6 +17,16 @@
       "universitary": "ongoing",
       "terciary": "complete",
       "birthDate": "1994-02-22"
+    },
+    {
+      "id": 3,
+      "email": "levignafranco@gmail.com",
+      "password": "123",
+      "userType": "professor",
+      "firstName": "Franco",
+      "lastName": "Levigna",
+      "degree": "Licenciado en Sistemas",
+      "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
     }
   ],
   "classes": [
@@ -371,6 +381,22 @@
       "rating": 3,
       "type": "groupal",
       "description": "Te haces la casa"
+    },
+    {
+      "name": "React con marcos",
+      "subject": "React",
+      "description": "bla bla bla",
+      "duration": "1",
+      "frequency": "",
+      "cost": "10",
+      "type": "individual",
+      "id": 9
+    },
+    {
+      "id": 10
+    },
+    {
+      "id": 11
     }
   ],
   "locations": [

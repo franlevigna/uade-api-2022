@@ -8,6 +8,8 @@ import { SearchResults } from '../../components/pages/SearchReults';
 import { UserProfile } from '../../components/pages/UserProfile';
 import { ProtectedRoute } from '../ProtectedRoute';
 
+import { CreateClass } from '../../components/pages/CreateClass';
+
 export const RouteViews = () => {
 	return (
 		<Routes>
@@ -18,6 +20,7 @@ export const RouteViews = () => {
 				<Route path='/profile' element={<UserProfile />} />
 				<Route path='/search' element={<SearchResults />} />
 				<Route path='/class/:classID' element={<ClassDetail />} />
+				<Route path="/class/create" element={<CreateClass />} ></Route>
 			</Route>
 		</Routes>
 	);

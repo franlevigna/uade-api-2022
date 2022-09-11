@@ -15,3 +15,7 @@ export const getClasses = (parsedQuery) => {
 export const getClassByID = (classID) => {
 	return crudProfeFlix.get(`${BASE_URL}/${classID}`);
 };
+
+export const createClass = (payload) => {
+	return crudProfeFlix.post(BASE_URL, payload)
+}
