@@ -1,13 +1,22 @@
 {
   "users": [
-    { "id": 1, "email": "bruno@email.com", "password": "bruno" },
+    {
+      "id": 1,
+      "email": "bruno@email.com",
+      "password": "bruno"
+    },
     {
       "id": 2,
       "email": "mer.marcosr@gmail.com",
       "password": "test",
       "userType": "student",
       "firstName": "Marcos Ezequiel",
-      "lastName": "Rodriguez"
+      "lastName": "Rodriguez",
+      "primary": "complete",
+      "secundary": "complete",
+      "universitary": "ongoing",
+      "terciary": "complete",
+      "birthDate": "1994-02-22"
     }
   ],
   "classes": [
@@ -135,7 +144,6 @@
           }
         }
       ],
-
       "name": "Italiano",
       "cost": "$84.91",
       "frequency": "unique",
@@ -180,7 +188,6 @@
           }
         }
       ],
-
       "name": "Ingles",
       "cost": "$8.02",
       "frequency": "monthly",
@@ -269,7 +276,6 @@
           }
         }
       ],
-
       "name": "Electricidad Domiciliaria",
       "cost": "$84.91",
       "frequency": "unique",
@@ -358,7 +364,6 @@
           }
         }
       ],
-
       "name": "Construcción",
       "cost": "$84.91",
       "frequency": "weekly",
@@ -369,18 +374,51 @@
     }
   ],
   "locations": [
-    { "id": 1, "name": "Location001" },
-    { "id": 2, "name": "Location002" },
-    { "id": 3, "name": "Location003" }
+    {
+      "id": 1,
+      "name": "Location001"
+    },
+    {
+      "id": 2,
+      "name": "Location002"
+    },
+    {
+      "id": 3,
+      "name": "Location003"
+    }
   ],
   "families": [
-    { "id": 1, "name": "FM001" },
-    { "id": 2, "name": "FM002" },
-    { "id": 3, "name": "FM003" }
+    {
+      "id": 1,
+      "name": "FM001"
+    },
+    {
+      "id": 2,
+      "name": "FM002"
+    },
+    {
+      "id": 3,
+      "name": "FM003"
+    }
   ],
   "transactions": [
-    { "id": 1, "cost": 11, "quantity": 10, "productId": 1 },
-    { "id": 2, "cost": 12, "quantity": 100, "productId": 2 },
-    { "id": 3, "cost": 15, "quantity": 101, "productId": 3 }
+    {
+      "id": 1,
+      "cost": 11,
+      "quantity": 10,
+      "productId": 1
+    },
+    {
+      "id": 2,
+      "cost": 12,
+      "quantity": 100,
+      "productId": 2
+    },
+    {
+      "id": 3,
+      "cost": 15,
+      "quantity": 101,
+      "productId": 3
+    }
   ]
 }

@@ -9,7 +9,7 @@ export const Layout = ({ children }) => {
 				className='template-layout-profe-flix-container'
 				maxWidth='lg'
 				style={{
-					minHeight: 'calc(100vh - 130px)',
+					minHeight: 'calc(100vh - 128px)',
 					marginTop: '104px',
 					marginBottom: '24px',
 				}}

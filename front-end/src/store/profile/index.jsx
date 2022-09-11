@@ -12,18 +12,16 @@ const initialData = {
 		userType: '',
 	},
 };
-
-const UserProfileCtx = createContext(initialData.user);
-
+const [userCache, saveUserInCache] = Storage(USER_INFO, true);
+const UserProfileCtx = createContext(userCache || initialData.user);
 export const UserProfileProvider = ({ children }) => {
-	const [user, setUser] = useState(initialData.user);
-	const [userCache, saveUserInCache] = Storage(USER_INFO, true);
+	const [user, setUser] = useState(userCache);
 
 	useEffect(() => {
-		if (user.email) {
+		if (user?.email) {
 			saveUserInCache(user);
 		}
-	}, [user.email]);
+	}, [user]);
 
 	useEffect(() => {
 		if (userCache) {

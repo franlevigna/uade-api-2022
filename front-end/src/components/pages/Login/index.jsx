@@ -8,18 +8,18 @@ import {
 	Typography,
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useLogin } from '../../../hooks/login';
 import { useUserSession } from '../../../hooks/userSession';
 import { Toast } from '../../molecules/Toast';
 import { displayErrorMessage } from '../../../utils';
-import { USER_INFO } from '../../../utils/storage/keyNames';
-import { Storage } from '../../../utils/storage';
+import { useUserProfile } from '../../../store/profile';
 
 export const Login = () => {
-	// eslint-disable-next-line no-unused-vars
-	const [_, saveUserInCache] = Storage(USER_INFO, true);
+	const navigateTo = useNavigate();
+	const location = useLocation();
+	const { setUserData } = useUserProfile();
 	const { loginMutation, isLoginLoading } = useLogin();
 	const { storeAuthToken } = useUserSession();
 	const handleSubmit = async (values) => {
@@ -30,12 +30,15 @@ export const Login = () => {
 			} = await loginMutation({
 				payload: values,
 			});
-			saveUserInCache(userInfo);
+			setUserData(userInfo);
 			storeAuthToken(access_token);
+			navigateTo(location.pathname !== '/login' ? 0 : '/');
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
 		}
 	};
+
+	console.log(location);
 
 	const formik = useFormik({
 		initialValues: {
@@ -61,7 +64,7 @@ export const Login = () => {
 						height='40 px'
 						alt='Profe flix'
 						src='\assets\profeFlix.svg'
-					></img>
+					/>
 				</Avatar>
 				<Typography component='h1' variant='h5'>
 					Inicio sesión

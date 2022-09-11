@@ -36,7 +36,6 @@ export const Register = () => {
 			} = await registerMutation({ payload: values });
 
 			userInfo.id = database.users.length + 1;
-			console.log(userInfo);
 			setUserData(userInfo);
 			storeAuthToken(access_token);
 			Toast(
@@ -76,7 +75,7 @@ export const Register = () => {
 						height='40 px'
 						alt='Profe flix'
 						src='\assets\profeFlix.svg'
-					></img>
+					/>
 				</Avatar>
 				<Typography component='h1' variant='h5'>
 					Registracion
