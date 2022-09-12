@@ -41,7 +41,7 @@ export const Register = () => {
 				'Tu usuario ha sido creado, ahora vamos a completar tu perfil!'
 			);
 
-			navigateTo('/profile');
+			navigateTo('/user/profile');
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
 		}

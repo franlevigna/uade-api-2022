@@ -10,5 +10,5 @@ const ToastAlert = ({ message, severity = 'success' }) => {
 };
 
 export const Toast = (message, severity) => {
-	return toast(<ToastAlert {...{ message, severity }}></ToastAlert>);
+	return toast(<ToastAlert {...{ message, severity }} />);
 };

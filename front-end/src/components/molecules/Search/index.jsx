@@ -12,7 +12,7 @@ export const SearchInput = () => {
 	const handleSearch = (e) => {
 		e.preventDefault();
 		const newLocation = {
-			pathname: '/search',
+			pathname: '/class/search',
 			search: searchValue ? `q=${searchValue} ` : '',
 			state: { fromSearch: true },
 		};

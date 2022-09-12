@@ -21,7 +21,7 @@ export const SearchResults = () => {
 		useGetClasses(parsedQuery);
 	const handleFiltering = (querySearch) => {
 		const newLocation = {
-			pathname: '/search',
+			pathname: '/class/search',
 			search: querySearch,
 		};
 		navigateTo(newLocation);

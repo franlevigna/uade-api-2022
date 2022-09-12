@@ -393,10 +393,20 @@
       "id": 9
     },
     {
+      "name": "Puthon con Fran",
+      "subject": "Python",
+      "description": "Vamos a aprender con ejemplos de la vida real",
+      "duration": "1",
+      "frequency": "unique",
+      "cost": "100",
+      "type": "individual",
+      "status": "unpublished",
+      "professor": {
+        "id": 3,
+        "name": "Franco Levigna",
+        "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
+      },
       "id": 10
-    },
-    {
-      "id": 11
     }
   ],
   "locations": [
