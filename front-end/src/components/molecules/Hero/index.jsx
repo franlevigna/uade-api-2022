@@ -22,7 +22,7 @@ export const Hero = () => {
 						height='200px'
 						alt='Profe flix'
 						src='\assets\profeFlix.svg'
-					></img>
+					 />
 				</Typography>
 				<Typography
 					variant='h5'

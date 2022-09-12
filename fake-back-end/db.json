@@ -17,6 +17,16 @@
       "universitary": "ongoing",
       "terciary": "complete",
       "birthDate": "1994-02-22"
+    },
+    {
+      "id": 3,
+      "email": "levignafranco@gmail.com",
+      "password": "123",
+      "userType": "professor",
+      "firstName": "Franco",
+      "lastName": "Levigna",
+      "degree": "Licenciado en Sistemas",
+      "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
     }
   ],
   "classes": [
@@ -371,6 +381,32 @@
       "rating": 3,
       "type": "groupal",
       "description": "Te haces la casa"
+    },
+    {
+      "name": "React con marcos",
+      "subject": "React",
+      "description": "bla bla bla",
+      "duration": "1",
+      "frequency": "",
+      "cost": "10",
+      "type": "individual",
+      "id": 9
+    },
+    {
+      "name": "Puthon con Fran",
+      "subject": "Python",
+      "description": "Vamos a aprender con ejemplos de la vida real",
+      "duration": "1",
+      "frequency": "unique",
+      "cost": "100",
+      "type": "individual",
+      "status": "unpublished",
+      "professor": {
+        "id": 3,
+        "name": "Franco Levigna",
+        "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
+      },
+      "id": 10
     }
   ],
   "locations": [

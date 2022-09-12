@@ -23,7 +23,7 @@ export const Home = () => {
 						<ClassCard
 							{...{
 								id: c.id,
-								professorName: c.professor.name,
+								professorName: c.professor?.name,
 								name: c.name,
 								cost: c.cost,
 								frequency: c.frequency,

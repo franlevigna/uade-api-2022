@@ -22,7 +22,6 @@ import database from '../../../../../fake-back-end/db.json';
 import { useUserProfile } from '../../../store/profile';
 
 export const Register = () => {
-	// eslint-disable-next-line no-unused-vars
 	const { storeAuthToken } = useUserSession();
 	const { setUserData } = useUserProfile();
 	const { registerMutation, isRegisterLoading } = useRegister();
@@ -42,7 +41,7 @@ export const Register = () => {
 				'Tu usuario ha sido creado, ahora vamos a completar tu perfil!'
 			);
 
-			navigateTo('/profile');
+			navigateTo('/user/profile');
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
 		}

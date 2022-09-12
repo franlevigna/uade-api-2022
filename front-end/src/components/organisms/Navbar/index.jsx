@@ -3,6 +3,7 @@ import {
 	Avatar,
 	Box,
 	Button,
+	Divider,
 	Drawer,
 	IconButton,
 	List,
@@ -25,7 +26,7 @@ import { SearchInput } from '../../molecules/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import NoAccountsIcon from '@mui/icons-material/NoAccounts';
-
+import SchoolIcon from '@mui/icons-material/School';
 export const Navbar = () => {
 	const { isLogged, logOut } = useUserSession();
 	const { user } = useUserProfile();
@@ -50,15 +51,23 @@ export const Navbar = () => {
 
 	const pages = [
 		{
-			route: '/profile',
-			icon: <AccountCircleIcon />,
-			label: 'Perfil',
-		},
-		{
 			route: '/',
 			icon: <HomeIcon />,
 			label: 'Institucional',
 		},
+		{
+			route: '/user/profile',
+			icon: <AccountCircleIcon />,
+			label: 'Perfil',
+		},
+		{
+			route: '/user/classes',
+			icon: <SchoolIcon />,
+			label: 'Mis clases',
+		},
+	];
+
+	const actions = [
 		{
 			icon: <NoAccountsIcon />,
 			label: 'Cerrar sesión',
@@ -114,9 +123,30 @@ export const Navbar = () => {
 											to={route}
 											key={index}
 											disablePadding
-											{...(route
-												? { component: Link }
-												: { onClick })}
+											component={Link}
+										>
+											<ListItemButton>
+												<ListItemIcon>
+													{icon}
+												</ListItemIcon>
+												<ListItemText primary={label} />
+											</ListItemButton>
+										</ListItem>
+									)
+								)}
+							</List>
+							<Divider />
+							<List>
+								{actions.map(
+									(
+										{ label, icon, route, onClick },
+										index
+									) => (
+										<ListItem
+											button
+											key={index}
+											disablePadding
+											onClick={onClick}
 										>
 											<ListItemButton>
 												<ListItemIcon>
