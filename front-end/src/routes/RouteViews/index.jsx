@@ -10,6 +10,7 @@ import { ProtectedRoute } from '../ProtectedRoute';
 
 import { CreateClass } from '../../components/pages/CreateClass';
 import { UserClasses } from '../../components/pages/UserClasses';
+import { EditClass } from '../../components/pages/EditClass';
 
 export const RouteViews = () => {
 	return (
@@ -22,6 +23,7 @@ export const RouteViews = () => {
 				<Route path='/class/search' element={<SearchResults />} />
 				<Route path='/class/:classID' element={<ClassDetail />} />
 				<Route path='/class/create' element={<CreateClass />} />
+				<Route path='/class/edit/:classID' element={<EditClass />} />
 				<Route path='/user/classes' element={<UserClasses />} />
 			</Route>
 		</Routes>
