@@ -37,6 +37,7 @@
         "name": "Lion Jouhandeau",
         "experience": "Profesional del area con mas de 10 años de trayectoria."
       },
+      "status": "published",
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
@@ -81,6 +82,7 @@
         "name": "Andi Burk",
         "experience": "Profesional del area con mas de 10 años de trayectoria."
       },
+      "status": "published",
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
@@ -125,6 +127,7 @@
         "name": "Tanney Hinchon",
         "experience": "Profesional del area con mas de 10 años de trayectoria."
       },
+      "status": "published",
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
@@ -169,6 +172,7 @@
         "name": "Eden Deaconson",
         "experience": "Profesional del area con mas de 10 años de trayectoria."
       },
+      "status": "published",
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
@@ -213,6 +217,7 @@
         "name": "Roña Castro",
         "experience": "Profesional del area con mas de 10 años de trayectoria."
       },
+      "status": "published",
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
@@ -257,6 +262,7 @@
         "name": "Tanney Hinchon",
         "experience": "Profesional del area con mas de 10 años de trayectoria."
       },
+      "status": "published",
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
@@ -301,6 +307,7 @@
         "name": "Reinaldo Merlo",
         "experience": "Profesional del area con mas de 10 años de trayectoria."
       },
+      "status": "published",
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
@@ -345,6 +352,7 @@
         "name": "Tanney Hinchon",
         "experience": "Profesional del area con mas de 10 años de trayectoria."
       },
+      "status": "published",
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
@@ -383,16 +391,6 @@
       "description": "Te haces la casa"
     },
     {
-      "name": "React con marcos",
-      "subject": "React",
-      "description": "bla bla bla",
-      "duration": "1",
-      "frequency": "",
-      "cost": "10",
-      "type": "individual",
-      "id": 9
-    },
-    {
       "name": "Puthon con Fran",
       "subject": "Python",
       "description": "Vamos a aprender con ejemplos de la vida real",
@@ -400,61 +398,13 @@
       "frequency": "unique",
       "cost": "100",
       "type": "individual",
-      "status": "unpublished",
+      "status": "published",
       "professor": {
         "id": 3,
         "name": "Franco Levigna",
         "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
       },
-      "id": 10
-    }
-  ],
-  "locations": [
-    {
-      "id": 1,
-      "name": "Location001"
-    },
-    {
-      "id": 2,
-      "name": "Location002"
-    },
-    {
-      "id": 3,
-      "name": "Location003"
-    }
-  ],
-  "families": [
-    {
-      "id": 1,
-      "name": "FM001"
-    },
-    {
-      "id": 2,
-      "name": "FM002"
-    },
-    {
-      "id": 3,
-      "name": "FM003"
-    }
-  ],
-  "transactions": [
-    {
-      "id": 1,
-      "cost": 11,
-      "quantity": 10,
-      "productId": 1
-    },
-    {
-      "id": 2,
-      "cost": 12,
-      "quantity": 100,
-      "productId": 2
-    },
-    {
-      "id": 3,
-      "cost": 15,
-      "quantity": 101,
-      "productId": 3
+      "id": 9
     }
   ]
 }

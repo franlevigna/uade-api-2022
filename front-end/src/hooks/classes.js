@@ -4,6 +4,7 @@ import {
 	getClasses,
 	createClass,
 	getClassesByUser,
+	updateClass,
 } from '../services/CRUD/classes';
 
 export const useGetClasses = (parsedQuery) => {
@@ -53,6 +54,18 @@ export const useCreateClass = () => {
 	return {
 		createClassMutation,
 		isCreateClassLoading,
+	};
+};
+
+export const useUpdateClass = () => {
+	const {
+		mutateAsync: updateClassMutation,
+		isLoading: isUpdateClassLoading,
+	} = useMutation(({ id, payload }) => updateClass(id, payload));
+
+	return {
+		updateClassMutation,
+		isUpdateClassLoading,
 	};
 };
 
