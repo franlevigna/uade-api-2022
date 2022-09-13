@@ -25,6 +25,10 @@ export const updateClass = (classID, payload) => {
 	return crudProfeFlix.patch(`${BASE_URL}/${classID}`, payload);
 };
 
+export const deleteClass = (classID) => {
+	return crudProfeFlix.delete(`${BASE_URL}/${classID}`);
+};
+
 export const getClassesByUser = (userID, userRole) => {
 	const professorParams = {
 		'professor.id': userID,

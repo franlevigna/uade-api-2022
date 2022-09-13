@@ -1,24 +1,31 @@
-import { useGetClassesByUser, useUpdateClass } from '../../../hooks/classes';
+import {
+	useDeleteClass,
+	useGetClassesByUser,
+	useUpdateClass,
+} from '../../../hooks/classes';
 import { useUserProfile } from '../../../store/profile';
 
 import Box from '@mui/material/Box';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import PublishIcon from '@mui/icons-material/Publish';
-import UnpublishedIcon from '@mui/icons-material/Unpublished';
 import { StatusChip } from '../../molecules/StatusChip';
 import { Toast } from '../../molecules/Toast';
 import { displayErrorMessage } from '../../../utils';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import PublishIcon from '@mui/icons-material/Publish';
+import UnpublishedIcon from '@mui/icons-material/Unpublished';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const UserClasses = () => {
 	const { user } = useUserProfile();
-	const { dataGetClassByUser, refetchGetClassByUser } = useGetClassesByUser(
-		user.id,
-		user.userType
-	);
+	const {
+		dataGetClassByUser,
+		refetchGetClassByUser,
+		isDataGetClassByUserLoading,
+	} = useGetClassesByUser(user.id, user.userType);
 	const { updateClassMutation, isUpdateClassLoading } = useUpdateClass();
+	const { deleteClassMutation, isDeleteClassLoading } = useDeleteClass();
 
 	const handlePublish = async (id, name) => {
 		const payload = {
@@ -39,6 +46,16 @@ export const UserClasses = () => {
 		try {
 			await updateClassMutation({ id, payload });
 			Toast(`La clase ${name} ha sido despublicada`);
+			refetchGetClassByUser();
+		} catch (error) {
+			Toast(displayErrorMessage(error), 'error');
+		}
+	};
+
+	const handleDelete = async (id, name) => {
+		try {
+			await deleteClassMutation({ id });
+			Toast(`La clase ${name} ha sido eliminada`);
 			refetchGetClassByUser();
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
@@ -105,6 +122,15 @@ export const UserClasses = () => {
 							showInMenu
 						/>
 					),
+					<GridActionsCellItem
+						key={`delete-${id}`}
+						label='Eliminar'
+						onClick={() => {
+							handleDelete(id, name);
+						}}
+						icon={<DeleteIcon />}
+						showInMenu
+					/>,
 				].filter(Boolean);
 			},
 		},
@@ -122,7 +148,11 @@ export const UserClasses = () => {
 					rows={dataGetClassByUser?.data || []}
 					columns={columns}
 					disableSelectionOnClick
-					loading={isUpdateClassLoading}
+					loading={
+						isUpdateClassLoading ||
+						isDeleteClassLoading ||
+						isDataGetClassByUserLoading
+					}
 				/>
 			</Box>
 		</>

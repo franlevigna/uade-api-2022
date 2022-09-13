@@ -83,7 +83,7 @@ export const UserProfile = () => {
 				},
 			}}
 		>
-			<Loading Loading={isUpdateUserLoading} />
+			<Loading loading={isUpdateUserLoading} />
 			<Box
 				sx={{
 					gridArea: 'header',

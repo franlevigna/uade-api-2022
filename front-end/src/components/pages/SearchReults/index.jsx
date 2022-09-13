@@ -45,6 +45,7 @@ export const SearchResults = () => {
 					handleFiltering,
 					initialQuery,
 					resetQueries,
+					parsedQuery,
 				}}
 			>
 				<Typography
