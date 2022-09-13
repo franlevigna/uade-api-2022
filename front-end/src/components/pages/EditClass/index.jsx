@@ -7,7 +7,6 @@ import {
 	Radio,
 	RadioGroup,
 	TextField,
-	Typography,
 	FormControl,
 	InputLabel,
 	Select,
@@ -15,49 +14,41 @@ import {
 	Button,
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Toast } from '../../molecules/Toast';
 import { displayErrorMessage } from '../../../utils';
-import { useCreateClass } from '../../../hooks/classes';
-import { useUserProfile } from '../../../store/profile';
+import { useGetClassByID, useUpdateClass } from '../../../hooks/classes';
 import { Loading } from '../../molecules/Loading';
 
-export const CreateClass = () => {
-	const { createClassMutation, isCreateClassLoading } = useCreateClass();
-	const { user } = useUserProfile();
+export const EditClass = () => {
+	const { classID } = useParams();
+	const { dataGetClassByID, isDataGetClassByIDLoading } =
+		useGetClassByID(classID);
+	const { updateClassMutation, isUpdateClassLoading } = useUpdateClass();
 	const navigateTo = useNavigate();
 
 	const handleSubmit = async (values) => {
-		const payload = {
-			...values,
-			status: 'unpublished',
-			professor: {
-				id: user.id,
-				name: `${user.firstName} ${user.lastName}`,
-				experience: user.experience,
-			},
-		};
 		try {
-			await createClassMutation({ payload });
-			Toast(
-				`¡Enhorabuena! ¡La clase ${values.name} ha sido existomente creada!`
-			);
+			await updateClassMutation({ id: classID, payload: values });
+			Toast(`¡Enhorabuena! ¡La clase ${values.name} ha sido editada!`);
 			navigateTo('/user/classes');
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
 		}
 	};
+	const classData = dataGetClassByID?.data || null;
 	const formik = useFormik({
 		initialValues: {
-			name: '',
-			subject: '',
-			description: '',
-			duration: '',
-			frequency: '',
-			cost: '',
-			type: '',
+			name: classData?.name || '',
+			subject: classData?.subject || '',
+			description: classData?.description || '',
+			duration: classData?.duration || '',
+			frequency: classData?.frequency || '',
+			cost: classData?.cost || '',
+			type: classData?.type || '',
 		},
+		enableReinitialize: true,
 		onSubmit: (values) => {
 			handleSubmit(values);
 		},
@@ -72,10 +63,9 @@ export const CreateClass = () => {
 					alignItems: 'center',
 				}}
 			>
-				<Loading loading={isCreateClassLoading} />
-				<Typography component='h1' variant='h5'>
-					Crea tu clase
-				</Typography>
+				<Loading
+					loading={isDataGetClassByIDLoading || isUpdateClassLoading}
+				/>
 				<Box
 					component='form'
 					noValidate
@@ -189,7 +179,7 @@ export const CreateClass = () => {
 						variant='contained'
 						sx={{ mt: 3, mb: 2 }}
 					>
-						Crear Clase
+						Editar clase
 					</LoadingButton>
 					<Button
 						type='reset'

@@ -157,13 +157,14 @@
           }
         }
       ],
-      "name": "Italiano",
+      "name": "Parlando italiano",
       "cost": "$84.91",
       "frequency": "unique",
       "duration": 3,
       "rating": 4.9,
       "type": "groupal",
-      "description": "Within the Catholic Church, Italian is known by a large part of the ecclesiastical hierarchy and is used in substitution for Latin in some official documents."
+      "description": "Within the Catholic Church, Italian is known by a large part of the ecclesiastical hierarchy and is used in substitution for Latin in some official documents.",
+      "subject": "Italiano"
     },
     {
       "id": 4,
@@ -405,6 +406,22 @@
         "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
       },
       "id": 9
+    },
+    {
+      "name": "React Native con Fran",
+      "subject": "React Native",
+      "description": "Vamos a aprender React con ejemplos de la vida real.",
+      "duration": "1",
+      "frequency": "weekly",
+      "cost": "100",
+      "type": "individual",
+      "status": "published",
+      "professor": {
+        "id": 3,
+        "name": "Franco Levigna",
+        "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
+      },
+      "id": 10
     }
   ]
 }
