@@ -7,7 +7,10 @@ import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import PublishIcon from '@mui/icons-material/Publish';
+import UnpublishedIcon from '@mui/icons-material/Unpublished';
 import { StatusChip } from '../../molecules/StatusChip';
+import { Toast } from '../../molecules/Toast';
+import { displayErrorMessage } from '../../../utils';
 
 export const UserClasses = () => {
 	const { user } = useUserProfile();
@@ -17,26 +20,41 @@ export const UserClasses = () => {
 	);
 	const { updateClassMutation, isUpdateClassLoading } = useUpdateClass();
 
-	const handlePublish = async (id) => {
+	const handlePublish = async (id, name) => {
 		const payload = {
 			status: 'published',
 		};
 		try {
 			await updateClassMutation({ id, payload });
+			Toast(`La clase ${name} ha sido publicada`);
 			refetchGetClassByUser();
-		} catch (error) {}
+		} catch (error) {
+			Toast(displayErrorMessage(error), 'error');
+		}
+	};
+	const handleUnpublish = async (id, name) => {
+		const payload = {
+			status: 'unpublished',
+		};
+		try {
+			await updateClassMutation({ id, payload });
+			Toast(`La clase ${name} ha sido despublicada`);
+			refetchGetClassByUser();
+		} catch (error) {
+			Toast(displayErrorMessage(error), 'error');
+		}
 	};
 
 	const columns = [
 		{
 			field: 'name',
 			headerName: 'Nombre',
-			flex: 0.5,
+			minWidth: '150',
 		},
 		{
 			field: 'subject',
 			headerName: 'Materia',
-			flex: 0.5,
+			width: 150,
 		},
 		{
 			field: 'description',
@@ -46,15 +64,16 @@ export const UserClasses = () => {
 		{
 			field: 'status',
 			headerName: 'Estado',
-			flex: 1,
+			width: '120',
 			renderCell: ({ value }) => <StatusChip status={value} />,
 		},
 		{
 			field: 'actions',
 			type: 'actions',
+			width: '100',
 			headerName: 'Acciones',
 			getActions: ({ row }) => {
-				const { id, status } = row;
+				const { id, status, name } = row;
 				return [
 					<GridActionsCellItem
 						key={`viewClass-${id}`}
@@ -66,12 +85,23 @@ export const UserClasses = () => {
 					/>,
 					status === 'unpublished' && (
 						<GridActionsCellItem
-							key={`unpublish-${id}`}
+							key={`publish-${id}`}
 							label='Publicar'
 							onClick={() => {
-								handlePublish(id);
+								handlePublish(id, name);
 							}}
 							icon={<PublishIcon />}
+							showInMenu
+						/>
+					),
+					status === 'published' && (
+						<GridActionsCellItem
+							key={`unpublish-${id}`}
+							label='Despublicar'
+							onClick={() => {
+								handleUnpublish(id, name);
+							}}
+							icon={<UnpublishedIcon />}
 							showInMenu
 						/>
 					),
