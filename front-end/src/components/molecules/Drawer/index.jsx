@@ -18,7 +18,7 @@ import {
 	RadioGroup,
 	Typography,
 } from '@mui/material';
-import { useEffect, useState, useLayoutEffect } from 'react';
+import { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 import queryString from 'query-string';
 
 const drawerWidth = 240;
@@ -31,10 +31,24 @@ export const FiltersDrawer = ({
 	handleFiltering: submitFiltering,
 	initialQuery,
 	resetQueries,
+	parsedQuery,
 }) => {
-	const [classType, setClassType] = useState([]);
-	const [frequency, setFrequency] = useState([]);
-	const [rating, setRating] = useState('');
+	const initClassType = parsedQuery.classType;
+	const initFrequency = parsedQuery.frequency;
+	const initRating = parsedQuery.rating;
+	const parseQueryToState = useCallback((initQuery) => {
+		if (initQuery) {
+			return typeof initQuery === 'string' ? [initQuery] : initQuery;
+		}
+		return [];
+	}, []);
+	const [classType, setClassType] = useState(
+		parseQueryToState(initClassType)
+	);
+	const [frequency, setFrequency] = useState(
+		parseQueryToState(initFrequency)
+	);
+	const [rating, setRating] = useState(initRating || '');
 	const isFiltered = [...classType, ...frequency, rating].some(
 		(value) => value
 	);
@@ -90,7 +104,7 @@ export const FiltersDrawer = ({
 				)}
 			</Toolbar>
 			<Divider />
-			<Accordion>
+			<Accordion defaultExpanded={Boolean(classType.length)}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel1a-content'
@@ -115,7 +129,7 @@ export const FiltersDrawer = ({
 					</FormGroup>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion>
+			<Accordion defaultExpanded={Boolean(frequency.length)}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel1a-content'
@@ -128,25 +142,25 @@ export const FiltersDrawer = ({
 						<FormControlLabel
 							control={<Checkbox />}
 							label='Única'
-							checked={frequency.unique}
+							checked={isChecked('unique', frequency)}
 							name='unique'
 						/>
 						<FormControlLabel
 							control={<Checkbox />}
 							label='Semanal'
-							checked={frequency.weekly}
+							checked={isChecked('weekly', frequency)}
 							name='weekly'
 						/>
 						<FormControlLabel
 							control={<Checkbox />}
 							label='Mensual'
-							checked={frequency.monthly}
+							checked={isChecked('monthly', frequency)}
 							name='monthly'
 						/>
 					</FormGroup>
 				</AccordionDetails>
 			</Accordion>
-			<Accordion>
+			<Accordion defaultExpanded={Boolean(rating)}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
 					aria-controls='panel1a-content'
@@ -206,7 +220,10 @@ export const FiltersDrawer = ({
 	}, [resetQueries]);
 
 	return (
-		<Box sx={{ display: 'flex' }} id='container-test'>
+		<Box
+			sx={{ display: 'flex', width: 'calc(100% - 1rem)' }}
+			id='container-test'
+		>
 			<Box
 				component='nav'
 				sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -240,6 +257,7 @@ export const FiltersDrawer = ({
 							position: 'fixed',
 							top: 'initial',
 							left: 'initial',
+							height: 'calc(100vh - 124px)',
 						},
 					}}
 					BackdropProps={{ style: { position: 'absolute' } }}
