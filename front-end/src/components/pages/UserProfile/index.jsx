@@ -33,7 +33,7 @@ export const UserProfile = () => {
 			setUserData(data);
 			Toast('Perfil actualizado exitosamente!');
 		} catch (error) {
-			displayErrorMessage(error);
+			Toast(displayErrorMessage(error), 'error');
 		}
 	};
 

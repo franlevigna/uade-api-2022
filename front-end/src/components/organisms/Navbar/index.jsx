@@ -71,7 +71,9 @@ export const Navbar = () => {
 		{
 			icon: <NoAccountsIcon />,
 			label: 'Cerrar sesión',
-			onClick: logOut,
+			onClick: () => {
+				logOut();
+			},
 		},
 	];
 
