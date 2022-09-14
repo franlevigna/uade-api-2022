@@ -38,8 +38,6 @@ export const Login = () => {
 		}
 	};
 
-	console.log(location);
-
 	const formik = useFormik({
 		initialValues: {
 			email: '',
