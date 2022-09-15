@@ -65,6 +65,19 @@ export const UserClasses = () => {
 		}
 	};
 
+	const getData = () => {
+		if (!dataGetClassByUser){
+			return []
+		}
+		if (user.userType === userRoles.PROFESSOR){
+			return dataGetClassByUser.data
+		}
+		return dataGetClassByUser.data.map((item)=> (
+			{...item.class,
+			status: item.status}
+			))
+	}
+
 	const columns = [
 		{
 			field: 'name',
@@ -100,11 +113,11 @@ export const UserClasses = () => {
 								key={`viewClass-${id}`}
 								label='Ver'
 								onClick={() => {
-									console.log(status);
+									navigateTo(`/class/${id}`);
 								}}
 								icon={<RemoveRedEyeIcon />}
 							/>,
-					  ]
+					  ].filter(Boolean)
 					: [
 							<GridActionsCellItem
 								key={`edit-${id}`}
@@ -168,7 +181,7 @@ export const UserClasses = () => {
 			</Box>
 			<Box sx={{ height: 'calc(100vh - 200px)', width: '100%' }}>
 				<DataGrid
-					rows={dataGetClassByUser?.data || []}
+					rows={getData()}
 					columns={columns}
 					disableSelectionOnClick
 					loading={

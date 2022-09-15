@@ -24,7 +24,7 @@ export const UserProfileProvider = ({ children }) => {
 	}, [user]);
 
 	useEffect(() => {
-		if (userCache) {
+		if (userCache && !user) {
 			setUser(userCache);
 		}
 	}, []);

@@ -8,7 +8,7 @@ import {
 	Typography,
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useLogin } from '../../../hooks/login';
 import { useUserSession } from '../../../hooks/userSession';
@@ -17,8 +17,6 @@ import { displayErrorMessage } from '../../../utils';
 import { useUserProfile } from '../../../store/profile';
 
 export const Login = () => {
-	const navigateTo = useNavigate();
-	const location = useLocation();
 	const { setUserData } = useUserProfile();
 	const { loginMutation, isLoginLoading } = useLogin();
 	const { storeAuthToken } = useUserSession();
@@ -32,7 +30,6 @@ export const Login = () => {
 			});
 			setUserData(userInfo);
 			storeAuthToken(access_token);
-			navigateTo(location.pathname !== '/login' ? 0 : '/');
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
 		}

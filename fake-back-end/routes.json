@@ -1,0 +1,5 @@
+{
+    "/classes/professor/:id": "/classes?professor.id=:id",
+    "/classes/professor/:id/students": "/classes?professor.id=:id&_embed=classes_students",
+    "/classes/student/:id": "/classes_students?userId=:id&_expand=class&_expand=user"
+  }

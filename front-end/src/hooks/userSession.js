@@ -10,7 +10,7 @@ export const useUserSession = () => {
 			setAuthCookie('access_token', token, { path: '/', secure: true }),
 		],
 		logOut: () => {
-			removeAuthCookie('access_token');
+			removeAuthCookie("access_token",  { path: '/' });
 		},
 	};
 };
