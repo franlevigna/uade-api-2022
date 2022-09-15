@@ -30,14 +30,7 @@ export const deleteClass = (classID) => {
 };
 
 export const getClassesByUser = (userID, userRole) => {
-	const professorParams = {
-		'professor.id': userID,
-	};
-	const studentParms = {
-		_embed: 'students',
-		id: userID,
-	};
-	const params =
-		userRole === userRoles.PROFESSOR ? professorParams : studentParms;
-	return crudProfeFlix.get(BASE_URL, { params });
+
+		const urlPath = userRole === userRoles.PROFESSOR? "professor" : "student"
+	return crudProfeFlix.get(`${BASE_URL}/${urlPath}/${userID}`);
 };

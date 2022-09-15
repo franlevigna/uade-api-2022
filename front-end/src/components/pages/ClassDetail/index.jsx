@@ -139,7 +139,7 @@ export const ClassDetail = () => {
 						{dataGetClassByID?.data.description}
 					</Typography>
 					<Divider sx={{ marginBottom: '1rem', width: '100%' }} />
-					{dataGetClassByID?.data.comments.map((comment, index) => (
+					{dataGetClassByID?.data?.comments?.map((comment, index) => (
 						<Comment key={index} {...comment} />
 					))}
 				</Box>
