@@ -28,6 +28,12 @@ function verifyToken(token) {
 }
 
 // Check if the user exists in database
+function exists({ email }) {
+  return (
+    userdb.users.findIndex((user) => user.email === email) !== -1
+  );
+}
+
 function isAuthenticated({ email, password }) {
   return (
     userdb.users.findIndex(
@@ -40,9 +46,9 @@ function isAuthenticated({ email, password }) {
 server.post("/auth/register", (req, res) => {
   console.log("register endpoint called; request body:");
   console.log(req.body);
-  const { email, password, userType, firstName, lastName } = req.body;
+  const { email, password, userType, telNumber, firstName, lastName } = req.body;
 
-  if (isAuthenticated({ email }) === true) {
+  if (exists({ email }) === true) {
     const status = 401;
     const message = "Email already exist";
     res.status(status).json({ status, message });
@@ -68,6 +74,7 @@ server.post("/auth/register", (req, res) => {
       id: last_item_id + 1,
       email: email,
       password: password,
+      telNumber: telNumber,
       userType: userType,
       firstName: firstName,
       lastName: lastName,
@@ -96,6 +103,7 @@ server.post("/auth/register", (req, res) => {
     userInfo: {
       email: email,
       password: password,
+      telNumber: telNumber,
       userType: userType,
       firstName: firstName,
       lastName: lastName,

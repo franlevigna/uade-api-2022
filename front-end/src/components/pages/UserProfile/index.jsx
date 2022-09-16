@@ -43,6 +43,7 @@ export const UserProfile = () => {
 			firstName: user.firstName,
 			lastName: user.lastName,
 			email: user.email,
+			telNumber: user.telNumber,
 			userType: user.userType,
 			...(user.userType === userRoles.PROFESSOR && {
 				degree: user.degree,
@@ -198,6 +199,17 @@ export const UserProfile = () => {
 										value={formik.values.email}
 										onChange={formik.handleChange}
 										// disabled={isRegisterLoading}
+									/>
+								</Grid>
+								<Grid item xs={12}>
+									<TextField
+										required
+										fullWidth
+										id='telNumber'
+										label='Telefono'
+										name='telNumber'
+										value={formik.values.telNumber}
+										onChange={formik.handleChange}
 									/>
 								</Grid>
 								{user.userType === userRoles.PROFESSOR && (

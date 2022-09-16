@@ -1,21 +1,21 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useUserSession } from '../../hooks/userSession';
 
 import { Storage } from '../../utils/storage';
 import { USER_INFO } from '../../utils/storage/keyNames';
 
 const initialData = {
-	user: {
 		firstName: '',
 		lastName: '',
 		email: '',
 		telNumber: '',
 		userType: '',
-	},
 };
-const [userCache, saveUserInCache] = Storage(USER_INFO, true);
+const [userCache, saveUserInCache, removeUser] = Storage(USER_INFO, true);
 const UserProfileCtx = createContext(userCache || initialData.user);
 export const UserProfileProvider = ({ children }) => {
 	const [user, setUser] = useState(userCache);
+	const {isLogged} = useUserSession()
 
 	useEffect(() => {
 		if (user?.email) {
@@ -28,6 +28,13 @@ export const UserProfileProvider = ({ children }) => {
 			setUser(userCache);
 		}
 	}, []);
+
+	useEffect(()=>{
+		if(!isLogged){
+			removeUser()
+			setUser(initialData)
+		}
+	},[isLogged])
 
 	return (
 		<UserProfileCtx.Provider value={{ user, setUser }}>
