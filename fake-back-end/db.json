@@ -46,7 +46,7 @@
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
-          "timestamp": "9/25/2021",
+          "date": "9/25/2021",
           "user": {
             "id": 9,
             "name": "Otto Ottis",
@@ -55,7 +55,7 @@
         },
         {
           "message": "La mejor clase",
-          "timestamp": "12/1/2021",
+          "date": "12/1/2021",
           "user": {
             "id": 10,
             "name": "Ruby Rubin",
@@ -64,7 +64,7 @@
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
-          "timestamp": "2/3/2022",
+          "date": "2/3/2022",
           "user": {
             "id": 11,
             "name": "Kit Kat",
@@ -91,7 +91,7 @@
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
-          "timestamp": "9/25/2021",
+          "date": "9/25/2021",
           "user": {
             "id": 9,
             "name": "Otto Ottis",
@@ -100,7 +100,7 @@
         },
         {
           "message": "La mejor clase",
-          "timestamp": "12/1/2021",
+          "date": "12/1/2021",
           "user": {
             "id": 10,
             "name": "Ruby Rubin",
@@ -109,7 +109,7 @@
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
-          "timestamp": "2/3/2022",
+          "date": "2/3/2022",
           "user": {
             "id": 11,
             "name": "Kit Kat",
@@ -136,7 +136,7 @@
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
-          "timestamp": "9/25/2021",
+          "date": "9/25/2021",
           "user": {
             "id": 9,
             "name": "Otto Ottis",
@@ -145,7 +145,7 @@
         },
         {
           "message": "La mejor clase",
-          "timestamp": "12/1/2021",
+          "date": "12/1/2021",
           "user": {
             "id": 10,
             "name": "Ruby Rubin",
@@ -154,7 +154,7 @@
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
-          "timestamp": "2/3/2022",
+          "date": "2/3/2022",
           "user": {
             "id": 11,
             "name": "Kit Kat",
@@ -182,7 +182,7 @@
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
-          "timestamp": "9/25/2021",
+          "date": "9/25/2021",
           "user": {
             "id": 9,
             "name": "Otto Ottis",
@@ -191,7 +191,7 @@
         },
         {
           "message": "La mejor clase",
-          "timestamp": "12/1/2021",
+          "date": "12/1/2021",
           "user": {
             "id": 10,
             "name": "Ruby Rubin",
@@ -200,7 +200,7 @@
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
-          "timestamp": "2/3/2022",
+          "date": "2/3/2022",
           "user": {
             "id": 11,
             "name": "Kit Kat",
@@ -227,7 +227,7 @@
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
-          "timestamp": "9/25/2021",
+          "date": "9/25/2021",
           "user": {
             "id": 9,
             "name": "Otto Ottis",
@@ -236,7 +236,7 @@
         },
         {
           "message": "La mejor clase",
-          "timestamp": "12/1/2021",
+          "date": "12/1/2021",
           "user": {
             "id": 10,
             "name": "Ruby Rubin",
@@ -245,7 +245,7 @@
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
-          "timestamp": "2/3/2022",
+          "date": "2/3/2022",
           "user": {
             "id": 11,
             "name": "Kit Kat",
@@ -272,7 +272,7 @@
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
-          "timestamp": "9/25/2021",
+          "date": "9/25/2021",
           "user": {
             "id": 9,
             "name": "Otto Ottis",
@@ -281,7 +281,7 @@
         },
         {
           "message": "La mejor clase",
-          "timestamp": "12/1/2021",
+          "date": "12/1/2021",
           "user": {
             "id": 10,
             "name": "Ruby Rubin",
@@ -290,7 +290,7 @@
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
-          "timestamp": "2/3/2022",
+          "date": "2/3/2022",
           "user": {
             "id": 11,
             "name": "Kit Kat",
@@ -317,7 +317,7 @@
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
-          "timestamp": "9/25/2021",
+          "date": "9/25/2021",
           "user": {
             "id": 9,
             "name": "Otto Ottis",
@@ -326,7 +326,7 @@
         },
         {
           "message": "La mejor clase",
-          "timestamp": "12/1/2021",
+          "date": "12/1/2021",
           "user": {
             "id": 10,
             "name": "Ruby Rubin",
@@ -335,7 +335,7 @@
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
-          "timestamp": "2/3/2022",
+          "date": "2/3/2022",
           "user": {
             "id": 11,
             "name": "Kit Kat",
@@ -362,7 +362,7 @@
       "comments": [
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
-          "timestamp": "9/25/2021",
+          "date": "9/25/2021",
           "user": {
             "id": 9,
             "name": "Otto Ottis",
@@ -371,7 +371,7 @@
         },
         {
           "message": "La mejor clase",
-          "timestamp": "12/1/2021",
+          "date": "12/1/2021",
           "user": {
             "id": 10,
             "name": "Ruby Rubin",
@@ -380,7 +380,7 @@
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
-          "timestamp": "2/3/2022",
+          "date": "2/3/2022",
           "user": {
             "id": 11,
             "name": "Kit Kat",
@@ -449,8 +449,29 @@
       "userId": 2,
       "classId": 10,
       "studentName": "Marcos Ezequiel Rodriguez",
-      "status": "requested",
+      "status": "accepted",
       "id": 2
+    },
+    {
+      "userId": 1,
+      "classId": 10,
+      "name": "Cosme Fulano",
+      "status": "accepted",
+      "id": 3
+    }
+  ],
+  "classes_reviews": [
+    {
+      "userId": 2,
+      "classId": 10,
+      "studentName": "Marcos Ezequiel Rodriguez",
+      "comment": {
+        "date": "2022-09-16T20:32:15.343Z",
+        "status": "sent",
+        "message": "La clase esta bien"
+      },
+      "rating": 4,
+      "id": 1
     }
   ]
 }

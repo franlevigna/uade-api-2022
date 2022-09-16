@@ -7,6 +7,8 @@ import {
 	updateClass,
 	deleteClass,
 	hireClass,
+	reviewClass,
+	updateReview,
 } from '../services/CRUD/classes';
 
 export const useGetClasses = (parsedQuery) => {
@@ -90,6 +92,23 @@ export const useHireClass = () => {
 } = useMutation(({payload}) => hireClass(payload))
 	return {hireClassMutation, isHireClassLoading}
 }
+
+export const useReviewClass = () => {
+	const {
+		mutateAsync: reviewClassMutation, 
+		isLoading: isReviewClassLoading
+} = useMutation(({payload}) => reviewClass(payload))
+	return {reviewClassMutation, isReviewClassLoading}
+}
+
+export const useUpdateReview = () => {
+	const {
+		mutateAsync: updateReviewsMutation, 
+		isLoading: isUpdateReviewLoading
+} = useMutation(({id, payload}) => updateReview(id, payload))
+	return {updateReviewsMutation, isUpdateReviewLoading}
+}
+
 
 export const useGetClassesByUser = (userID, userRole) => {
 	const {

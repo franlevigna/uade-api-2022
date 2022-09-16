@@ -5,7 +5,8 @@ export const StatusChip = ({ status }) => {
 		unpublished: 'warning',
 		published: 'success',
 		requested: 'warning',
-		cacelled: "error"
+		cacelled: "error",
+		accepted: "success"
 	};
 	const labelMapper = {
 		unpublished: 'sin publicar',
@@ -13,6 +14,8 @@ export const StatusChip = ({ status }) => {
 		requested: 'solicitada',
 		cacelled: 'cancelada',
 		finished: 'finalizada',
+		accepted: "aceptada"
+		
 	};
 	
 

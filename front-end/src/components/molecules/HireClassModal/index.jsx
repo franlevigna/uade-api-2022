@@ -26,7 +26,6 @@ export const HireClassModal = ({isOpen, handleClose, classData, userData}) => {
             await hireClassMutation({id: classData.id, payload})
             Toast(`¡Enhorabuena! ¡La clase ${classData.name} ha sido existomente contratada!`)
             navigateTo("/user/classes")
-        console.log(payload)
         } catch (error) {
             Toast(displayErrorMessage(error), "error")
         }

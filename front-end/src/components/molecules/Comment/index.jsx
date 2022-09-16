@@ -6,7 +6,7 @@ const options = {
 	day: 'numeric',
 };
 
-export const Comment = (comment) => {
+export const Comment = ({review}) => {
 	return (
 		<Paper style={{ padding: '40px 20px', marginBottom: '1rem' }}>
 			<Grid container wrap='nowrap' spacing={2}>
@@ -15,7 +15,7 @@ export const Comment = (comment) => {
 				</Grid>
 				<Grid justifyContent='left' item xs zeroMinWidth>
 					<Typography variant={<h4 />} sx={{ textAlign: 'left' }}>
-						{comment.user.name}
+						{review.studentName}
 					</Typography>
 					<Typography
 						sx={{
@@ -28,18 +28,18 @@ export const Comment = (comment) => {
 					>
 						<Rating
 							sx={{ mr: 1 }}
-							value={comment.user.rating}
+							value={review.rating}
 							readOnly
 							precision={0.5}
 						/>
 						<div>
-							{new Date(comment.timestamp).toLocaleDateString(
+							{new Date(review.comment.date).toLocaleDateString(
 								undefined,
 								options
 							)}
 						</div>
 					</Typography>
-					<p style={{ textAlign: 'left' }}>{comment.message}</p>
+					<p style={{ textAlign: 'left' }}>{review.comment.message}</p>
 				</Grid>
 			</Grid>
 		</Paper>
