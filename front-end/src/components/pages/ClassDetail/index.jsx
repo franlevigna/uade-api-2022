@@ -1,17 +1,36 @@
 import { Avatar, Button, Divider, Rating, Typography } from '@mui/material';
 import { Box, Stack } from '@mui/system';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetClassByID } from '../../../hooks/classes';
+import { useUserProfile } from '../../../store/profile';
+import { userRoles } from '../../../utils/enums';
 import { Comment } from '../../molecules/Comment';
+import { HireClassModal } from '../../molecules/HireClassModal';
 import { Loading } from '../../molecules/Loading';
 export const ClassDetail = () => {
+	const { user } = useUserProfile();
 	const { classID } = useParams();
 	const { dataGetClassByID, isDataGetClassByIDLoading } =
 		useGetClassByID(classID);
+	const [isHireModalOpen, setHireModalOpen] = useState(false);
+	const handleHireOpen = () => {
+		setHireModalOpen(true);
+	};
+	const handleHireClose = () => {
+		setHireModalOpen(false);
+	};
 
+	const isHired = dataGetClassByID?.data.classes_students.some((student) => student.userId === user.id);
+	const showHireButton = user.userType === userRoles.STUDENT && !isHired;
 	return (
 		<div>
 			<Loading loading={isDataGetClassByIDLoading} />
+			<HireClassModal 
+			isOpen={isHireModalOpen} 
+			handleClose={handleHireClose} 
+			classData={dataGetClassByID?.data || null}
+			userData={user}/>
 			<Box
 				sx={{
 					height: 'calc(100vh - 130px)',
@@ -57,9 +76,15 @@ export const ClassDetail = () => {
 					</Stack>
 					<Box sx={{ flexGrow: 1, flexShrink: 1 }} />
 
-					<Button sx={{ flexGrow: 0 }} variant='contained'>
-						Contratar
-					</Button>
+					{showHireButton && (
+						<Button
+							sx={{ flexGrow: 0 }}
+							variant='contained'
+							onClick={handleHireOpen}
+						>
+							Contratar
+						</Button>
+					)}
 				</Box>
 				<Box
 					sx={{

@@ -6,6 +6,7 @@ import {
 	getClassesByUser,
 	updateClass,
 	deleteClass,
+	hireClass,
 } from '../services/CRUD/classes';
 
 export const useGetClasses = (parsedQuery) => {
@@ -81,6 +82,14 @@ export const useDeleteClass = () => {
 		isDeleteClassLoading,
 	};
 };
+
+export const useHireClass = () => {
+	const {
+		mutateAsync: hireClassMutation, 
+		isLoading: isHireClassLoading
+} = useMutation(({payload}) => hireClass(payload))
+	return {hireClassMutation, isHireClassLoading}
+}
 
 export const useGetClassesByUser = (userID, userRole) => {
 	const {

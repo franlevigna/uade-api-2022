@@ -52,6 +52,7 @@ export const Register = () => {
 			firstName: '',
 			lastName: '',
 			email: '',
+			telNumber: "",
 			password: '',
 			userType: '',
 		},
@@ -122,6 +123,18 @@ export const Register = () => {
 								name='email'
 								autoComplete='email'
 								value={formik.values.email}
+								onChange={formik.handleChange}
+								disabled={isRegisterLoading}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<TextField
+								required
+								fullWidth
+								id='telNumber'
+								label='Telefono'
+								name='telNumber'
+								value={formik.values.telNumber}
 								onChange={formik.handleChange}
 								disabled={isRegisterLoading}
 							/>

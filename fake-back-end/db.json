@@ -2,11 +2,6 @@
   "users": [
     {
       "id": 1,
-      "email": "bruno@email.com",
-      "password": "bruno"
-    },
-    {
-      "id": 2,
       "email": "mer.marcosr@gmail.com",
       "password": "test",
       "userType": "student",
@@ -16,10 +11,11 @@
       "secundary": "complete",
       "universitary": "ongoing",
       "terciary": "complete",
-      "birthDate": "1994-02-22"
+      "birthDate": "1994-02-22",
+      "telNumber": "11223344"
     },
     {
-      "id": 3,
+      "id": 2,
       "email": "levignafranco@gmail.com",
       "password": "123",
       "userType": "professor",
@@ -27,6 +23,15 @@
       "lastName": "Levigna",
       "degree": "Licenciado en Sistemas",
       "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
+    },
+    {
+      "id": 3,
+      "email": "jackwhite@email.com",
+      "password": "test",
+      "telNumber": "12345678",
+      "userType": "professor",
+      "firstName": "Jack",
+      "lastName": "White"
     }
   ],
   "classes": [
@@ -401,7 +406,7 @@
       "type": "individual",
       "status": "published",
       "professor": {
-        "id": 3,
+        "id": 2,
         "name": "Franco Levigna",
         "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
       },
@@ -417,7 +422,7 @@
       "type": "individual",
       "status": "published",
       "professor": {
-        "id": 3,
+        "id": 2,
         "name": "Franco Levigna",
         "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
       },
@@ -425,8 +430,27 @@
     }
   ],
   "classes_students": [
-    { "id":1,"userId": 2, "classId": 9, "name": "Marcos Rodriguez", "status": "requested"},
-    { "id":2,"userId": 2, "classId": 3 ,"name": "Marcos Rodriguez", "status": "requested"},
-    { "id":3,"userId": 4, "classId": 3 ,"name": "Puto Puton", "status": "requested"}
+    {
+      "email": "mer.marcosr@gmail.com",
+      "telNumber": "987654321",
+      "contactSchedule": "de 6 a 8pm",
+      "message": "Me gusta el arte",
+      "userId": 2,
+      "classId": 9,
+      "studentName": "Marcos Ezequiel Rodriguez",
+      "status": "requested",
+      "id": 1
+    },
+    {
+      "email": "mer.marcosr@gmail.com",
+      "telNumber": "11223344",
+      "contactSchedule": "De 6 a 8pm",
+      "message": "Quiero aprender con ejemplos de la vida real, como comentas en la descripción de la clase",
+      "userId": 2,
+      "classId": 10,
+      "studentName": "Marcos Ezequiel Rodriguez",
+      "status": "requested",
+      "id": 2
+    }
   ]
 }
