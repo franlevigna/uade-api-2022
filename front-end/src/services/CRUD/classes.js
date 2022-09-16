@@ -15,7 +15,8 @@ export const getClasses = (parsedQuery) => {
 
 export const getClassByID = (classID) => {
 	const params = {
-		_embed: "classes_students"
+		_embed: ["classes_students", "classes_reviews"]
+		
 	}
 	return crudProfeFlix.get(`${BASE_URL}/${classID}`, {params});
 };
@@ -40,3 +41,11 @@ const urlPath = userRole === userRoles.PROFESSOR? "professor" : "student"
 export const hireClass = (payload) => {
 	return crudProfeFlix.post(`${BASE_URL}_students`, payload)
 }
+
+export const reviewClass = (payload) => {
+	return crudProfeFlix.post(`${BASE_URL}_reviews`, payload)
+}
+
+export const updateReview = (reviewID, payload) => {
+	return crudProfeFlix.patch(`${BASE_URL}_reviews/${reviewID}`, payload);
+};
