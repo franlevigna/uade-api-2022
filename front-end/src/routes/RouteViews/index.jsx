@@ -12,17 +12,20 @@ import { CreateClass } from '../../components/pages/CreateClass';
 import { UserClasses } from '../../components/pages/UserClasses';
 import { EditClass } from '../../components/pages/EditClass';
 import { ForgotPassword } from '../../components/pages/ForgotPassword';
+import { AuthlessRoute } from '../AuthlessRoute';
 
 export const RouteViews = () => {
 	return (
 		<Routes>
-			<Route path='/register' element={<Register />} />
-			<Route path='/login' element={<Login />} />
+			<Route element={<AuthlessRoute />}>
+				<Route path='/register' element={<Register />} />
+				<Route path='/login' element={<Login />} />
+				<Route path='/forgot-password' element={<ForgotPassword />} />
+			</Route>
 			<Route path='/' element={<Home />} />
-			<Route path='/forgot-password' element={<ForgotPassword />} />
+			<Route path='/class/search' element={<SearchResults />} />
 			<Route element={<ProtectedRoute />}>
 				<Route path='/class/:classID' element={<ClassDetail />} />
-				<Route path='/class/search' element={<SearchResults />} />
 				<Route path='/class/create' element={<CreateClass />} />
 				<Route path='/class/edit/:classID' element={<EditClass />} />
 				<Route path='/user/classes' element={<UserClasses />} />

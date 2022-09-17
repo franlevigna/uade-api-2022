@@ -52,3 +52,10 @@ export const updateReview = (reviewID, payload) => {
 export const getReviewsByProfessorID = (proffesorID) => {
 	return crudProfeFlix.get(`${BASE_URL}_reviews/professor/${proffesorID}`);
 };
+
+// Now is checking if any comment is in status blocked, later should be in user endpoint
+export const getUserNotifications = (userID) => {
+	return crudProfeFlix.get(
+		`${BASE_URL}_reviews?userId=${userID}&comment.status=blocked&_expand=class`
+	);
+};

@@ -52,7 +52,8 @@ export const ClassDetail = () => {
 	const userReview = dataGetClassByID?.data?.classes_reviews?.find(
 		(review) => review.userId === reviewModalData.user.id
 	);
-	const canComment = isStudent && (!userReview || !userReview?.comment);
+	const canComment =
+		isStudent && isHired && (!userReview || !userReview?.comment);
 
 	const getRating = () => {
 		let ratingAVG = 0;

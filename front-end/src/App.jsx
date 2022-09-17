@@ -23,7 +23,7 @@ function App() {
 		<QueryClientProvider client={queryClient}>
 			<CookiesProvider>
 				<ThemeProvider theme={darkTheme}>
-					<CssBaseline />
+					<CssBaseline enableColorScheme />
 					<div className='App'>
 						<BrowserRouter>
 							<UserProfileProvider>

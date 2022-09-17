@@ -27,6 +27,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import NoAccountsIcon from '@mui/icons-material/NoAccounts';
 import SchoolIcon from '@mui/icons-material/School';
+
+import { Nottifications } from '../../molecules/Notifications';
 export const Navbar = () => {
 	const { isLogged, logOut } = useUserSession();
 	const { user } = useUserProfile();
@@ -89,7 +91,7 @@ export const Navbar = () => {
 				</Link>
 
 				<Box sx={{ flexGrow: 1 }} />
-				{isLogged && <SearchInput />}
+				<SearchInput />
 				<Box sx={{ flexGrow: 1 }} />
 				{!isLogged && (
 					<Box sx={{ display: { xs: 'block', md: 'flex' } }}>
@@ -103,6 +105,7 @@ export const Navbar = () => {
 				)}
 				{isLogged && (
 					<>
+						<Nottifications userID={user?.id} />
 						<IconButton onClick={toggleDrawer}>
 							<Avatar>
 								{user.firstName[0]}
@@ -115,27 +118,24 @@ export const Navbar = () => {
 							onClose={toggleDrawer}
 						>
 							<List>
-								{pages.map(
-									(
-										{ label, icon, route, onClick },
-										index
-									) => (
-										<ListItem
-											button
-											to={route}
-											key={index}
-											disablePadding
-											component={Link}
+								{pages.map(({ label, icon, route }, index) => (
+									<ListItem
+										button
+										to={route}
+										key={index}
+										disablePadding
+										component={Link}
+									>
+										<ListItemButton
+											selected={
+												location.pathname === route
+											}
 										>
-											<ListItemButton>
-												<ListItemIcon>
-													{icon}
-												</ListItemIcon>
-												<ListItemText primary={label} />
-											</ListItemButton>
-										</ListItem>
-									)
-								)}
+											<ListItemIcon>{icon}</ListItemIcon>
+											<ListItemText primary={label} />
+										</ListItemButton>
+									</ListItem>
+								))}
 							</List>
 							<Divider />
 							<List>
