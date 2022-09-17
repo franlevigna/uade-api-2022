@@ -66,17 +66,17 @@ export const UserClasses = () => {
 	};
 
 	const getData = () => {
-		if (!dataGetClassByUser){
-			return []
+		if (!dataGetClassByUser) {
+			return [];
 		}
-		if (user.userType === userRoles.PROFESSOR){
-			return dataGetClassByUser.data
+		if (user.userType === userRoles.PROFESSOR) {
+			return dataGetClassByUser.data;
 		}
-		return dataGetClassByUser.data.map((item)=> (
-			{...item.class,
-			status: item.status}
-			))
-	}
+		return dataGetClassByUser.data.map((item) => ({
+			...item.class,
+			status: item.status,
+		}));
+	};
 
 	const columns = [
 		{

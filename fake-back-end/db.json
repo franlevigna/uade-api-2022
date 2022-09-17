@@ -462,7 +462,8 @@
   ],
   "classes_reviews": [
     {
-      "userId": 2,
+      "userId": 1,
+      "professorId": 2,
       "classId": 10,
       "studentName": "Marcos Ezequiel Rodriguez",
       "rating": 5,

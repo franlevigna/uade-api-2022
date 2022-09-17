@@ -9,6 +9,7 @@ import {
 	hireClass,
 	reviewClass,
 	updateReview,
+	getReviewsByProfessorID,
 } from '../services/CRUD/classes';
 
 export const useGetClasses = (parsedQuery) => {
@@ -86,29 +87,46 @@ export const useDeleteClass = () => {
 };
 
 export const useHireClass = () => {
-	const {
-		mutateAsync: hireClassMutation, 
-		isLoading: isHireClassLoading
-} = useMutation(({payload}) => hireClass(payload))
-	return {hireClassMutation, isHireClassLoading}
-}
+	const { mutateAsync: hireClassMutation, isLoading: isHireClassLoading } =
+		useMutation(({ payload }) => hireClass(payload));
+	return { hireClassMutation, isHireClassLoading };
+};
 
 export const useReviewClass = () => {
 	const {
-		mutateAsync: reviewClassMutation, 
-		isLoading: isReviewClassLoading
-} = useMutation(({payload}) => reviewClass(payload))
-	return {reviewClassMutation, isReviewClassLoading}
-}
+		mutateAsync: reviewClassMutation,
+		isLoading: isReviewClassLoading,
+	} = useMutation(({ payload }) => reviewClass(payload));
+	return { reviewClassMutation, isReviewClassLoading };
+};
+
+export const useGetReviewsByProfessorID = (proffesorID) => {
+	const {
+		refetch: refetchGetReviewsByProffesorID,
+		data: dataGetReviewsByProfessorID,
+		isLoading: isGetReviewsByProfessorIDLoading,
+	} = useQuery(
+		['getReviewsByProffesor', proffesorID],
+		() => getReviewsByProfessorID(proffesorID),
+		{
+			enabled: true,
+		}
+	);
+
+	return {
+		refetchGetReviewsByProffesorID,
+		dataGetReviewsByProfessorID,
+		isGetReviewsByProfessorIDLoading,
+	};
+};
 
 export const useUpdateReview = () => {
 	const {
-		mutateAsync: updateReviewsMutation, 
-		isLoading: isUpdateReviewLoading
-} = useMutation(({id, payload}) => updateReview(id, payload))
-	return {updateReviewsMutation, isUpdateReviewLoading}
-}
-
+		mutateAsync: updateReviewsMutation,
+		isLoading: isUpdateReviewLoading,
+	} = useMutation(({ id, payload }) => updateReview(id, payload));
+	return { updateReviewsMutation, isUpdateReviewLoading };
+};
 
 export const useGetClassesByUser = (userID, userRole) => {
 	const {

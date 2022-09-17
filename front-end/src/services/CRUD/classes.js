@@ -15,10 +15,9 @@ export const getClasses = (parsedQuery) => {
 
 export const getClassByID = (classID) => {
 	const params = {
-		_embed: ["classes_students", "classes_reviews"]
-		
-	}
-	return crudProfeFlix.get(`${BASE_URL}/${classID}`, {params});
+		_embed: ['classes_students', 'classes_reviews'],
+	};
+	return crudProfeFlix.get(`${BASE_URL}/${classID}`, { params });
 };
 
 export const createClass = (payload) => {
@@ -34,18 +33,22 @@ export const deleteClass = (classID) => {
 };
 
 export const getClassesByUser = (userID, userRole) => {
-const urlPath = userRole === userRoles.PROFESSOR? "professor" : "student"
+	const urlPath = userRole === userRoles.PROFESSOR ? 'professor' : 'student';
 	return crudProfeFlix.get(`${BASE_URL}/${urlPath}/${userID}`);
 };
 
 export const hireClass = (payload) => {
-	return crudProfeFlix.post(`${BASE_URL}_students`, payload)
-}
+	return crudProfeFlix.post(`${BASE_URL}_students`, payload);
+};
 
 export const reviewClass = (payload) => {
-	return crudProfeFlix.post(`${BASE_URL}_reviews`, payload)
-}
+	return crudProfeFlix.post(`${BASE_URL}_reviews`, payload);
+};
 
 export const updateReview = (reviewID, payload) => {
 	return crudProfeFlix.patch(`${BASE_URL}_reviews/${reviewID}`, payload);
+};
+
+export const getReviewsByProfessorID = (proffesorID) => {
+	return crudProfeFlix.get(`${BASE_URL}_reviews/professor/${proffesorID}`);
 };
