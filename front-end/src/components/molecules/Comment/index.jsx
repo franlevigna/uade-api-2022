@@ -1,4 +1,4 @@
-import { Avatar, Grid, Paper, Rating, Typography } from '@mui/material';
+import { Avatar, Box, Grid, Paper, Rating, Typography } from '@mui/material';
 const options = {
 	weekday: 'long',
 	year: 'numeric',
@@ -17,7 +17,7 @@ export const Comment = ({review}) => {
 					<Typography variant={<h4 />} sx={{ textAlign: 'left' }}>
 						{review.studentName}
 					</Typography>
-					<Typography
+					<Box
 						sx={{
 							textAlign: 'left',
 							mt: 1,
@@ -28,7 +28,7 @@ export const Comment = ({review}) => {
 					>
 						<Rating
 							sx={{ mr: 1 }}
-							value={review.rating}
+							value={review.rating || 0}
 							readOnly
 							precision={0.5}
 						/>
@@ -38,7 +38,7 @@ export const Comment = ({review}) => {
 								options
 							)}
 						</div>
-					</Typography>
+					</Box>
 					<p style={{ textAlign: 'left' }}>{review.comment.message}</p>
 				</Grid>
 			</Grid>
