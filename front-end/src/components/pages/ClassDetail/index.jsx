@@ -13,21 +13,23 @@ import AddIcon from '@mui/icons-material/Add';
 export const ClassDetail = () => {
 	const { user } = useUserProfile();
 	const { classID } = useParams();
-	const { dataGetClassByID, isDataGetClassByIDLoading , refetchGetClassByID} =
+	const { dataGetClassByID, isDataGetClassByIDLoading, refetchGetClassByID } =
 		useGetClassByID(classID);
 	const [isHireModalOpen, setHireModalOpen] = useState(false);
 	const initialReviewModalData = {
 		isOpen: false,
-		user, 
-		rating: 0
-	}
-	const [reviewModalData, setReviewModalData] = useState(initialReviewModalData)
+		user,
+		rating: 0,
+	};
+	const [reviewModalData, setReviewModalData] = useState(
+		initialReviewModalData
+	);
 	const handleReviewOpen = (rating = 0) => {
-		setReviewModalData({...reviewModalData, rating, isOpen: true})
-	}
+		setReviewModalData({ ...reviewModalData, rating, isOpen: true });
+	};
 	const handleReviewClose = () => {
-		setReviewModalData(initialReviewModalData)
-	}
+		setReviewModalData(initialReviewModalData);
+	};
 
 	const handleHireOpen = () => {
 		setHireModalOpen(true);
@@ -36,38 +38,55 @@ export const ClassDetail = () => {
 		setHireModalOpen(false);
 	};
 
-	const isHired = dataGetClassByID?.data.classes_students.some((student) => student.userId === user.id);
-	const showHireButton = user.userType === userRoles.STUDENT && !isHired;
-	const canRate = dataGetClassByID?.data.classes_students.some((student) => student.userId === user.id && student.status === "accepted");
-	const userReview = dataGetClassByID?.data?.classes_reviews?.find((review) => review.userId === reviewModalData.user.id);
-	const canComment = !userReview || !userReview?.comment;
-	
+	const isStudent = user.userType === userRoles.STUDENT;
+	const isHired = dataGetClassByID?.data.classes_students.some(
+		(student) => student.userId === user.id
+	);
+	const showHireButton = isStudent && !isHired;
+	const canRate =
+		isStudent &&
+		user.dataGetClassByID?.data.classes_students.some(
+			(student) =>
+				student.userId === user.id && student.status === 'accepted'
+		);
+	const userReview = dataGetClassByID?.data?.classes_reviews?.find(
+		(review) => review.userId === reviewModalData.user.id
+	);
+	const canComment = isStudent && (!userReview || !userReview?.comment);
 
 	const getRating = () => {
-		let ratingAVG = 0
-		if (dataGetClassByID?.data.classes_reviews){
-			dataGetClassByID?.data.classes_reviews.forEach(review => {
-				if (review.rating){
-					ratingAVG = ratingAVG + review.rating
+		let ratingAVG = 0;
+		if (dataGetClassByID?.data.classes_reviews) {
+			dataGetClassByID?.data.classes_reviews.forEach((review) => {
+				if (review.rating) {
+					ratingAVG = ratingAVG + review.rating;
 				}
 			});
-			ratingAVG = ratingAVG / dataGetClassByID?.data.classes_reviews.length
+			ratingAVG =
+				ratingAVG / dataGetClassByID?.data.classes_reviews.length;
 		}
-		return ratingAVG
-	}
+		return ratingAVG;
+	};
 
 	return (
 		<div>
 			<Loading loading={isDataGetClassByIDLoading} />
-			{dataGetClassByID &&
-			<>
-			 <HireClassModal 
-			isOpen={isHireModalOpen} 
-			handleClose={handleHireClose} 
-			classData={dataGetClassByID.data}
-			userData={user}/>
-			<ReviewClassModal reviewModalData={reviewModalData} handleClose={handleReviewClose} classData={dataGetClassByID.data} refetch={refetchGetClassByID}/>
-			</>}
+			{dataGetClassByID && (
+				<>
+					<HireClassModal
+						isOpen={isHireModalOpen}
+						handleClose={handleHireClose}
+						classData={dataGetClassByID.data}
+						userData={user}
+					/>
+					<ReviewClassModal
+						reviewModalData={reviewModalData}
+						handleClose={handleReviewClose}
+						classData={dataGetClassByID.data}
+						refetch={refetchGetClassByID}
+					/>
+				</>
+			)}
 			<Box
 				sx={{
 					height: 'calc(100vh - 130px)',
@@ -156,9 +175,10 @@ export const ClassDetail = () => {
 							value={dataGetClassByID?.data.rating || getRating()}
 							readOnly={!canRate}
 							precision={0.5}
-							{...canRate && {
-								onChange: (_, newValue) => handleReviewOpen(newValue)
-							}}
+							{...(canRate && {
+								onChange: (_, newValue) =>
+									handleReviewOpen(newValue),
+							})}
 						/>
 						<Typography
 							sx={{ fontSize: 14 }}
@@ -204,13 +224,21 @@ export const ClassDetail = () => {
 						{dataGetClassByID?.data.description}
 					</Typography>
 					<Divider sx={{ marginBottom: '1rem', width: '100%' }} />
-					{canComment && <Button onClick={() => handleReviewOpen()} startIcon={<AddIcon />}> Agregar comentario</Button>}
+					{canComment && (
+						<Button
+							onClick={() => handleReviewOpen()}
+							startIcon={<AddIcon />}
+						>
+							{' '}
+							Agregar comentario
+						</Button>
+					)}
 					{dataGetClassByID?.data?.classes_reviews?.map((review) => {
-						if (review.comment){
-						return <Comment key={review.id} review={review} />
-					}
-					return null
-				})}
+						if (review.comment) {
+							return <Comment key={review.id} review={review} />;
+						}
+						return null;
+					})}
 				</Box>
 			</Box>
 		</div>
