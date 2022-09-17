@@ -465,13 +465,13 @@
       "userId": 2,
       "classId": 10,
       "studentName": "Marcos Ezequiel Rodriguez",
+      "rating": 5,
+      "id": 1,
       "comment": {
-        "date": "2022-09-16T20:32:15.343Z",
+        "date": "2022-09-17T01:02:50.864Z",
         "status": "sent",
-        "message": "La clase esta bien"
-      },
-      "rating": 4,
-      "id": 1
+        "message": "test"
+      }
     }
   ]
 }

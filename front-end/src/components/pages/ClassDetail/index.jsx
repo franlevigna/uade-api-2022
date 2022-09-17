@@ -9,6 +9,7 @@ import { Comment } from '../../molecules/Comment';
 import { HireClassModal } from '../../molecules/HireClassModal';
 import { Loading } from '../../molecules/Loading';
 import { ReviewClassModal } from '../../molecules/ReviewClassModal';
+import AddIcon from '@mui/icons-material/Add';
 export const ClassDetail = () => {
 	const { user } = useUserProfile();
 	const { classID } = useParams();
@@ -21,7 +22,7 @@ export const ClassDetail = () => {
 		rating: 0
 	}
 	const [reviewModalData, setReviewModalData] = useState(initialReviewModalData)
-	const handleReviewOpen = (rating) => {
+	const handleReviewOpen = (rating = 0) => {
 		setReviewModalData({...reviewModalData, rating, isOpen: true})
 	}
 	const handleReviewClose = () => {
@@ -38,6 +39,8 @@ export const ClassDetail = () => {
 	const isHired = dataGetClassByID?.data.classes_students.some((student) => student.userId === user.id);
 	const showHireButton = user.userType === userRoles.STUDENT && !isHired;
 	const canRate = dataGetClassByID?.data.classes_students.some((student) => student.userId === user.id && student.status === "accepted");
+	const userReview = dataGetClassByID?.data?.classes_reviews?.find((review) => review.userId === reviewModalData.user.id);
+	const canComment = !userReview || !userReview?.comment;
 	
 
 	const getRating = () => {
@@ -201,6 +204,7 @@ export const ClassDetail = () => {
 						{dataGetClassByID?.data.description}
 					</Typography>
 					<Divider sx={{ marginBottom: '1rem', width: '100%' }} />
+					{canComment && <Button onClick={() => handleReviewOpen()} startIcon={<AddIcon />}> Agregar comentario</Button>}
 					{dataGetClassByID?.data?.classes_reviews?.map((review) => {
 						if (review.comment){
 						return <Comment key={review.id} review={review} />
