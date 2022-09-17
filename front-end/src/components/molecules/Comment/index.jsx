@@ -6,7 +6,7 @@ const options = {
 	day: 'numeric',
 };
 
-export const Comment = ({review}) => {
+export const Comment = ({ review }) => {
 	return (
 		<Paper style={{ padding: '40px 20px', marginBottom: '1rem' }}>
 			<Grid container wrap='nowrap' spacing={2}>
@@ -14,7 +14,7 @@ export const Comment = ({review}) => {
 					<Avatar alt='Remy Sharp' />
 				</Grid>
 				<Grid justifyContent='left' item xs zeroMinWidth>
-					<Typography variant={<h4 />} sx={{ textAlign: 'left' }}>
+					<Typography variant={'h5'} sx={{ textAlign: 'left' }}>
 						{review.studentName}
 					</Typography>
 					<Box
@@ -39,7 +39,9 @@ export const Comment = ({review}) => {
 							)}
 						</div>
 					</Box>
-					<p style={{ textAlign: 'left' }}>{review.comment.message}</p>
+					<p style={{ textAlign: 'left' }}>
+						{review.comment.message}
+					</p>
 				</Grid>
 			</Grid>
 		</Paper>

@@ -35,6 +35,7 @@ export const ReviewClassModal = ({
 		const { message, rating } = values;
 		const payload = {
 			userId: reviewModalData.user.id,
+			professorId: classData.professor.id,
 			classId: classData.id,
 			studentName: `${reviewModalData.user.firstName} ${reviewModalData.user.lastName}`,
 			...(message && {
@@ -50,7 +51,13 @@ export const ReviewClassModal = ({
 		};
 		try {
 			await reviewClassMutation({ id: classData.id, payload });
-			Toast(`Enhorabuena! La reseña se ha guardado!${payload.comment? " Tu comentario se mostrara una vez lo haya aprobado el profesor.": ""}`);
+			Toast(
+				`Enhorabuena! La reseña se ha guardado!${
+					payload.comment
+						? ' Tu comentario se mostrara una vez lo haya aprobado el profesor.'
+						: ''
+				}`
+			);
 			handleClose();
 			refetch();
 		} catch (error) {
@@ -75,7 +82,13 @@ export const ReviewClassModal = ({
 		};
 		try {
 			await updateReviewsMutation({ id: userReview.id, payload });
-			Toast(`¡Enhorabuena! La reseña se ha modificado!${payload.comment? " Tu comentario se mostrara una vez lo haya aprobado el profesor.": ""}`);
+			Toast(
+				`¡Enhorabuena! La reseña se ha modificado!${
+					payload.comment
+						? ' Tu comentario se mostrara una vez lo haya aprobado el profesor.'
+						: ''
+				}`
+			);
 			handleClose();
 			refetch();
 		} catch (error) {
