@@ -470,7 +470,20 @@
       "id": 1,
       "comment": {
         "date": "2022-09-17T01:02:50.864Z",
-        "status": "sent",
+        "status": "accepted",
+        "message": "test"
+      }
+    },
+    {
+      "userId": 1,
+      "professorId": 2,
+      "classId": 10,
+      "studentName": "Marcos Ezequiel Rodriguez",
+      "rating": 5,
+      "id": 2,
+      "comment": {
+        "date": "2022-09-17T01:02:50.864Z",
+        "status": "accepted",
         "message": "test"
       }
     }

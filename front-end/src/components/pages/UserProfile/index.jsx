@@ -228,7 +228,6 @@ export const UserProfile = () => {
 												fullWidth
 												id='firstName'
 												label='Nombre'
-												autoFocus
 												value={formik.values.firstName}
 												onChange={formik.handleChange}
 												// disabled={isRegisterLoading}
@@ -281,7 +280,6 @@ export const UserProfile = () => {
 														fullWidth
 														id='degree'
 														label='Título'
-														autoFocus
 														value={
 															formik.values.degree
 														}
@@ -298,7 +296,6 @@ export const UserProfile = () => {
 														fullWidth
 														id='experience'
 														label='Experiencia'
-														autoFocus
 														value={
 															formik.values
 																.experience
