@@ -9,6 +9,7 @@ export const getClasses = (parsedQuery) => {
 		type: parsedQuery?.classType || null,
 		frequency: parsedQuery?.frequency || null,
 		rating_gte: parsedQuery?.rating || null,
+		status: 'published',
 	};
 	return crudProfeFlix.get(BASE_URL, { params });
 };
@@ -37,8 +38,16 @@ export const getClassesByUser = (userID, userRole) => {
 	return crudProfeFlix.get(`${BASE_URL}/${urlPath}/${userID}`);
 };
 
+export const getStudentsByProfessorId = (userID) => {
+	return crudProfeFlix.get(`${BASE_URL}/professor/${userID}/students`);
+};
+
 export const hireClass = (payload) => {
 	return crudProfeFlix.post(`${BASE_URL}_students`, payload);
+};
+
+export const updateHiredClass = (classID, payload) => {
+	return crudProfeFlix.patch(`${BASE_URL}_students/${classID}`, payload);
 };
 
 export const reviewClass = (payload) => {

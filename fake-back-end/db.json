@@ -81,51 +81,6 @@
       "description": "El teatro es literatura destinada a la representación. Casi todos los dramas tomaron forma de verso hasta hace relativamente poco tiempo."
     },
     {
-      "id": 2,
-      "professor": {
-        "id": 2,
-        "name": "Andi Burk",
-        "experience": "Profesional del area con mas de 10 años de trayectoria."
-      },
-      "status": "published",
-      "comments": [
-        {
-          "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
-          "date": "9/25/2021",
-          "user": {
-            "id": 9,
-            "name": "Otto Ottis",
-            "rating": 3
-          }
-        },
-        {
-          "message": "La mejor clase",
-          "date": "12/1/2021",
-          "user": {
-            "id": 10,
-            "name": "Ruby Rubin",
-            "rating": 3
-          }
-        },
-        {
-          "message": "Muy buena clase, aprendi muchisimo",
-          "date": "2/3/2022",
-          "user": {
-            "id": 11,
-            "name": "Kit Kat",
-            "rating": 3
-          }
-        }
-      ],
-      "name": "Química",
-      "cost": "$29.88",
-      "frequency": "monthly",
-      "duration": 2,
-      "rating": 2.7,
-      "type": "individual",
-      "description": "La definición de química ha cambiado con el tiempo, a medida que nuevos descubrimientos y teorías se suman a la funcionalidad de la ciencia."
-    },
-    {
       "id": 3,
       "professor": {
         "id": 3,
@@ -398,7 +353,7 @@
     },
     {
       "name": "Python con Fran",
-      "subject": "Python",
+      "subject": "Python holanda",
       "description": "Vamos a aprender con ejemplos de la vida real",
       "duration": "1",
       "frequency": "unique",
@@ -429,107 +384,6 @@
       "id": 10
     }
   ],
-  "classes_students": [
-    {
-      "email": "mer.marcosr@gmail.com",
-      "telNumber": "987654321",
-      "contactSchedule": "de 6 a 8pm",
-      "message": "Me gusta el arte",
-      "userId": 2,
-      "classId": 9,
-      "studentName": "Marcos Ezequiel Rodriguez",
-      "status": "requested",
-      "id": 1
-    },
-    {
-      "email": "mer.marcosr@gmail.com",
-      "telNumber": "11223344",
-      "contactSchedule": "De 6 a 8pm",
-      "message": "Quiero aprender con ejemplos de la vida real, como comentas en la descripción de la clase",
-      "userId": 2,
-      "classId": 10,
-      "studentName": "Marcos Ezequiel Rodriguez",
-      "status": "accepted",
-      "id": 2
-    },
-    {
-      "userId": 1,
-      "classId": 10,
-      "name": "Cosme Fulano",
-      "status": "accepted",
-      "id": 3
-    }
-  ],
-  "classes_reviews": [
-    {
-      "userId": 1,
-      "professorId": 2,
-      "classId": 10,
-      "studentName": "Marcos Ezequiel Rodriguez",
-      "rating": 5,
-      "id": 1,
-      "comment": {
-        "date": "2022-09-17T01:02:50.864Z",
-        "status": "blocked",
-        "message": "test",
-        "disclaimer": "Sos un como gatos"
-      }
-    },
-    {
-      "userId": 1,
-      "professorId": 2,
-      "classId": 10,
-      "studentName": "Marcos Ezequiel Rodriguez",
-      "rating": 5,
-      "id": 1,
-      "comment": {
-        "date": "2022-09-17T01:02:50.864Z",
-        "status": "blocked",
-        "message": "test",
-        "disclaimer": "Sos un como gatos"
-      }
-    },
-    {
-      "userId": 1,
-      "professorId": 2,
-      "classId": 10,
-      "studentName": "Marcos Ezequiel Rodriguez",
-      "rating": 5,
-      "id": 1,
-      "comment": {
-        "date": "2022-09-17T01:02:50.864Z",
-        "status": "blocked",
-        "message": "test",
-        "disclaimer": "Sos un como gatos"
-      }
-    },
-    {
-      "userId": 1,
-      "professorId": 2,
-      "classId": 10,
-      "studentName": "Marcos Ezequiel Rodriguez",
-      "rating": 5,
-      "id": 1,
-      "comment": {
-        "date": "2022-09-17T01:02:50.864Z",
-        "status": "blocked",
-        "message": "test",
-        "disclaimer": "Sos un como gatos"
-      }
-    },
-
-    {
-      "userId": 1,
-      "professorId": 2,
-      "classId": 10,
-      "studentName": "Marcos Ezequiel Rodriguez",
-      "rating": 5,
-      "id": 2,
-      "comment": {
-        "date": "2022-09-17T01:02:50.864Z",
-        "status": "accepted",
-        "message": "test"
-      }
-    }
-  ]
+  "classes_students": [],
+  "classes_reviews": []
 }

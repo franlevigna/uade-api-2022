@@ -40,7 +40,7 @@ export const ClassDetail = () => {
 
 	const isStudent = user.userType === userRoles.STUDENT;
 	const isHired = dataGetClassByID?.data.classes_students.some(
-		(student) => student.userId === user.id
+		(student) => student.userId === user.id && student.status === 'accepted'
 	);
 	const showHireButton = isStudent && !isHired;
 	const canRate =
@@ -235,7 +235,10 @@ export const ClassDetail = () => {
 						</Button>
 					)}
 					{dataGetClassByID?.data?.classes_reviews?.map((review) => {
-						if (review.comment) {
+						if (
+							review.comment &&
+							review.comment?.status === 'accepted'
+						) {
 							return <Comment key={review.id} review={review} />;
 						}
 						return null;

@@ -29,6 +29,7 @@ import NoAccountsIcon from '@mui/icons-material/NoAccounts';
 import SchoolIcon from '@mui/icons-material/School';
 
 import { Nottifications } from '../../molecules/Notifications';
+import { userRoles } from '../../../utils/enums';
 export const Navbar = () => {
 	const { isLogged, logOut } = useUserSession();
 	const { user } = useUserProfile();
@@ -105,7 +106,9 @@ export const Navbar = () => {
 				)}
 				{isLogged && (
 					<>
-						<Nottifications userID={user?.id} />
+						{user?.userType === userRoles.STUDENT && (
+							<Nottifications userID={user?.id} />
+						)}
 						<IconButton onClick={toggleDrawer}>
 							<Avatar>
 								{user.firstName[0]}

@@ -11,6 +11,8 @@ import {
 	updateReview,
 	getReviewsByProfessorID,
 	getUserNotifications,
+	updateHiredClass,
+	getStudentsByProfessorId,
 } from '../services/CRUD/classes';
 
 export const useGetClasses = (parsedQuery) => {
@@ -93,6 +95,14 @@ export const useHireClass = () => {
 	return { hireClassMutation, isHireClassLoading };
 };
 
+export const useUpdateHiredClass = () => {
+	const {
+		mutateAsync: updateHiredClassMutation,
+		isLoading: isUpdateHiredClassLoading,
+	} = useMutation(({ id, payload }) => updateHiredClass(id, payload));
+	return { updateHiredClassMutation, isUpdateHiredClassLoading };
+};
+
 export const useReviewClass = () => {
 	const {
 		mutateAsync: reviewClassMutation,
@@ -146,6 +156,27 @@ export const useGetClassesByUser = (userID, userRole) => {
 		refetchGetClassByUser,
 		dataGetClassByUser,
 		isDataGetClassByUserLoading,
+		error,
+	};
+};
+
+export const useGetStudentsByProfessor = (userID) => {
+	const {
+		refetch: refetchGetStudentsByProfessor,
+		data: dataGetStudentsByProfessor,
+		isLoading: isDataGetStudentsByProfessorLoading,
+		error,
+	} = useQuery(
+		['getStudentsBy', userID],
+		() => getStudentsByProfessorId(userID),
+		{
+			enabled: true,
+		}
+	);
+	return {
+		refetchGetStudentsByProfessor,
+		dataGetStudentsByProfessor,
+		isDataGetStudentsByProfessorLoading,
 		error,
 	};
 };
