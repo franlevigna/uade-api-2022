@@ -20,6 +20,7 @@ import {
 } from '@mui/material';
 import { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 import queryString from 'query-string';
+import { useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -28,11 +29,12 @@ export const FiltersDrawer = ({
 	isOpen,
 	handleDrawerToggle,
 	children,
-	handleFiltering: submitFiltering,
+	handleFiltering,
 	initialQuery,
 	resetQueries,
 	parsedQuery,
 }) => {
+	const location = useLocation();
 	const initClassType = parsedQuery.classType;
 	const initFrequency = parsedQuery.frequency;
 	const initRating = parsedQuery.rating;
@@ -196,7 +198,7 @@ export const FiltersDrawer = ({
 		</div>
 	);
 
-	const handleFiltering = () => {
+	const handleInnerFiltering = () => {
 		const order = ['q', 'classType', 'frequency', 'rating'];
 		const activeFilters = {
 			q: initialQuery,
@@ -207,17 +209,18 @@ export const FiltersDrawer = ({
 		const query = queryString.stringify(activeFilters, {
 			sort: (a, b) => order.indexOf(a) - order.indexOf(b),
 		});
-
-		submitFiltering(query);
+		if (location.search !== `?${query}`) {
+			handleFiltering(query);
+		}
 	};
-
-	useEffect(() => {
-		handleFiltering();
-	}, [classType, frequency, rating]);
 
 	useLayoutEffect(() => {
 		resetQueries && handleCleanFilters();
 	}, [resetQueries]);
+
+	useEffect(() => {
+		handleInnerFiltering();
+	}, [classType, frequency, rating]);
 
 	return (
 		<Box

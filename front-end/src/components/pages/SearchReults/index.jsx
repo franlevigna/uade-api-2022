@@ -1,5 +1,5 @@
 import { Divider, Grid, Typography } from '@mui/material';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { ClassCard } from '../../molecules/ClassCard';
 import { FiltersDrawer } from '../../molecules/Drawer';
@@ -19,17 +19,17 @@ export const SearchResults = () => {
 	const navigateTo = useNavigate();
 	const { dataGetClasses, refetchGetClasess, isDataGetClassesLoading } =
 		useGetClasses(parsedQuery);
-	const handleFiltering = (querySearch) => {
+	const handleFiltering = useCallback((querySearch) => {
 		const newLocation = {
 			pathname: '/class/search',
 			search: querySearch,
 		};
 		navigateTo(newLocation);
-	};
+	}, []);
 
-	const handleDrawerToggle = () => {
+	const handleDrawerToggle = useCallback(() => {
 		setIsOpen(!isOpen);
-	};
+	}, []);
 
 	useEffect(() => {
 		refetchGetClasess();

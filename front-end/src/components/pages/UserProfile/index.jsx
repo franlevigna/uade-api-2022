@@ -25,7 +25,8 @@ import { useState } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CommentIcon from '@mui/icons-material/Comment';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
-import { Comments } from '../../molecules/Comments';
+import { Comments } from '../../organisms/Comments';
+import { Hirings } from '../../organisms/Hirings';
 
 export const UserProfile = () => {
 	const { user, setUserData } = useUserProfile();
@@ -480,6 +481,9 @@ export const UserProfile = () => {
 						</Box>
 					</Box>
 				</Box>
+			</TabPanel>
+			<TabPanel value={tab} index={1}>
+				<Hirings />
 			</TabPanel>
 			<TabPanel value={tab} index={2}>
 				<Comments />

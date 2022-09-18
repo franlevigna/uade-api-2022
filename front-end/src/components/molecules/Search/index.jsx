@@ -17,7 +17,8 @@ export const SearchInput = () => {
 			state: { fromSearch: true },
 		};
 
-		navigateTo(newLocation, { state: { resetQueries: true } });
+		searchValue &&
+			navigateTo(newLocation, { state: { resetQueries: true } });
 	};
 	const handleChange = (e) => {
 		setSearchValue(e.target.value);

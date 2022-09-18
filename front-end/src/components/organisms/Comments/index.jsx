@@ -1,7 +1,7 @@
 import { useGetReviewsByProfessorID } from '../../../hooks/classes';
 import { useUserProfile } from '../../../store/profile';
-import { Comment } from '../Comment';
-import { Loading } from '../Loading';
+import { Comment } from '../../molecules/Comment';
+import { Loading } from '../../molecules/Loading';
 import MUIDataTable, { TableViewCol } from 'mui-datatables';
 import {
 	IconButton,
@@ -18,7 +18,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import BlockIcon from '@mui/icons-material/Block';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import { useState } from 'react';
-import { DecideOnReviewModal } from '../DecideOnReviewModal';
+import { DecideOnReviewModal } from '../../molecules/DecideOnReviewModal';
 
 const CustomTableViewCol = (props) => {
 	return (
