@@ -99,28 +99,35 @@ export const UserProfile = () => {
 
 	return (
 		<>
-			<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-				<Tabs variant='scrollable' value={tab} onChange={handleChange}>
-					<Tab
-						icon={<AccountCircleIcon />}
-						iconPosition='start'
-						label='Perfil'
-						{...a11yProps(0)}
-					/>
-					<Tab
-						icon={<ConnectWithoutContactIcon />}
-						iconPosition='start'
-						label='Contrataciones'
-						{...a11yProps(1)}
-					/>
-					<Tab
-						icon={<CommentIcon />}
-						iconPosition='start'
-						label='Comentarios'
-						{...a11yProps(2)}
-					/>
-				</Tabs>
-			</Box>
+			{user.userType === userRoles.PROFESSOR && (
+				<Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+					<Tabs
+						variant='scrollable'
+						value={tab}
+						onChange={handleChange}
+					>
+						<Tab
+							icon={<AccountCircleIcon />}
+							iconPosition='start'
+							label='Perfil'
+							{...a11yProps(0)}
+						/>
+
+						<Tab
+							icon={<ConnectWithoutContactIcon />}
+							iconPosition='start'
+							label='Contrataciones'
+							{...a11yProps(1)}
+						/>
+						<Tab
+							icon={<CommentIcon />}
+							iconPosition='start'
+							label='Comentarios'
+							{...a11yProps(2)}
+						/>
+					</Tabs>
+				</Box>
+			)}
 			<TabPanel value={tab} index={0}>
 				<Box
 					sx={{

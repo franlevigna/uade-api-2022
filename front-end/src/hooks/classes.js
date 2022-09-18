@@ -10,6 +10,7 @@ import {
 	reviewClass,
 	updateReview,
 	getReviewsByProfessorID,
+	getUserNotifications,
 } from '../services/CRUD/classes';
 
 export const useGetClasses = (parsedQuery) => {
@@ -145,6 +146,27 @@ export const useGetClassesByUser = (userID, userRole) => {
 		refetchGetClassByUser,
 		dataGetClassByUser,
 		isDataGetClassByUserLoading,
+		error,
+	};
+};
+
+export const useGetNotificationsByUser = (userID) => {
+	const {
+		refetch: refetchGetNotificationsByUser,
+		data: dataGetNotificationsByUser,
+		isLoading: isDataGetNotificationsByUserLoading,
+		error,
+	} = useQuery(
+		['getNotifications', userID],
+		() => getUserNotifications(userID),
+		{
+			enabled: true,
+		}
+	);
+	return {
+		refetchGetNotificationsByUser,
+		dataGetNotificationsByUser,
+		isDataGetNotificationsByUserLoading,
 		error,
 	};
 };
