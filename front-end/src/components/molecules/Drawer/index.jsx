@@ -24,6 +24,7 @@ import { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const drawerWidth = 240;
 
@@ -113,6 +114,10 @@ export const FiltersDrawer = ({
 		setSubmittedSubject(value);
 	};
 
+	const handleClearSubject = () => {
+		setSubmittedSubject('');
+		setSubject('');
+	};
 	const drawer = (
 		<div>
 			<Toolbar>
@@ -156,10 +161,20 @@ export const FiltersDrawer = ({
 											padding: '4px 0',
 										}}
 										onClick={() =>
-											handleSubmittedSubject(subject)
+											subject !== submittedSubject &&
+											subject
+												? handleSubmittedSubject(
+														subject
+												  )
+												: handleClearSubject()
 										}
 									>
-										<CheckCircleOutlineIcon />
+										{subject === submittedSubject &&
+										subject ? (
+											<ClearIcon />
+										) : (
+											<CheckCircleOutlineIcon />
+										)}
 									</Button>
 								</InputAdornment>
 							),
