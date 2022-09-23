@@ -28,7 +28,7 @@ export const SearchInput = () => {
 		<form style={{ display: 'contents' }} onSubmit={handleSearch}>
 			<TextField
 				size='small'
-				label='Busca una materia'
+				label='Busca una clase'
 				type='search'
 				variant='filled'
 				fullWidth

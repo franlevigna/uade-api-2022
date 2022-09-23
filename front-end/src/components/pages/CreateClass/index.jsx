@@ -13,6 +13,7 @@ import {
 	Select,
 	MenuItem,
 	Button,
+	InputAdornment,
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
@@ -128,6 +129,13 @@ export const CreateClass = () => {
 								id='duration'
 								value={formik.values.duration}
 								onChange={formik.handleChange}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position='end'>
+											hs
+										</InputAdornment>
+									),
+								}}
 							/>
 						</Grid>
 						<Grid item xs={12}>
@@ -180,10 +188,20 @@ export const CreateClass = () => {
 								id='cost'
 								value={formik.values.cost}
 								onChange={formik.handleChange}
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position='end'>
+											$
+										</InputAdornment>
+									),
+								}}
 							/>
 						</Grid>
 					</Grid>
 					<LoadingButton
+						disabled={Object.values(formik.values).some(
+							(value) => !value
+						)}
 						type='submit'
 						fullWidth
 						variant='contained'

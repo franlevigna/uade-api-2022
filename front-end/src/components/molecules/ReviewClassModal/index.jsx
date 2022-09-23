@@ -22,13 +22,11 @@ export const ReviewClassModal = ({
 	handleClose,
 	classData,
 	refetch,
+	userReview,
 }) => {
 	const { reviewClassMutation, isReviewClassLoading } = useReviewClass();
 	const { updateReviewsMutation, isUpdateReviewLoading } = useUpdateReview();
 	const [hover, setHover] = useState(-1);
-	const userReview = classData.classes_reviews?.find(
-		(review) => review.userId === reviewModalData.user.id
-	);
 	const isCommented = userReview?.comment?.message;
 
 	const handleSubmit = async (values) => {
@@ -153,6 +151,7 @@ export const ReviewClassModal = ({
 								flexDirection: 'column',
 								alignItems: 'center',
 								mb: 3,
+								minHeight: '56px',
 							}}
 						>
 							<Rating
@@ -199,7 +198,6 @@ export const ReviewClassModal = ({
 							minRows={3}
 							InputProps={{
 								readOnly: isCommented,
-								disableUnderline: isCommented,
 							}}
 							disabled={isReviewClassLoading}
 						/>
@@ -213,7 +211,10 @@ export const ReviewClassModal = ({
 						Cancelar
 					</Button>
 					<Button
-						disabled={isReviewClassLoading}
+						disabled={
+							isReviewClassLoading ||
+							(!formik.values.rating && !formik.values.message)
+						}
 						type='submit'
 						form='reviewForm'
 						variant='contained'

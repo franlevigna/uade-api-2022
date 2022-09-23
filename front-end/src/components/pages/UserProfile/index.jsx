@@ -16,7 +16,7 @@ import { Stack } from '@mui/system';
 import { useFormik } from 'formik';
 import { LoadingButton } from '@mui/lab';
 import { useUserProfile } from '../../../store/profile';
-import { userRoles } from '../../../utils/enums';
+import { textMapper, userRoles } from '../../../utils/enums';
 import { useUpdateUser } from '../../../hooks/users';
 import { Loading } from '../../molecules/Loading';
 import { Toast } from '../../molecules/Toast';
@@ -132,7 +132,7 @@ export const UserProfile = () => {
 			<TabPanel value={tab} index={0}>
 				<Box
 					sx={{
-						height: 'calc(100vh - 120px)',
+						minHeight: 'calc(100vh - 370px)',
 						display: 'grid',
 						gridTemplateColumns: 'repeat(3, 1fr)',
 						gap: 1,
@@ -198,7 +198,7 @@ export const UserProfile = () => {
 								color='text.secondary'
 								gutterBottom
 							>
-								{user.userType}
+								{textMapper[user.userType]}
 							</Typography>
 						</Stack>
 					</Box>

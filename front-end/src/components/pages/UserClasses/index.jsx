@@ -181,47 +181,44 @@ export const UserClasses = () => {
 												</ListItemIcon>
 												<ListItemText>Ver</ListItemText>
 											</MenuItem>,
-											rowData?.status === 'accepted' &&
-												((
-													<MenuItem
-														key={`finish-${rowData?.id}`}
-														onClick={() => {
-															handleEnd(
-																rowData?.studentID,
-																rowData?.name,
-																'finish'
-															);
-															handleClose();
-														}}
-													>
-														<ListItemIcon>
-															<DoneAllIcon fontSize='small' />
-														</ListItemIcon>
-														<ListItemText>
-															Finalizar
-														</ListItemText>
-													</MenuItem>
-												),
-												(
-													<MenuItem
-														key={`cancel-${rowData?.id}`}
-														onClick={() => {
-															handleEnd(
-																rowData?.studentID,
-																rowData?.name,
-																'cancel'
-															);
-															handleClose();
-														}}
-													>
-														<ListItemIcon>
-															<CancelIcon fontSize='small' />
-														</ListItemIcon>
-														<ListItemText>
-															Cancelar
-														</ListItemText>
-													</MenuItem>
-												)),
+											rowData?.status === 'accepted' && [
+												<MenuItem
+													key={`finish-${rowData?.id}`}
+													onClick={() => {
+														handleEnd(
+															rowData?.studentID,
+															rowData?.name,
+															'finish'
+														);
+														handleClose();
+													}}
+												>
+													<ListItemIcon>
+														<DoneAllIcon fontSize='small' />
+													</ListItemIcon>
+													<ListItemText>
+														Finalizar
+													</ListItemText>
+												</MenuItem>,
+												<MenuItem
+													key={`cancel-${rowData?.id}`}
+													onClick={() => {
+														handleEnd(
+															rowData?.studentID,
+															rowData?.name,
+															'cancel'
+														);
+														handleClose();
+													}}
+												>
+													<ListItemIcon>
+														<CancelIcon fontSize='small' />
+													</ListItemIcon>
+													<ListItemText>
+														Cancelar
+													</ListItemText>
+												</MenuItem>,
+											],
 									  ]
 									: [
 											<MenuItem

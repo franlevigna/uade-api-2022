@@ -48,11 +48,10 @@ export const Register = () => {
 	};
 	const formik = useFormik({
 		initialValues: {
-			id: '',
 			firstName: '',
 			lastName: '',
 			email: '',
-			telNumber: "",
+			telNumber: '',
 			password: '',
 			userType: '',
 		},
@@ -185,6 +184,9 @@ export const Register = () => {
 						variant='contained'
 						sx={{ mt: 3, mb: 2 }}
 						loading={isRegisterLoading}
+						disabled={Object.values(formik.values).some(
+							(value) => !value
+						)}
 					>
 						Registrarse
 					</LoadingButton>

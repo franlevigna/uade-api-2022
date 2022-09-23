@@ -8,6 +8,7 @@ import {
 	Typography,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { textMapper } from '../../../utils/enums';
 
 export const ClassCard = ({
 	id,
@@ -19,6 +20,7 @@ export const ClassCard = ({
 	cost,
 	frequency,
 	description,
+	subject,
 }) => {
 	return (
 		<Card sx={{ minWidth: 275 }}>
@@ -45,8 +47,12 @@ export const ClassCard = ({
 				<Typography variant='h5' component='div'>
 					{name}
 				</Typography>
+				<Typography sx={{ mb: 1.5 }} color='text.disabled'>
+					{subject}
+				</Typography>
 				<Typography sx={{ mb: 1.5 }} color='text.secondary'>
-					{type} - {frequency}
+					{`${duration}hs`} - {textMapper[frequency]} -{' '}
+					{textMapper[type]}
 				</Typography>
 				<Typography noWrap variant='body2'>
 					{description}
@@ -62,7 +68,9 @@ export const ClassCard = ({
 				/>
 
 				<Box sx={{ flexGrow: 1 }} />
-				<Typography mr={1}>{cost}</Typography>
+				<Typography mr={1}>
+					{cost.includes('$') ? cost : `$${cost}`}
+				</Typography>
 			</CardActions>
 		</Card>
 	);

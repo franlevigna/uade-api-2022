@@ -75,7 +75,7 @@ export const Comments = () => {
 			label: 'Comentario',
 			name: 'message',
 			options: {
-				display: 'hidden',
+				display: 'false',
 			},
 		},
 		{

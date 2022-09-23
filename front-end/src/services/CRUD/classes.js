@@ -9,6 +9,7 @@ export const getClasses = (parsedQuery) => {
 		type: parsedQuery?.classType || null,
 		frequency: parsedQuery?.frequency || null,
 		rating_gte: parsedQuery?.rating || null,
+		subject_like: parsedQuery?.subject || null,
 		status: 'published',
 	};
 	return crudProfeFlix.get(BASE_URL, { params });

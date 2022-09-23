@@ -14,7 +14,7 @@ export const Comment = ({ review }) => {
 					<Avatar alt='Remy Sharp' />
 				</Grid>
 				<Grid justifyContent='left' item xs zeroMinWidth>
-					<Typography variant={'h5'} sx={{ textAlign: 'left' }}>
+					<Typography variant={'h6'} sx={{ textAlign: 'left' }}>
 						{review.studentName}
 					</Typography>
 					<Box
