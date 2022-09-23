@@ -14,13 +14,16 @@ import {
 	Checkbox,
 	FormControlLabel,
 	FormGroup,
+	InputAdornment,
 	Radio,
 	RadioGroup,
+	TextField,
 	Typography,
 } from '@mui/material';
 import { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const drawerWidth = 240;
 
@@ -35,6 +38,7 @@ export const FiltersDrawer = ({
 	parsedQuery,
 }) => {
 	const location = useLocation();
+	const initSubject = parsedQuery.subject;
 	const initClassType = parsedQuery.classType;
 	const initFrequency = parsedQuery.frequency;
 	const initRating = parsedQuery.rating;
@@ -44,6 +48,8 @@ export const FiltersDrawer = ({
 		}
 		return [];
 	}, []);
+	const [subject, setSubject] = useState(initSubject || '');
+	const [submittedSubject, setSubmittedSubject] = useState(subject);
 	const [classType, setClassType] = useState(
 		parseQueryToState(initClassType)
 	);
@@ -51,9 +57,12 @@ export const FiltersDrawer = ({
 		parseQueryToState(initFrequency)
 	);
 	const [rating, setRating] = useState(initRating || '');
-	const isFiltered = [...classType, ...frequency, rating].some(
-		(value) => value
-	);
+	const isFiltered = [
+		...classType,
+		...frequency,
+		rating,
+		submittedSubject,
+	].some((value) => value);
 
 	const isChecked = (name, state) => {
 		return state.some((item) => item === name);
@@ -62,6 +71,8 @@ export const FiltersDrawer = ({
 		setClassType([]);
 		setFrequency([]);
 		setRating('');
+		setSubmittedSubject('');
+		setSubject('');
 	};
 
 	const handleClassTypeChange = (event) => {
@@ -92,6 +103,15 @@ export const FiltersDrawer = ({
 		} = event;
 		setRating(value);
 	};
+	const handleSubjectChange = (event) => {
+		const {
+			target: { value },
+		} = event;
+		setSubject(value);
+	};
+	const handleSubmittedSubject = (value) => {
+		setSubmittedSubject(value);
+	};
 
 	const drawer = (
 		<div>
@@ -106,6 +126,47 @@ export const FiltersDrawer = ({
 				)}
 			</Toolbar>
 			<Divider />
+			<Accordion defaultExpanded={Boolean(subject)}>
+				<AccordionSummary
+					expandIcon={<ExpandMoreIcon />}
+					aria-controls='panel1a-content'
+					id='panel1a-header'
+				>
+					<Typography>Materia</Typography>
+				</AccordionSummary>
+				<AccordionDetails>
+					<TextField
+						size='small'
+						id='subject'
+						label='Materia'
+						name='subject'
+						value={subject}
+						onChange={handleSubjectChange}
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position='end'>
+									<Button
+										size='small'
+										disabled={!subject}
+										variant='outlined'
+										sx={{
+											margin: '-14px',
+											height: '40px',
+											maxWidth: '40px',
+											padding: '4px 0',
+										}}
+										onClick={() =>
+											handleSubmittedSubject(subject)
+										}
+									>
+										<CheckCircleOutlineIcon />
+									</Button>
+								</InputAdornment>
+							),
+						}}
+					/>
+				</AccordionDetails>
+			</Accordion>
 			<Accordion defaultExpanded={Boolean(classType.length)}>
 				<AccordionSummary
 					expandIcon={<ExpandMoreIcon />}
@@ -205,6 +266,7 @@ export const FiltersDrawer = ({
 			classType,
 			frequency,
 			rating: rating || undefined,
+			subject: submittedSubject || undefined,
 		};
 		const query = queryString.stringify(activeFilters, {
 			sort: (a, b) => order.indexOf(a) - order.indexOf(b),
@@ -220,7 +282,7 @@ export const FiltersDrawer = ({
 
 	useEffect(() => {
 		handleInnerFiltering();
-	}, [classType, frequency, rating]);
+	}, [classType, frequency, rating, submittedSubject]);
 
 	return (
 		<Box

@@ -21,7 +21,7 @@ export const DecideOnReviewModal = ({
 	const modalMessage = isBlock
 		? `Por favor ingrese el motivo por que el que desea bloquear el comentario: "${decideOnReviewModalData.review?.comment.message}"`
 		: `Esta seguro que quiere aprobar el comentario: "${decideOnReviewModalData.review?.comment.message}"`;
-	const modalConfirmLabel = isBlock ? 'Bloquar' : 'Aceptar';
+	const modalConfirmLabel = isBlock ? 'Bloquear' : 'Aceptar';
 	const [disclaimer, setDisclaimer] = useState('');
 	const { isUpdateReviewLoading, updateReviewsMutation } = useUpdateReview();
 

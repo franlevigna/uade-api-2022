@@ -102,6 +102,9 @@ export const Login = () => {
 						variant='contained'
 						sx={{ mt: 3, mb: 2 }}
 						loading={isLoginLoading}
+						disabled={Object.values(formik.values).some(
+							(value) => !value
+						)}
 					>
 						Iniciar sesión
 					</LoadingButton>

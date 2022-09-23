@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetClassByID } from '../../../hooks/classes';
 import { useUserProfile } from '../../../store/profile';
-import { userRoles } from '../../../utils/enums';
+import { textMapper, userRoles } from '../../../utils/enums';
 import { Comment } from '../../molecules/Comment';
 import { HireClassModal } from '../../molecules/HireClassModal';
 import { Loading } from '../../molecules/Loading';
 import { ReviewClassModal } from '../../molecules/ReviewClassModal';
 import AddIcon from '@mui/icons-material/Add';
+import { StatusChip } from '../../molecules/StatusChip';
 export const ClassDetail = () => {
 	const { user } = useUserProfile();
 	const { classID } = useParams();
@@ -39,21 +40,16 @@ export const ClassDetail = () => {
 	};
 
 	const isStudent = user.userType === userRoles.STUDENT;
-	const isHired = dataGetClassByID?.data.classes_students.some(
-		(student) => student.userId === user.id && student.status === 'accepted'
-	);
-	const showHireButton = isStudent && !isHired;
-	const canRate =
-		isStudent &&
-		user.dataGetClassByID?.data.classes_students.some(
-			(student) =>
-				student.userId === user.id && student.status === 'accepted'
-		);
+	const activeStudent = isStudent
+		? dataGetClassByID?.data.classes_students.find(
+				(student) => student.userId === user.id
+		  )
+		: null;
+	const isHired = activeStudent?.status === 'accepted';
 	const userReview = dataGetClassByID?.data?.classes_reviews?.find(
 		(review) => review.userId === reviewModalData.user.id
 	);
-	const canComment =
-		isStudent && isHired && (!userReview || !userReview?.comment);
+	const canComment = isHired && (!userReview || !userReview?.comment);
 
 	const getRating = () => {
 		let ratingAVG = 0;
@@ -81,6 +77,7 @@ export const ClassDetail = () => {
 						userData={user}
 					/>
 					<ReviewClassModal
+						userReview={userReview}
 						reviewModalData={reviewModalData}
 						handleClose={handleReviewClose}
 						classData={dataGetClassByID.data}
@@ -128,20 +125,24 @@ export const ClassDetail = () => {
 							color='text.secondary'
 							gutterBottom
 						>
-							{dataGetClassByID?.data.cost}
+							{dataGetClassByID?.data.cost.includes('$')
+								? dataGetClassByID?.data.cost
+								: `$${dataGetClassByID?.data.cost}`}
 						</Typography>
 					</Stack>
 					<Box sx={{ flexGrow: 1, flexShrink: 1 }} />
-
-					{showHireButton && (
-						<Button
-							sx={{ flexGrow: 0 }}
-							variant='contained'
-							onClick={handleHireOpen}
-						>
-							Contratar
-						</Button>
-					)}
+					{isStudent &&
+						(activeStudent?.status ? (
+							<StatusChip status={activeStudent.status} />
+						) : (
+							<Button
+								sx={{ flexGrow: 0 }}
+								variant='contained'
+								onClick={handleHireOpen}
+							>
+								Contratar
+							</Button>
+						))}
 				</Box>
 				<Box
 					sx={{
@@ -174,9 +175,9 @@ export const ClassDetail = () => {
 							sx={{ flexGrow: 1 }}
 							name='read-only'
 							value={dataGetClassByID?.data.rating || getRating()}
-							readOnly={!canRate}
+							readOnly={!isHired}
 							precision={0.5}
-							{...(canRate && {
+							{...(isHired && {
 								onChange: (_, newValue) =>
 									handleReviewOpen(newValue),
 							})}
@@ -188,14 +189,22 @@ export const ClassDetail = () => {
 						>
 							Creada por: {dataGetClassByID?.data.professor.name}
 						</Typography>
+						<Typography
+							sx={{ fontSize: 14 }}
+							color='text.disabled'
+							gutterBottom
+						>
+							{dataGetClassByID?.data.subject}
+						</Typography>
 
 						<Typography
 							sx={{ fontSize: 14 }}
 							color='text.secondary'
 							gutterBottom
 						>
-							{dataGetClassByID?.data.type} -{' '}
-							{dataGetClassByID?.data.frequency}
+							{`${dataGetClassByID?.data.duration}hs`} -{' '}
+							{textMapper[dataGetClassByID?.data.frequency]}-{' '}
+							{textMapper[dataGetClassByID?.data.type]}
 						</Typography>
 						<Divider sx={{ marginBottom: '1rem', width: '100%' }} />
 						<Typography
@@ -227,6 +236,7 @@ export const ClassDetail = () => {
 					<Divider sx={{ marginBottom: '1rem', width: '100%' }} />
 					{canComment && (
 						<Button
+							sx={{ mb: 1 }}
 							onClick={() => handleReviewOpen()}
 							startIcon={<AddIcon />}
 						>
@@ -234,15 +244,21 @@ export const ClassDetail = () => {
 							Agregar comentario
 						</Button>
 					)}
-					{dataGetClassByID?.data?.classes_reviews?.map((review) => {
-						if (
-							review.comment &&
-							review.comment?.status === 'accepted'
-						) {
-							return <Comment key={review.id} review={review} />;
-						}
-						return null;
-					})}
+					{dataGetClassByID?.data?.classes_reviews
+						?.filter(
+							(review) =>
+								review.comment &&
+								review.comment?.status === 'accepted'
+						)
+						.sort((a, b) => {
+							return (
+								new Date(b.comment.date) -
+								new Date(a.comment.date)
+							);
+						})
+						.map((review) => (
+							<Comment key={review.id} review={review} />
+						))}
 				</Box>
 			</Box>
 		</div>

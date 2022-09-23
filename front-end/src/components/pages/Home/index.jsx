@@ -3,9 +3,10 @@ import { useGetClasses } from '../../../hooks/classes';
 
 import { ClassCard } from '../../molecules/ClassCard';
 import { Hero } from '../../molecules/Hero';
+import { Loading } from '../../molecules/Loading';
 
 export const Home = () => {
-	const { dataGetClasses } = useGetClasses();
+	const { dataGetClasses, isDataGetClassesLoading } = useGetClasses();
 	return (
 		<>
 			<Hero />
@@ -18,6 +19,7 @@ export const Home = () => {
 				rowSpacing={{ xs: 2, sm: 2, md: 3 }}
 				columnSpacing={{ xs: 2, sm: 2, md: 3 }}
 			>
+				<Loading loading={isDataGetClassesLoading} />
 				{dataGetClasses?.data.map((c) => (
 					<Grid key={c.id} item xs={12} sm={6} md={4}>
 						<ClassCard
@@ -31,6 +33,7 @@ export const Home = () => {
 								rating: c.rating,
 								type: c.type,
 								description: c.description,
+								subject: c.subject,
 							}}
 						/>
 					</Grid>

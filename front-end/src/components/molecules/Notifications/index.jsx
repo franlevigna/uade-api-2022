@@ -1,5 +1,6 @@
 import {
 	Badge,
+	Box,
 	Card,
 	CardContent,
 	Divider,
@@ -62,7 +63,7 @@ export const Nottifications = ({ userID }) => {
 				anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 			>
 				{data?.map((notification, index) => (
-					<>
+					<Box key={index}>
 						<Card
 							elevation={0}
 							sx={{ backgroundColor: 'transparent' }}
@@ -91,7 +92,7 @@ export const Nottifications = ({ userID }) => {
 							</CardContent>
 						</Card>
 						{data.length > 1 && <Divider />}
-					</>
+					</Box>
 				))}
 			</Menu>
 		</div>

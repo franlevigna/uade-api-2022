@@ -29,9 +29,7 @@ function verifyToken(token) {
 
 // Check if the user exists in database
 function exists({ email }) {
-  return (
-    userdb.users.findIndex((user) => user.email === email) !== -1
-  );
+  return userdb.users.findIndex((user) => user.email === email) !== -1;
 }
 
 function isAuthenticated({ email, password }) {
@@ -46,11 +44,12 @@ function isAuthenticated({ email, password }) {
 server.post("/auth/register", (req, res) => {
   console.log("register endpoint called; request body:");
   console.log(req.body);
-  const { email, password, userType, telNumber, firstName, lastName } = req.body;
+  const { email, password, userType, telNumber, firstName, lastName } =
+    req.body;
 
   if (exists({ email }) === true) {
     const status = 401;
-    const message = "Email already exist";
+    const message = `El usuario con correo ${email} ya existe!`;
     res.status(status).json({ status, message });
     return;
   }
@@ -118,7 +117,7 @@ server.post("/auth/login", (req, res) => {
   const { email, password } = req.body;
   if (isAuthenticated({ email, password }) === false) {
     const status = 401;
-    const message = "Incorrect email or password";
+    const message = "Email o Contraseña incorrectos!";
     res.status(status).json({ status, message });
     return;
   }

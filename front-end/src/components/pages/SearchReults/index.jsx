@@ -70,6 +70,7 @@ export const SearchResults = () => {
 									rating: c.rating,
 									type: c.type,
 									description: c.description,
+									subject: c.subject,
 								}}
 							/>
 						</Grid>

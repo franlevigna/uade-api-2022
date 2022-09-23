@@ -228,7 +228,7 @@ export const Hirings = () => {
 		filterType: 'checkbox',
 		selectableRows: 'none',
 		download: false,
-		tableBodyHeight: 'calc(100vh - 320px)',
+		tableBodyHeight: 'calc(100vh - 370px)',
 		responsive: 'standard',
 		print: false,
 		textLabels: {
@@ -261,7 +261,7 @@ export const Hirings = () => {
 	};
 
 	return (
-		<Box sx={{ height: 'calc(100vh - 200px)', width: '100%' }}>
+		<Box>
 			<Loading
 				loading={
 					isDataGetStudentsByProfessorLoading ||
