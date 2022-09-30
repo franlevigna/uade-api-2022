@@ -29,7 +29,7 @@ export const SearchResults = () => {
 
 	const handleDrawerToggle = useCallback(() => {
 		setIsOpen(!isOpen);
-	}, []);
+	}, [isOpen]);
 
 	useEffect(() => {
 		refetchGetClasess();

@@ -11,6 +11,8 @@ export const getClasses = (parsedQuery) => {
 		rating_gte: parsedQuery?.rating || null,
 		subject_like: parsedQuery?.subject || null,
 		status: 'published',
+		_sort: 'id',
+		_order: 'desc',
 	};
 	return crudProfeFlix.get(BASE_URL, { params });
 };
@@ -36,6 +38,7 @@ export const deleteClass = (classID) => {
 
 export const getClassesByUser = (userID, userRole) => {
 	const urlPath = userRole === userRoles.PROFESSOR ? 'professor' : 'student';
+
 	return crudProfeFlix.get(`${BASE_URL}/${urlPath}/${userID}`);
 };
 

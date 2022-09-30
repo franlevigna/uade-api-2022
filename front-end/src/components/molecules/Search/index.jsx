@@ -1,13 +1,16 @@
 import { TextField } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 
 export const SearchInput = () => {
 	const [searchFromURL] = useSearchParams();
-	const [searchValue, setSearchValue] = useState(searchFromURL.get('q'));
+	const [searchValue, setSearchValue] = useState(
+		searchFromURL.get('q') || ''
+	);
 	const navigateTo = useNavigate();
+	const location = useLocation();
 
 	const handleSearch = (e) => {
 		e.preventDefault();
@@ -24,6 +27,12 @@ export const SearchInput = () => {
 		setSearchValue(e.target.value);
 	};
 
+	useEffect(() => {
+		if (!['/class/search'].includes(location.pathname)) {
+			setSearchValue('');
+		}
+	}, [location.pathname]);
+
 	return (
 		<form style={{ display: 'contents' }} onSubmit={handleSearch}>
 			<TextField
@@ -32,14 +41,13 @@ export const SearchInput = () => {
 				type='search'
 				variant='filled'
 				fullWidth
-				defaultValue={searchValue}
+				value={searchValue}
 				onChange={handleChange}
 				color='secondary'
 				sx={{
 					justifySelf: 'center',
 					margin: '1rem 2rem',
 					maxWidth: 'max(50%, 300px )',
-					colorScheme: 'dark',
 				}}
 			/>
 		</form>

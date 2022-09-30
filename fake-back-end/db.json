@@ -9,7 +9,7 @@
       "lastName": "Rodriguez",
       "primary": "complete",
       "secundary": "complete",
-      "universitary": "ongoing",
+      "universitary": "complete",
       "terciary": "complete",
       "birthDate": "1994-02-22",
       "telNumber": "11223344"
@@ -22,7 +22,8 @@
       "firstName": "Franco",
       "lastName": "Levigna",
       "degree": "Licenciado en Sistemas",
-      "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS) "
+      "experience": "Microservicios con python, diversas bases de datos tanto NoSQL como SQL, docker, Cloud (Principalmente AWS).",
+      "telNumber": ""
     },
     {
       "id": 3,
@@ -41,6 +42,17 @@
       "userType": "student",
       "firstName": "Miguel",
       "lastName": "Migueles"
+    },
+    {
+      "id": 5,
+      "email": "roñacastro@email.com",
+      "password": "test123",
+      "telNumber": "11223344",
+      "userType": "professor",
+      "firstName": "Roña",
+      "lastName": "Castro",
+      "degree": "Box",
+      "experience": "Campeon"
     }
   ],
   "classes": [
@@ -57,17 +69,29 @@
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
           "date": "9/25/2021",
-          "user": { "id": 9, "name": "Otto Ottis", "rating": 3 }
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
         },
         {
           "message": "La mejor clase",
           "date": "12/1/2021",
-          "user": { "id": 10, "name": "Ruby Rubin", "rating": 3 }
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
           "date": "2/3/2022",
-          "user": { "id": 11, "name": "Kit Kat", "rating": 3 }
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
         }
       ],
       "name": "Literatura y Drama",
@@ -90,17 +114,29 @@
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
           "date": "9/25/2021",
-          "user": { "id": 9, "name": "Otto Ottis", "rating": 3 }
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
         },
         {
           "message": "La mejor clase",
           "date": "12/1/2021",
-          "user": { "id": 10, "name": "Ruby Rubin", "rating": 3 }
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
           "date": "2/3/2022",
-          "user": { "id": 11, "name": "Kit Kat", "rating": 3 }
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
         }
       ],
       "name": "Parlando italiano",
@@ -124,17 +160,29 @@
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
           "date": "9/25/2021",
-          "user": { "id": 9, "name": "Otto Ottis", "rating": 3 }
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
         },
         {
           "message": "La mejor clase",
           "date": "12/1/2021",
-          "user": { "id": 10, "name": "Ruby Rubin", "rating": 3 }
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
           "date": "2/3/2022",
-          "user": { "id": 11, "name": "Kit Kat", "rating": 3 }
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
         }
       ],
       "name": "Speaking English (Ingles)",
@@ -158,23 +206,35 @@
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
           "date": "9/25/2021",
-          "user": { "id": 9, "name": "Otto Ottis", "rating": 3 }
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
         },
         {
           "message": "La mejor clase",
           "date": "12/1/2021",
-          "user": { "id": 10, "name": "Ruby Rubin", "rating": 3 }
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
           "date": "2/3/2022",
-          "user": { "id": 11, "name": "Kit Kat", "rating": 3 }
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
         }
       ],
-      "name": "Guitarra que noquea",
+      "name": "Guitarra que noquea!",
       "subject": "Guitarra",
       "cost": "$29.88",
-      "frequency": "monthly",
+      "frequency": "weekly",
       "duration": 2,
       "rating": 3,
       "type": "individual",
@@ -192,17 +252,29 @@
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
           "date": "9/25/2021",
-          "user": { "id": 9, "name": "Otto Ottis", "rating": 3 }
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
         },
         {
           "message": "La mejor clase",
           "date": "12/1/2021",
-          "user": { "id": 10, "name": "Ruby Rubin", "rating": 3 }
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
           "date": "2/3/2022",
-          "user": { "id": 11, "name": "Kit Kat", "rating": 3 }
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
         }
       ],
       "name": "Electricidad Domiciliaria",
@@ -226,17 +298,29 @@
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
           "date": "9/25/2021",
-          "user": { "id": 9, "name": "Otto Ottis", "rating": 3 }
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
         },
         {
           "message": "La mejor clase",
           "date": "12/1/2021",
-          "user": { "id": 10, "name": "Ruby Rubin", "rating": 3 }
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
           "date": "2/3/2022",
-          "user": { "id": 11, "name": "Kit Kat", "rating": 3 }
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
         }
       ],
       "name": "Guitarra y canto",
@@ -260,17 +344,29 @@
         {
           "message": "Me hubiera gustado que profundice más en algunos temas, pero la clase es de calidad",
           "date": "9/25/2021",
-          "user": { "id": 9, "name": "Otto Ottis", "rating": 3 }
+          "user": {
+            "id": 9,
+            "name": "Otto Ottis",
+            "rating": 3
+          }
         },
         {
           "message": "La mejor clase",
           "date": "12/1/2021",
-          "user": { "id": 10, "name": "Ruby Rubin", "rating": 3 }
+          "user": {
+            "id": 10,
+            "name": "Ruby Rubin",
+            "rating": 3
+          }
         },
         {
           "message": "Muy buena clase, aprendi muchisimo",
           "date": "2/3/2022",
-          "user": { "id": 11, "name": "Kit Kat", "rating": 3 }
+          "user": {
+            "id": 11,
+            "name": "Kit Kat",
+            "rating": 3
+          }
         }
       ],
       "name": "Construcción para todos",
@@ -283,11 +379,11 @@
       "description": "Te haces la casa"
     },
     {
-      "name": "Python con Fran",
+      "name": "Python con Franco",
       "subject": "Python",
       "description": "Vamos a aprender con ejemplos de la vida real",
-      "duration": "1",
-      "frequency": "unique",
+      "duration": "2",
+      "frequency": "weekly",
       "cost": "100",
       "type": "individual",
       "status": "published",
@@ -299,11 +395,11 @@
       "id": 9
     },
     {
-      "name": "React Native con Fran",
+      "name": "React Native con Franquito",
       "subject": "React Native",
-      "description": "Vamos a aprender React con ejemplos de la vida real.",
+      "description": "Vamos a aprender React con ejemplos de la vida real. pero de verdad",
       "duration": "1",
-      "frequency": "weekly",
+      "frequency": "monthly",
       "cost": "100",
       "type": "individual",
       "status": "published",
@@ -322,7 +418,7 @@
       "frequency": "weekly",
       "cost": "100",
       "type": "individual",
-      "status": "published",
+      "status": "unpublished",
       "professor": {
         "id": 2,
         "name": "Franco Levigna",
@@ -339,7 +435,10 @@
       "cost": "1000",
       "type": "individual",
       "status": "unpublished",
-      "professor": { "id": 3, "name": "Jack White" },
+      "professor": {
+        "id": 3,
+        "name": "Jack White"
+      },
       "id": 12
     }
   ],
@@ -352,8 +451,30 @@
       "userId": 1,
       "classId": 10,
       "studentName": "Marcos Ezequiel Rodriguez",
-      "status": "accepted",
+      "status": "cancelled",
       "id": 1
+    },
+    {
+      "email": "mer.marcosr@gmail.com",
+      "telNumber": "11223344",
+      "contactSchedule": "de 6 a 8",
+      "message": "Me gustaria aprender con ejemplos de la vida real.",
+      "userId": 1,
+      "classId": 11,
+      "studentName": "Marcos Ezequiel Rodriguez",
+      "status": "cancelled",
+      "id": 2
+    },
+    {
+      "email": "mer.marcosr@gmail.com",
+      "telNumber": "11223344",
+      "contactSchedule": "de 6 a 8",
+      "message": "Quiero tocar porque es imposible",
+      "userId": 1,
+      "classId": 5,
+      "studentName": "Marcos Ezequiel Rodriguez",
+      "status": "accepted",
+      "id": 3
     }
   ],
   "classes_reviews": [
@@ -371,25 +492,44 @@
       "id": 1
     },
     {
-      "userId": 4,
-      "professorId": 2,
-      "classId": 9,
-      "studentName": "Migules Migueles",
-      "comment": {
-        "date": "2022-09-20T03:18:27.532Z",
-        "status": "accepted",
-        "message": "Muy buena clase, aprendi muchisimo"
-      },
-      "rating": 4,
-      "id": 1
-    },
-    {
       "userId": 1,
       "professorId": 2,
       "classId": 10,
       "studentName": "Marcos Ezequiel Rodriguez",
+      "rating": 2.5,
+      "id": 2,
+      "comment": {
+        "date": "2022-09-23T21:58:09.328Z",
+        "status": "blocked",
+        "message": "No me gusto, un \"#$%&",
+        "disclaimer": "Usted no puede decir eso, usted se tiene que arrepentir"
+      }
+    },
+    {
+      "userId": 1,
+      "professorId": 2,
+      "classId": 11,
+      "studentName": "Marcos Ezequiel Rodriguez",
+      "comment": {
+        "date": "2022-09-23T22:04:41.536Z",
+        "status": "accepted",
+        "message": "Excelente! muy buen profesor"
+      },
       "rating": 5,
-      "id": 2
+      "id": 3
+    },
+    {
+      "userId": 1,
+      "professorId": 5,
+      "classId": 5,
+      "studentName": "Marcos Ezequiel Rodriguez",
+      "comment": {
+        "date": "2022-09-24T16:27:46.735Z",
+        "status": "accepted",
+        "message": "Me gusto como enseño, con mucho punch"
+      },
+      "rating": 5,
+      "id": 4
     }
   ]
 }
