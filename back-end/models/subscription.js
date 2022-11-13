@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Subscription.belongsTo(models.lesson, {foreignKey: 'lesson_id'})
-      Subscription.belongsTo(models.student, {foreignKey: 'student_id'})
+      Subscription.belongsTo(models.user, {foreignKey: 'student_id'})
 
     }
   }
@@ -56,6 +56,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'subscription',
+    freezeTableName: true,
+    timestamps: false,
   });
   return Subscription;
 };

@@ -21,7 +21,12 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             type: DataTypes.INTEGER
         },
+        user_type: {
+            allowNull: false,
+            type: DataTypes.STRING
+        },
         email: {
+            allowNull: false,
             type: DataTypes.STRING,
             unique: true
         },
@@ -35,6 +40,28 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         password: {
+            allowNull: false,
+            type: DataTypes.STRING
+        },
+        primary: {
+            type: DataTypes.STRING
+        },
+        universitary: {
+            type: DataTypes.STRING
+        },
+        secundary: {
+            type: DataTypes.STRING
+        },
+        terciary: {
+            type: DataTypes.STRING
+        },
+        birth_date: {
+            type: DataTypes.DATE
+        },
+        experience: {
+            type: DataTypes.STRING
+        },
+        degree: {
             type: DataTypes.STRING
         },
         created_at: {
@@ -44,10 +71,12 @@ module.exports = (sequelize, DataTypes) => {
         updated_at: {
             allowNull: false,
             type: DataTypes.DATE
-        }
+        },
     }, {
         sequelize,
         modelName: 'user',
+        freezeTableName: true,
+        timestamps: false,
     });
     return User;
 };

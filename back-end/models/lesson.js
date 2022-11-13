@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Lesson.belongsTo(models.teacher, {foreignKey: 'teacher_id'})
+      Lesson.belongsTo(models.user, {foreignKey: 'teacher_id'})
     }
   }
   Lesson.init({
@@ -41,11 +41,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     duration: {
-      type: DataTypes.INT
+      type: DataTypes.INTEGER
     },
   }, {
     sequelize,
     modelName: 'lesson',
+    freezeTableName: true,
+    timestamps: false
   });
   return Lesson;
 };
