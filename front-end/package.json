@@ -10,11 +10,6 @@
 		"format": "prettier --write .",
 		"lint": "eslint --fix . --ext .js,.jsx"
 	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "cd front-end npm run format"
-		}
-	},
 	"dependencies": {
 		"@emotion/react": "^11.10.4",
 		"@emotion/styled": "^11.10.4",
