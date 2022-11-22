@@ -1,6 +1,6 @@
 import { authProfeFlix } from './axios.config';
 
-const BASE_URL = `${import.meta.env.VITE_BASE_URL}auth/login`;
+const BASE_URL = `${import.meta.env.VITE_BASE_URL}users/login`;
 
 export const login = (payload) => {
 	return authProfeFlix.post(BASE_URL, payload);

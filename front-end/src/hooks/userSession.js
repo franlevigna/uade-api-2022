@@ -1,16 +1,16 @@
 import { useCookies } from 'react-cookie';
 export const useUserSession = () => {
 	const [authCookie, setAuthCookie, removeAuthCookie] = useCookies([
-		'access_token',
+		'accessToken',
 	]);
 
 	return {
-		isLogged: Boolean(authCookie.access_token),
+		isLogged: Boolean(authCookie.accessToken),
 		storeAuthToken: (token) => [
-			setAuthCookie('access_token', token, { path: '/', secure: true }),
+			setAuthCookie('accessToken', token, { path: '/', secure: true }),
 		],
 		logOut: () => {
-			removeAuthCookie("access_token",  { path: '/' });
+			removeAuthCookie('accessToken', { path: '/' });
 		},
 	};
 };

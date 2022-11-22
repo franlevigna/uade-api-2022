@@ -1,5 +1,5 @@
 export const displayErrorMessage = (error) => {
-	return error?.response?.data?.message || error.message;
+	return error.message;
 };
 
 export const debounce = (callbackFn, wait = 500) => {

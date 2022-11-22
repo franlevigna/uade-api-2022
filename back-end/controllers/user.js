@@ -21,25 +21,33 @@ exports.create = async function (req, res) {
     const createdUser = await user.create({
       username: req.body.username,
       email: req.body.email,
-      phone_number: req.body.phoneNumber,
-      first_name: req.body.firstName,
-      last_name: req.body.lastName,
+      phoneNumber: req.body.phoneNumber,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       password: hashedPassword,
       primary: req.body.status,
       universitary: req.body.universitary,
       secundary: req.body.secundary,
       terciary: req.body.terciary,
-      birth_date: req.body.birth_date,
+      birthDate: req.body.birthDate,
       experience: req.body.experience,
       degree: req.body.status,
-      user_type: req.body.userType,
-      created_at: new Date(),
-      updated_at: new Date(),
+      userType: req.body.userType,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
+    const token = jwt.sign(
+      {
+        ...createdUser.get(),
+        expiresIn: 86400,
+      },
+      SECRET
+    );
     return res.status(200).json({
       status: 200,
       data: createdUser,
+      accessToken: token,
       message: "User created successfully",
     });
   } catch (e) {
@@ -69,7 +77,7 @@ exports.login = async function (req, res) {
         },
         SECRET
       );
-      res.status(200).json({ token: token });
+      res.status(200).json({ accessToken: token });
     } else {
       res.status(400).json({ error: "Password Incorrect" });
     }
@@ -154,7 +162,7 @@ exports.changePassword = async function (req, res) {
     });
 
     userFound.password = await bcrypt.hash(req.body.password, 12);
-    userFound.updated_at = new Date();
+    userFound.updatedAt = new Date();
 
     const savedNewUser = await userFound.save();
 

@@ -6,24 +6,24 @@ const userTypes = require("../helpers/constants").userTypes;
 
 exports.create = async function (req, res) {
   const {
-    loggedUser: { user_type, id },
+    loggedUser: { userType, id },
   } = req;
 
-  if (user_type === userTypes.STUDENT) {
+  if (userType === userTypes.STUDENT) {
     try {
       // Verify if user is subscribed to the class
       const subscriptionFound = await subscription.findOne({
-        where: { student_id: id, lesson_id: req.body.lessonId },
+        where: { studentId: id, lessonId: req.body.lessonId },
       });
       if (subscriptionFound) {
         const createdReview = await review.create({
-          subscription_id: subscriptionFound.id,
-          student_id: id,
+          subscriptionId: subscriptionFound.id,
+          studentId: id,
           rating: req.body.rating,
           status: "sent", // when subscription is created status will always be sent,
           comment: req.body.comment,
-          created_at: new Date(),
-          updated_at: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
         });
 
         return res.status(200).json({
@@ -51,7 +51,7 @@ exports.update = async function (req, res) {
 
     if (reviewFound) {
       reviewFound.status = req.body.status || reviewFound.status;
-      reviewFound.updated_at = new Date();
+      reviewFound.updatedAt = new Date();
 
       const savedReview = await reviewFound.save();
 
@@ -74,12 +74,12 @@ exports.update = async function (req, res) {
 
 exports.getReviewsByProfessor = async function (req, res) {
   const {
-    loggedUser: { user_type, id },
+    loggedUser: { userType, id },
   } = req;
 
   console.log(id);
 
-  if (user_type === userTypes.PROFESSOR) {
+  if (userType === userTypes.PROFESSOR) {
     try {
       const reviewsFound = await review.findAll({
         where: { status: "sent" },
@@ -89,7 +89,7 @@ exports.getReviewsByProfessor = async function (req, res) {
             include: [
               {
                 model: lesson,
-                where: { teacher_id: id },
+                where: { teacherId: id },
               },
             ],
           },
@@ -108,17 +108,16 @@ exports.getReviewsByProfessor = async function (req, res) {
 
 exports.getNotificationsByUser = async function (req, res) {
   const {
-    loggedUser: { user_type, id },
+    loggedUser: { userType, id },
   } = req;
-  console.log(user_type);
-  if (user_type === userTypes.STUDENT) {
+  if (userType === userTypes.STUDENT) {
     try {
       const reviewsFound = await review.findAll({
         where: { status: "blocked" },
         include: [
           {
             model: subscription,
-            where: { student_id: id },
+            where: { studentId: id },
             include: { model: lesson },
           },
         ],

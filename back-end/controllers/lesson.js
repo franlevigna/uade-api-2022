@@ -8,13 +8,13 @@ const getClassesConditionBuilder = require("../helpers/common");
 
 exports.create = async function (req, res) {
   const {
-    loggedUser: { user_type, id },
+    loggedUser: { userType, id },
   } = req;
 
-  if (user_type === userTypes.PROFESSOR) {
+  if (userType === userTypes.PROFESSOR) {
     try {
       const createdLesson = await lesson.create({
-        teacher_id: id,
+        teacherId: id,
         title: req.body.title,
         subject: req.body.subject,
         status: req.body.status,
@@ -45,10 +45,10 @@ exports.update = async function (req, res) {
   // Since lesson attributes cannot be deleted we'll use generic function to update lessons
 
   const {
-    loggedUser: { user_type },
+    loggedUser: { userType },
   } = req;
   try {
-    if (userTypes.PROFESSOR === user_type) {
+    if (userTypes.PROFESSOR === userType) {
       const lessonFound = await lesson.findOne({
         where: {
           id: req.params.id,
@@ -109,11 +109,11 @@ exports.search = async function (req, res) {
 exports.delete = async function (req, res) {
   // Since lesson attributes cannot be deleted we'll use generic function to update lessons
   const {
-    loggedUser: { user_type },
+    loggedUser: { userType },
   } = req;
 
   try {
-    if (userTypes.PROFESSOR === user_type) {
+    if (userTypes.PROFESSOR === userType) {
       const deletedLesson = await lesson.destroy({
         where: {
           id: req.params.id,
@@ -152,7 +152,7 @@ exports.getLessonByID = async function (req, res, next) {
     const reviews = await review.findAll({
       include: {
         model: subscription,
-        where: { lesson_id: req.params.id },
+        where: { lessonId: req.params.id },
       },
     });
 
@@ -170,13 +170,13 @@ exports.getLessonByID = async function (req, res, next) {
 
 exports.getLessonsByUser = async function (req, res) {
   const {
-    loggedUser: { user_type, id },
+    loggedUser: { userType, id },
   } = req;
 
   try {
     let lessonsFound;
 
-    if (user_type === userTypes.PROFESSOR) {
+    if (userType === userTypes.PROFESSOR) {
       // If user is a professor, we can get classes directly from lessons table
       lessonsFound = await lesson.findAll({
         where: { id: id },
@@ -185,7 +185,7 @@ exports.getLessonsByUser = async function (req, res) {
       // otherwise, if user is student we need to get classes from subscription
       // since student cannot have a class without subscription
       lessonsFound = await subscription.findAll({
-        where: { student_id: req.params.userId },
+        where: { studentId: req.params.userId },
         include: {
           model: lesson,
         },

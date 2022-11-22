@@ -18,8 +18,10 @@ import { useRegister } from '../../../hooks/register';
 import { Toast } from '../../molecules/Toast';
 import { displayErrorMessage } from '../../../utils';
 import { useUserSession } from '../../../hooks/userSession';
-import database from '../../../../../fake-back-end/db.json';
+
 import { useUserProfile } from '../../../store/profile';
+// eslint-disable-next-line camelcase
+import jwt_decode from 'jwt-decode';
 
 export const Register = () => {
 	const { storeAuthToken } = useUserSession();
@@ -31,12 +33,11 @@ export const Register = () => {
 		try {
 			const {
 				// eslint-disable-next-line camelcase
-				data: { access_token, userInfo },
+				data: { accessToken, data },
 			} = await registerMutation({ payload: values });
-
-			userInfo.id = database.users.length + 1;
-			setUserData(userInfo);
-			storeAuthToken(access_token);
+			debugger;
+			setUserData(data);
+			storeAuthToken(accessToken);
 			Toast(
 				'Tu usuario ha sido creado, ahora vamos a completar tu perfil!'
 			);

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Review.belongsTo(models.subscription, { foreignKey: "subscription_id" });
+      Review.belongsTo(models.subscription, { foreignKey: "subscriptionId" });
     }
   }
   Review.init(
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      subscription_id: {
+      subscriptionId: {
         allowNull: false,
         unique: true,
         type: DataTypes.INTEGER,
@@ -36,10 +36,10 @@ module.exports = (sequelize, DataTypes) => {
       status: {
         type: DataTypes.STRING,
       },
-      created_at: {
+      createdAt: {
         type: DataTypes.DATE,
       },
-      updated_at: {
+      updatedAt: {
         type: DataTypes.DATE,
       },
     },

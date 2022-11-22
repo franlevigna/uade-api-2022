@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Subscription.belongsTo(models.lesson, { foreignKey: "lesson_id" });
-      Subscription.belongsTo(models.user, { foreignKey: "student_id" });
+      Subscription.belongsTo(models.lesson, { foreignKey: "lessonId" });
+      Subscription.belongsTo(models.user, { foreignKey: "studentId" });
     }
   }
   Subscription.init(
@@ -21,19 +21,19 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
         type: DataTypes.INTEGER,
       },
-      student_id: {
+      studentId: {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      lesson_id: {
+      lessonId: {
         allowNull: false,
         type: DataTypes.INTEGER,
       },
-      timeframe_from: {
+      timeframeFrom: {
         allowNull: false,
         type: DataTypes.STRING,
       },
-      timeframe_to: {
+      timeframeTo: {
         allowNull: false,
         type: DataTypes.STRING,
       },
@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
       indexes: [
         {
           unique: true,
-          fields: ["student_id", "lesson_id"],
+          fields: ["studentId", "lessonId"],
         },
       ],
     }

@@ -4,18 +4,18 @@ const userTypes = require("../helpers/constants").userTypes;
 
 exports.create = async function (req, res) {
   const {
-    loggedUser: { user_type, id },
+    loggedUser: { userType, id },
   } = req;
 
-  if (user_type === userTypes.STUDENT) {
+  if (userType === userTypes.STUDENT) {
     try {
       const createdSubscription = await subscription.create({
-        lesson_id: req.body.lessonId,
-        student_id: id,
+        lessonId: req.body.lessonId,
+        studentId: id,
         status: "sent", // when subscription is created status will always be sent,
         message: req.body.message,
-        timeframe_from: req.body.timeframeFrom,
-        timeframe_to: req.body.timeframeTo,
+        timeframeFrom: req.body.timeframeFrom,
+        timeframeTo: req.body.timeframeTo,
       });
 
       return res.status(200).json({
@@ -32,10 +32,10 @@ exports.create = async function (req, res) {
 
 exports.update = async function (req, res) {
   const {
-    loggedUser: { user_type },
+    loggedUser: { userType },
   } = req;
   try {
-    if (userTypes.PROFESSOR === user_type) {
+    if (userTypes.PROFESSOR === userType) {
       const subscriptionFound = await subscription.findOne({
         where: {
           id: req.params.id,
