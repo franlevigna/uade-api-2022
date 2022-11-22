@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Subscription extends Model {
     /**
@@ -11,53 +9,55 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Subscription.belongsTo(models.lesson, {foreignKey: 'lesson_id'})
-      Subscription.belongsTo(models.user, {foreignKey: 'student_id'})
-
+      Subscription.belongsTo(models.lesson, { foreignKey: "lesson_id" });
+      Subscription.belongsTo(models.user, { foreignKey: "student_id" });
     }
   }
-  Subscription.init({
-    id: {
-      primaryKey: true,
-      allowNull: false,
-      autoIncrement: true,
-      type: DataTypes.INTEGER
-    },
-    student_id: {
-      allowNull: false,
-      type: DataTypes.INTEGER
-    },
-    lesson_id: {
-      allowNull: false,
-      type: DataTypes.INTEGER
-    },
-    status: {
-      allowNull: false,
-      type: DataTypes.STRING
-    },
-    timeframe_from: {
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
-    timeframe_to: {
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
-    message: {
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
-      indexes: [
+  Subscription.init(
     {
-      unique: true,
-      fields: ['lesson_id', 'student_id']
+      id: {
+        primaryKey: true,
+        allowNull: false,
+        autoIncrement: true,
+        type: DataTypes.INTEGER,
+      },
+      student_id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      lesson_id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+      },
+      timeframe_from: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      timeframe_to: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      message: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+      status: {
+        allowNull: false,
+        type: DataTypes.STRING,
+      },
+    },
+    {
+      sequelize,
+      modelName: "subscription",
+      freezeTableName: true,
+      timestamps: false,
+      indexes: [
+        {
+          unique: true,
+          fields: ["student_id", "lesson_id"],
+        },
+      ],
     }
-  ]
-  }, {
-    sequelize,
-    modelName: 'subscription',
-    freezeTableName: true,
-    timestamps: false,
-  });
+  );
   return Subscription;
 };

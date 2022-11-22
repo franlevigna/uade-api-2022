@@ -1,17 +1,40 @@
 const express = require('express');
 const logger = require('morgan');
-const bodyParser = require('body-parser');
-// This will be our application entry. We'll setup our server here.
 const http = require('http');
-// Set up the express app
+// const cors = require('cors');
+// const cookieParser = require('cookie-parser');
+
+
+// Add routes
+const lessonsRouter = require('./routes/lesson')
+const reviewsRouter = require('./routes/review')
+const subscriptionRouter = require('./routes/subscription')
+const usersRouter = require('./routes/user')
+
 const app = express();
-// Log requests to the console.
+
+//Parse incoming requests data (https://github.com/expressjs/body-parser)
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: false
+}));
+
+
+// Log requests to the console.s
 app.use(logger('dev'));
-// Parse incoming requests data (https://github.com/expressjs/body-parser)
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-// Setup a default catch-all route that sends back a welcome message in JSON format.
-require('./routes')(app);
+
+// Add routes to endpoints
+app.use('/lessons', lessonsRouter);
+app.use('/reviews', reviewsRouter);
+app.use('/subscriptions', subscriptionRouter);
+app.use('/users', usersRouter);
+
+// Add cors
+// app.use(cors());
+// app.use(cookieParser());
+// app.use(express.static(path.join(__dirname, 'public')));
+
+
 app.get('*', (req, res) => res.status(200).send({
     message: 'Welcome to the beginning of nothingness.',
 }));

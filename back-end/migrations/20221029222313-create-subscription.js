@@ -36,6 +36,10 @@ module.exports = {
             message: {
                 allowNull: false,
                 type: Sequelize.STRING,
+            },
+            status: {
+                allowNull: false,
+                type: Sequelize.STRING,
             }
         }).then(() => queryInterface.addIndex('subscription', ['lesson_id', 'student_id'], {unique: true}));
     },
