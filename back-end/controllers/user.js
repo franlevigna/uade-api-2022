@@ -33,8 +33,6 @@ exports.create = async function (req, res) {
       experience: req.body.experience,
       degree: req.body.status,
       userType: req.body.userType,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     });
 
     const token = jwt.sign(
@@ -162,7 +160,6 @@ exports.changePassword = async function (req, res) {
     });
 
     userFound.password = await bcrypt.hash(req.body.password, 12);
-    userFound.updatedAt = new Date();
 
     const savedNewUser = await userFound.save();
 

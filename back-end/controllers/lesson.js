@@ -57,8 +57,7 @@ exports.update = async function (req, res) {
       if (lessonFound) {
         lessonFound.title = req.body.title || lessonFound.title;
         lessonFound.subject = req.body.subject || lessonFound.subject;
-        lessonFound.statusfrequency =
-          req.body.statusfrequency || lessonFound.statusfrequency;
+        lessonFound.status = req.body.status || lessonFound.status;
         lessonFound.frequency = req.body.frequency || lessonFound.frequency;
         lessonFound.type = req.body.type || lessonFound.type;
         lessonFound.description =
@@ -68,7 +67,6 @@ exports.update = async function (req, res) {
         const savedLesson = await lessonFound.save();
 
         return res.status(200).json({
-          status: 200,
           data: savedLesson,
           message: "Lesson updated successfully",
         });
@@ -91,10 +89,10 @@ exports.search = async function (req, res) {
     const searchCondition = await getClassesConditionBuilder(req.query);
     const lessonsFound = await lesson.findAll({
       where: searchCondition,
+      include: { model: user },
     });
 
     return res.status(200).json({
-      status: 200,
       data: lessonsFound,
     });
   } catch (e) {
@@ -146,9 +144,15 @@ exports.getLessonByID = async function (req, res, next) {
   try {
     const lessonFound = await lesson.findOne({
       where: { id: req.params.id },
-      include: { model: user },
+      include: [{ model: user }],
     });
 
+    const subscriptions = await subscription.findAll({
+      include: {
+        model: lesson,
+        where: { id: req.params.id },
+      },
+    });
     const reviews = await review.findAll({
       include: {
         model: subscription,
@@ -156,10 +160,9 @@ exports.getLessonByID = async function (req, res, next) {
       },
     });
 
-    const result = { ...lessonFound.get(), reviews };
+    const result = { ...lessonFound.get(), reviews, subscriptions };
 
     return res.status(200).json({
-      status: 200,
       data: result,
     });
   } catch (e) {
@@ -179,13 +182,13 @@ exports.getLessonsByUser = async function (req, res) {
     if (userType === userTypes.PROFESSOR) {
       // If user is a professor, we can get classes directly from lessons table
       lessonsFound = await lesson.findAll({
-        where: { id: id },
+        where: { teacherId: id },
       });
     } else {
       // otherwise, if user is student we need to get classes from subscription
       // since student cannot have a class without subscription
       lessonsFound = await subscription.findAll({
-        where: { studentId: req.params.userId },
+        where: { studentId: id },
         include: {
           model: lesson,
         },
@@ -195,7 +198,6 @@ exports.getLessonsByUser = async function (req, res) {
     // TODO: Remove user object from response
 
     return res.status(200).json({
-      status: 200,
       data: lessonsFound,
     });
   } catch (e) {

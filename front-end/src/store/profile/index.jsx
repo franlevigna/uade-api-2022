@@ -5,17 +5,17 @@ import { Storage } from '../../utils/storage';
 import { USER_INFO } from '../../utils/storage/keyNames';
 
 const initialData = {
-		firstName: '',
-		lastName: '',
-		email: '',
-		telNumber: '',
-		userType: '',
+	firstName: '',
+	lastName: '',
+	email: '',
+	phoneNumber: '',
+	userType: '',
 };
 const [userCache, saveUserInCache, removeUser] = Storage(USER_INFO, true);
 const UserProfileCtx = createContext(userCache || initialData.user);
 export const UserProfileProvider = ({ children }) => {
 	const [user, setUser] = useState(userCache);
-	const {isLogged} = useUserSession()
+	const { isLogged } = useUserSession();
 
 	useEffect(() => {
 		if (user?.email) {
@@ -29,12 +29,12 @@ export const UserProfileProvider = ({ children }) => {
 		}
 	}, []);
 
-	useEffect(()=>{
-		if(!isLogged){
-			removeUser()
-			setUser(initialData)
+	useEffect(() => {
+		if (!isLogged) {
+			removeUser();
+			setUser(initialData);
 		}
-	},[isLogged])
+	}, [isLogged]);
 
 	return (
 		<UserProfileCtx.Provider value={{ user, setUser }}>

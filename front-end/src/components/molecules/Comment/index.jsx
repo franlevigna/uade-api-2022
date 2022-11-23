@@ -33,15 +33,13 @@ export const Comment = ({ review }) => {
 							precision={0.5}
 						/>
 						<div>
-							{new Date(review.comment.date).toLocaleDateString(
+							{new Date(review.date).toLocaleDateString(
 								undefined,
 								options
 							)}
 						</div>
 					</Box>
-					<p style={{ textAlign: 'left' }}>
-						{review.comment.message}
-					</p>
+					<p style={{ textAlign: 'left' }}>{review.message}</p>
 				</Grid>
 			</Grid>
 		</Paper>

@@ -29,6 +29,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      commentDisclaimer: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       rating: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -47,7 +51,6 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "review",
       freezeTableName: true,
-      timestamps: false,
     }
   );
   return Review;

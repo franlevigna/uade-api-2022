@@ -40,27 +40,29 @@ export const ClassDetail = () => {
 	};
 
 	const isStudent = user.userType === userRoles.STUDENT;
-	const activeStudent = isStudent
-		? dataGetClassByID?.data.classes_students.find(
-				(student) => student.userId === user.id
+	const subscription = isStudent
+		? dataGetClassByID?.data.data.subscriptions.find(
+				(student) => student.studentId === user.id
 		  )
 		: null;
-	const isHired = activeStudent?.status === 'accepted';
-	const userReview = dataGetClassByID?.data?.classes_reviews?.find(
-		(review) => review.userId === reviewModalData.user.id
-	);
+	const isHired = subscription?.status === 'accepted';
+	const userReview =
+		subscription &&
+		dataGetClassByID?.data.data?.reviews?.find(
+			(review) => review.subscriptionId === subscription.id
+		);
 	const canComment = isHired && (!userReview || !userReview?.comment);
 
 	const getRating = () => {
 		let ratingAVG = 0;
-		if (dataGetClassByID?.data.classes_reviews) {
-			dataGetClassByID?.data.classes_reviews.forEach((review) => {
+		if (dataGetClassByID?.data.data.classes_reviews) {
+			dataGetClassByID?.data.data.classes_reviews.forEach((review) => {
 				if (review.rating) {
 					ratingAVG = ratingAVG + review.rating;
 				}
 			});
 			ratingAVG =
-				ratingAVG / dataGetClassByID?.data.classes_reviews.length;
+				ratingAVG / dataGetClassByID?.data.data.classes_reviews.length;
 		}
 		return ratingAVG;
 	};
@@ -73,14 +75,14 @@ export const ClassDetail = () => {
 					<HireClassModal
 						isOpen={isHireModalOpen}
 						handleClose={handleHireClose}
-						classData={dataGetClassByID.data}
+						classData={dataGetClassByID.data.data}
 						userData={user}
 					/>
 					<ReviewClassModal
 						userReview={userReview}
 						reviewModalData={reviewModalData}
 						handleClose={handleReviewClose}
-						classData={dataGetClassByID.data}
+						classData={dataGetClassByID.data.data}
 						refetch={refetchGetClassByID}
 					/>
 				</>
@@ -118,22 +120,24 @@ export const ClassDetail = () => {
 				>
 					<Stack>
 						<Typography component='h1' variant='h5'>
-							{dataGetClassByID?.data.name}
+							{dataGetClassByID?.data.data.title}
 						</Typography>
 						<Typography
 							sx={{ fontSize: 14 }}
 							color='text.secondary'
 							gutterBottom
 						>
-							{dataGetClassByID?.data.cost.includes('$')
-								? dataGetClassByID?.data.cost
-								: `$${dataGetClassByID?.data.cost}`}
+							{dataGetClassByID?.data.data.cost
+								.toString()
+								.includes('$')
+								? dataGetClassByID?.data.data.cost
+								: `$${dataGetClassByID?.data.data.cost}`}
 						</Typography>
 					</Stack>
 					<Box sx={{ flexGrow: 1, flexShrink: 1 }} />
 					{isStudent &&
-						(activeStudent?.status ? (
-							<StatusChip status={activeStudent.status} />
+						(subscription?.status ? (
+							<StatusChip status={subscription.status} />
 						) : (
 							<Button
 								sx={{ flexGrow: 0 }}
@@ -168,13 +172,16 @@ export const ClassDetail = () => {
 								alignSelf: 'center',
 							}}
 						>
-							{dataGetClassByID?.data.name[0]}
+							{dataGetClassByID?.data.data.title[0]}
 						</Avatar>
 
 						<Rating
 							sx={{ flexGrow: 1 }}
 							name='read-only'
-							value={dataGetClassByID?.data.rating || getRating()}
+							value={
+								dataGetClassByID?.data.data.rating ||
+								getRating()
+							}
 							readOnly={!isHired}
 							precision={0.5}
 							{...(isHired && {
@@ -187,14 +194,16 @@ export const ClassDetail = () => {
 							color='text.secondary'
 							gutterBottom
 						>
-							Creada por: {dataGetClassByID?.data.professor.name}
+							Creada por:{' '}
+							{dataGetClassByID?.data.data.user.firstName}{' '}
+							{dataGetClassByID?.data.data.user.lastName}
 						</Typography>
 						<Typography
 							sx={{ fontSize: 14 }}
 							color='text.disabled'
 							gutterBottom
 						>
-							{dataGetClassByID?.data.subject}
+							{dataGetClassByID?.data.data.subject}
 						</Typography>
 
 						<Typography
@@ -202,9 +211,9 @@ export const ClassDetail = () => {
 							color='text.secondary'
 							gutterBottom
 						>
-							{`${dataGetClassByID?.data.duration}hs`} -{' '}
-							{textMapper[dataGetClassByID?.data.frequency]}-{' '}
-							{textMapper[dataGetClassByID?.data.type]}
+							{`${dataGetClassByID?.data.data.duration}hs`} -{' '}
+							{textMapper[dataGetClassByID?.data.data.frequency]}-{' '}
+							{textMapper[dataGetClassByID?.data.data.type]}
 						</Typography>
 						<Divider sx={{ marginBottom: '1rem', width: '100%' }} />
 						<Typography
@@ -212,7 +221,7 @@ export const ClassDetail = () => {
 							color='text.secondary'
 							gutterBottom
 						>
-							{dataGetClassByID?.data.professor.experience}
+							{dataGetClassByID?.data.data.user.experience}
 						</Typography>
 					</Stack>
 				</Box>
@@ -231,7 +240,7 @@ export const ClassDetail = () => {
 						color='text.secondary'
 						gutterBottom
 					>
-						{dataGetClassByID?.data.description}
+						{dataGetClassByID?.data.data.description}
 					</Typography>
 					<Divider sx={{ marginBottom: '1rem', width: '100%' }} />
 					{canComment && (
@@ -244,7 +253,7 @@ export const ClassDetail = () => {
 							Agregar comentario
 						</Button>
 					)}
-					{dataGetClassByID?.data?.classes_reviews
+					{dataGetClassByID?.data.data?.classes_reviews
 						?.filter(
 							(review) =>
 								review.comment &&

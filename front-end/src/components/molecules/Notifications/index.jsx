@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import { useGetNotificationsByUser } from '../../../hooks/classes';
+import { useGetNotificationsByUser } from '../../../hooks/reviews';
 
 export const Nottifications = ({ userID }) => {
 	const { dataGetNotificationsByUser } = useGetNotificationsByUser(userID);
@@ -27,11 +27,12 @@ export const Nottifications = ({ userID }) => {
 		if (!dataGetNotificationsByUser) {
 			return [];
 		}
-		return dataGetNotificationsByUser.data.length
-			? dataGetNotificationsByUser.data.map((item) => ({
-					className: item.class.name,
-					disclaimer: item.comment.disclaimer,
-					professor: item.class.professor.name,
+		console.log(dataGetNotificationsByUser);
+		return dataGetNotificationsByUser.data.data.length
+			? dataGetNotificationsByUser.data.data.map((item) => ({
+					className: item.subscription.lesson.title,
+					disclaimer: item.commentDisclaimer,
+					professor: `${item.subscription.lesson.user.firstName} ${item.subscription.lesson.user.lastName}`,
 			  }))
 			: [];
 	};

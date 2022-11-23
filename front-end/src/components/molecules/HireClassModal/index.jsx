@@ -5,12 +5,15 @@ import {
 	DialogContent,
 	DialogContentText,
 	DialogTitle,
+	FormControl,
+	FormLabel,
+	Grid,
 	TextField,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import { useHireClass } from '../../../hooks/classes';
+import { useHireClass } from '../../../hooks/subscriptions';
 import { displayErrorMessage } from '../../../utils';
 import { Loading } from '../Loading';
 import { Toast } from '../Toast';
@@ -27,15 +30,13 @@ export const HireClassModal = ({
 	const handleSubmit = async (values) => {
 		const payload = {
 			...values,
-			userId: userData.id,
-			classId: classData.id,
-			studentName: `${userData.firstName} ${userData.lastName}`,
-			status: 'requested',
+			studentId: userData.id,
+			lessonId: classData.id,
 		};
 		try {
 			await hireClassMutation({ id: classData.id, payload });
 			Toast(
-				`¡Enhorabuena! ¡La clase ${classData.name} ha sido existomente contratada!`
+				`¡Enhorabuena! ¡La clase ${classData.title} ha sido existomente contratada!`
 			);
 			navigateTo('/user/classes');
 		} catch (error) {
@@ -46,14 +47,17 @@ export const HireClassModal = ({
 	const formik = useFormik({
 		initialValues: {
 			email: userData.email,
-			telNumber: userData.telNumber,
-			contactSchedule: '',
+			phoneNumber: userData.phoneNumber,
+			timeframeFrom: '',
+			timeframeTo: '',
 			message: '',
 		},
 		onSubmit: (values) => {
 			handleSubmit(values);
 		},
 	});
+
+	console.log(formik.values.timeframeFrom);
 
 	return classData ? (
 		<div>
@@ -67,7 +71,6 @@ export const HireClassModal = ({
 					<Box
 						id='hireForm'
 						component='form'
-						noValidate
 						onSubmit={formik.handleSubmit}
 						sx={{
 							width: { xs: '100%', sm: '70%' },
@@ -91,29 +94,66 @@ export const HireClassModal = ({
 						<TextField
 							margin='dense'
 							variant='standard'
-							name='telNumber'
+							name='phoneNumber'
 							required
 							fullWidth
-							id='telNumber'
+							id='phoneNumber'
 							label='Telefono'
 							autoFocus
-							value={formik.values.telNumber}
+							value={formik.values.phoneNumber}
 							onChange={formik.handleChange}
 							disabled={isHireClassLoading}
 						/>
-						<TextField
-							margin='dense'
-							variant='standard'
-							name='contactSchedule'
-							required
-							fullWidth
-							id='contactSchedule'
-							label='Horario de contacto'
-							autoFocus
-							value={formik.values.contactSchedule}
-							onChange={formik.handleChange}
-							disabled={isHireClassLoading}
-						/>
+						<FormControl fullWidth sx={{ marginTop: 2 }}>
+							<FormLabel>Horario de contacto</FormLabel>
+							<Grid container spacing={1}>
+								<Grid item xs={6}>
+									<TextField
+										InputLabelProps={{
+											shrink: true,
+										}}
+										inputProps={{
+											step: 1800,
+										}}
+										defaultValue={'00:00'}
+										type='time'
+										margin='dense'
+										variant='standard'
+										name='timeframeFrom'
+										fullWidth
+										required
+										id='timeframeFrom'
+										label='Desde'
+										value={formik.values.timeframeFrom}
+										onChange={formik.handleChange}
+										disabled={isHireClassLoading}
+									/>
+								</Grid>
+								<Grid item xs={6}>
+									<TextField
+										InputLabelProps={{
+											shrink: true,
+										}}
+										inputProps={{
+											min: formik.values.timeframeFrom,
+											step: 300,
+										}}
+										defaultValue={'00:00:00'}
+										type='time'
+										margin='dense'
+										variant='standard'
+										name='timeframeTo'
+										required
+										fullWidth
+										id='timeframeTo'
+										label='Hasta'
+										value={formik.values.timeframeTo}
+										onChange={formik.handleChange}
+										disabled={isHireClassLoading}
+									/>
+								</Grid>
+							</Grid>
+						</FormControl>
 						<TextField
 							margin='dense'
 							variant='standard'

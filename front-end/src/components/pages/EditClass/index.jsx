@@ -32,16 +32,16 @@ export const EditClass = () => {
 	const handleSubmit = async (values) => {
 		try {
 			await updateClassMutation({ id: classID, payload: values });
-			Toast(`¡Enhorabuena! ¡La clase ${values.name} ha sido editada!`);
+			Toast(`¡Enhorabuena! ¡La clase ${values.title} ha sido editada!`);
 			navigateTo('/user/classes');
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
 		}
 	};
-	const classData = dataGetClassByID?.data || null;
+	const classData = dataGetClassByID?.data.data || null;
 	const formik = useFormik({
 		initialValues: {
-			name: classData?.name || '',
+			title: classData?.title || '',
 			subject: classData?.subject || '',
 			description: classData?.description || '',
 			duration: classData?.duration || '',
@@ -76,13 +76,13 @@ export const EditClass = () => {
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField
-								name='name'
+								name='title'
 								required
 								fullWidth
 								id='className'
 								label='Nombre'
 								autoFocus
-								value={formik.values.name}
+								value={formik.values.title}
 								onChange={formik.handleChange}
 							/>
 						</Grid>

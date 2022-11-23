@@ -57,13 +57,14 @@ export const SearchResults = () => {
 					rowSpacing={{ xs: 2, sm: 2, md: 3 }}
 					columnSpacing={{ xs: 2, sm: 2, md: 3 }}
 				>
-					{dataGetClasses?.data.map((c) => (
+					{dataGetClasses?.data.data.map((c) => (
 						<Grid key={c.id} item xs={12} sm={12} md={12}>
 							<ClassCard
 								{...{
 									id: c.id,
-									professorName: c.professor.name,
-									name: c.name,
+									professorName: `${c.user.firstName} ${c.user.lastName}
+									`,
+									name: c.title,
 									cost: c.cost,
 									frequency: c.frequency,
 									duration: c.duration,

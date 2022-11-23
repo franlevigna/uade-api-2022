@@ -69,7 +69,7 @@ export const ClassCard = ({
 
 				<Box sx={{ flexGrow: 1 }} />
 				<Typography mr={1}>
-					{cost.includes('$') ? cost : `$${cost}`}
+					{cost.toString().includes('$') ? cost : `$${cost}`}
 				</Typography>
 			</CardActions>
 		</Card>

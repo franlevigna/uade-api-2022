@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.DataTypes.STRING,
         allowNull: false,
       },
+      commentDisclaimer: {
+        type: Sequelize.DataTypes.STRING,
+        allowNull: true,
+      },
       rating: {
         type: Sequelize.DataTypes.INTEGER,
         allowNull: false,

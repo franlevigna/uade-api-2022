@@ -6,12 +6,6 @@ import {
 	getClassesByUser,
 	updateClass,
 	deleteClass,
-	hireClass,
-	reviewClass,
-	updateReview,
-	getReviewsByProfessorID,
-	getUserNotifications,
-	updateHiredClass,
 	getStudentsByProfessorId,
 } from '../services/CRUD/classes';
 
@@ -89,69 +83,15 @@ export const useDeleteClass = () => {
 	};
 };
 
-export const useHireClass = () => {
-	const { mutateAsync: hireClassMutation, isLoading: isHireClassLoading } =
-		useMutation(({ payload }) => hireClass(payload));
-	return { hireClassMutation, isHireClassLoading };
-};
-
-export const useUpdateHiredClass = () => {
-	const {
-		mutateAsync: updateHiredClassMutation,
-		isLoading: isUpdateHiredClassLoading,
-	} = useMutation(({ id, payload }) => updateHiredClass(id, payload));
-	return { updateHiredClassMutation, isUpdateHiredClassLoading };
-};
-
-export const useReviewClass = () => {
-	const {
-		mutateAsync: reviewClassMutation,
-		isLoading: isReviewClassLoading,
-	} = useMutation(({ payload }) => reviewClass(payload));
-	return { reviewClassMutation, isReviewClassLoading };
-};
-
-export const useGetReviewsByProfessorID = (proffesorID) => {
-	const {
-		refetch: refetchGetReviewsByProffesorID,
-		data: dataGetReviewsByProfessorID,
-		isLoading: isGetReviewsByProfessorIDLoading,
-	} = useQuery(
-		['getReviewsByProffesor', proffesorID],
-		() => getReviewsByProfessorID(proffesorID),
-		{
-			enabled: true,
-		}
-	);
-
-	return {
-		refetchGetReviewsByProffesorID,
-		dataGetReviewsByProfessorID,
-		isGetReviewsByProfessorIDLoading,
-	};
-};
-
-export const useUpdateReview = () => {
-	const {
-		mutateAsync: updateReviewsMutation,
-		isLoading: isUpdateReviewLoading,
-	} = useMutation(({ id, payload }) => updateReview(id, payload));
-	return { updateReviewsMutation, isUpdateReviewLoading };
-};
-
-export const useGetClassesByUser = (userID, userRole) => {
+export const useGetClassesByUser = (userID) => {
 	const {
 		refetch: refetchGetClassByUser,
 		data: dataGetClassByUser,
 		isLoading: isDataGetClassByUserLoading,
 		error,
-	} = useQuery(
-		['getClass', userID, userRole],
-		() => getClassesByUser(userID, userRole),
-		{
-			enabled: true,
-		}
-	);
+	} = useQuery(['getClass', userID], () => getClassesByUser(userID), {
+		enabled: true,
+	});
 	return {
 		refetchGetClassByUser,
 		dataGetClassByUser,
@@ -177,27 +117,6 @@ export const useGetStudentsByProfessor = (userID) => {
 		refetchGetStudentsByProfessor,
 		dataGetStudentsByProfessor,
 		isDataGetStudentsByProfessorLoading,
-		error,
-	};
-};
-
-export const useGetNotificationsByUser = (userID) => {
-	const {
-		refetch: refetchGetNotificationsByUser,
-		data: dataGetNotificationsByUser,
-		isLoading: isDataGetNotificationsByUserLoading,
-		error,
-	} = useQuery(
-		['getNotifications', userID],
-		() => getUserNotifications(userID),
-		{
-			enabled: true,
-		}
-	);
-	return {
-		refetchGetNotificationsByUser,
-		dataGetNotificationsByUser,
-		isDataGetNotificationsByUserLoading,
 		error,
 	};
 };

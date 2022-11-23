@@ -12,7 +12,7 @@ exports.create = async function (req, res) {
       const createdSubscription = await subscription.create({
         lessonId: req.body.lessonId,
         studentId: id,
-        status: "sent", // when subscription is created status will always be sent,
+        status: "requested", // when subscription is created status will always be requested,
         message: req.body.message,
         timeframeFrom: req.body.timeframeFrom,
         timeframeTo: req.body.timeframeTo,
@@ -35,28 +35,27 @@ exports.update = async function (req, res) {
     loggedUser: { userType },
   } = req;
   try {
-    if (userTypes.PROFESSOR === userType) {
-      const subscriptionFound = await subscription.findOne({
-        where: {
-          id: req.params.id,
-        },
-      });
-
-      if (subscriptionFound) {
-        subscriptionFound.status = req.body.status || subscriptionFound.status;
-
-        const savedSubscription = await subscriptionFound.save();
-
-        return res.status(200).json({
-          status: 200,
-          data: savedSubscription,
-          message: "Subscription updated successfully",
-        });
-      } else {
-        res.status(404).json({ error: "Subscription does not exist" });
+    const subscriptionFound = await subscription.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (subscriptionFound) {
+      if (userTypes.PROFESSOR !== userType && req.body.status === "accepted") {
+        return res
+          .status(400)
+          .json({ error: "User must be a professor to accept a subscription" });
       }
+      subscriptionFound.status = req.body.status || subscriptionFound.status;
+      const savedSubscription = await subscriptionFound.save();
+
+      return res.status(200).json({
+        status: 200,
+        data: savedSubscription,
+        message: "Subscription updated successfully",
+      });
     } else {
-      res.status(400).json({ error: "User must be a professor" });
+      res.status(404).json({ error: "Subscription does not exist" });
     }
   } catch (e) {
     console.log(e);

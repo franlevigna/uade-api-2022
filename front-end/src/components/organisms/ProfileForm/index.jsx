@@ -43,7 +43,7 @@ export const ProfileForm = () => {
 			firstName: user.firstName,
 			lastName: user.lastName,
 			email: user.email,
-			telNumber: user.telNumber,
+			phoneNumber: user.phoneNumber,
 			userType: user.userType,
 			...(user.userType === userRoles.PROFESSOR && {
 				degree: user.degree,
@@ -203,10 +203,10 @@ export const ProfileForm = () => {
 									<TextField
 										required
 										fullWidth
-										id='telNumber'
+										id='phoneNumber'
 										label='Telefono'
-										name='telNumber'
-										value={formik.values.telNumber}
+										name='phoneNumber'
+										value={formik.values.phoneNumber}
 										onChange={formik.handleChange}
 									/>
 								</Grid>

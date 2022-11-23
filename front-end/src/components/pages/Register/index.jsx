@@ -20,8 +20,6 @@ import { displayErrorMessage } from '../../../utils';
 import { useUserSession } from '../../../hooks/userSession';
 
 import { useUserProfile } from '../../../store/profile';
-// eslint-disable-next-line camelcase
-import jwt_decode from 'jwt-decode';
 
 export const Register = () => {
 	const { storeAuthToken } = useUserSession();
@@ -35,7 +33,6 @@ export const Register = () => {
 				// eslint-disable-next-line camelcase
 				data: { accessToken, data },
 			} = await registerMutation({ payload: values });
-			debugger;
 			setUserData(data);
 			storeAuthToken(accessToken);
 			Toast(
@@ -52,7 +49,7 @@ export const Register = () => {
 			firstName: '',
 			lastName: '',
 			email: '',
-			telNumber: '',
+			phoneNumber: '',
 			password: '',
 			userType: '',
 		},
@@ -131,10 +128,10 @@ export const Register = () => {
 							<TextField
 								required
 								fullWidth
-								id='telNumber'
+								id='phoneNumber'
 								label='Telefono'
-								name='telNumber'
-								value={formik.values.telNumber}
+								name='phoneNumber'
+								value={formik.values.phoneNumber}
 								onChange={formik.handleChange}
 								disabled={isRegisterLoading}
 							/>

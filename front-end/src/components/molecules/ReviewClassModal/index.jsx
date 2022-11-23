@@ -10,8 +10,7 @@ import {
 import { Box } from '@mui/system';
 import { useFormik } from 'formik';
 import { useState } from 'react';
-
-import { useReviewClass, useUpdateReview } from '../../../hooks/classes';
+import { useReviewClass, useUpdateReview } from '../../../hooks/reviews';
 
 import { displayErrorMessage } from '../../../utils';
 import { Loading } from '../Loading';
@@ -27,21 +26,14 @@ export const ReviewClassModal = ({
 	const { reviewClassMutation, isReviewClassLoading } = useReviewClass();
 	const { updateReviewsMutation, isUpdateReviewLoading } = useUpdateReview();
 	const [hover, setHover] = useState(-1);
-	const isCommented = userReview?.comment?.message;
+	const isCommented = userReview?.comment;
 
 	const handleSubmit = async (values) => {
-		const { message, rating } = values;
+		const { comment, rating } = values;
 		const payload = {
-			userId: reviewModalData.user.id,
-			professorId: classData.professor.id,
-			classId: classData.id,
-			studentName: `${reviewModalData.user.firstName} ${reviewModalData.user.lastName}`,
-			...(message && {
-				comment: {
-					date: new Date(),
-					status: 'sent',
-					message,
-				},
+			lessonId: classData.id,
+			...(comment && {
+				comment,
 			}),
 			...(rating && {
 				rating,
@@ -64,15 +56,12 @@ export const ReviewClassModal = ({
 	};
 
 	const handleEdit = async (values) => {
-		const { message, rating } = values;
+		const { comment, rating } = values;
 		const payload = {
+			lessonId: classData.id,
 			...(!isCommented &&
-				message && {
-					comment: {
-						date: new Date(),
-						status: 'sent',
-						message,
-					},
+				comment && {
+					comment,
 				}),
 			...(rating && {
 				rating,
@@ -97,7 +86,7 @@ export const ReviewClassModal = ({
 	const formik = useFormik({
 		initialValues: {
 			rating: reviewModalData?.rating || userReview?.rating || 0,
-			message: isCommented || '',
+			comment: isCommented || '',
 		},
 		enableReinitialize: true,
 		onSubmit: (values) => {
@@ -127,7 +116,7 @@ export const ReviewClassModal = ({
 			>
 				<DialogTitle>{`${
 					!userReview ? 'Calificar' : 'Modificar calificación para'
-				} ${classData?.name}`}</DialogTitle>
+				} ${classData?.title}`}</DialogTitle>
 				<DialogContent>
 					<Box
 						id='reviewForm'
@@ -182,9 +171,9 @@ export const ReviewClassModal = ({
 						<TextField
 							sx={{ whiteSpace: 'nowrap', minWidth: 'auto' }}
 							margin='dense'
-							name='message'
+							name='comment'
 							fullWidth
-							id='message'
+							id='comment'
 							label={
 								isCommented
 									? 'Tu comentario'
@@ -192,7 +181,7 @@ export const ReviewClassModal = ({
 							}
 							placeholder='Cuéntanos tu experiencia personal con este curso.'
 							autoFocus
-							value={formik.values.message}
+							value={formik.values.comment}
 							onChange={formik.handleChange}
 							multiline
 							minRows={3}
@@ -213,7 +202,7 @@ export const ReviewClassModal = ({
 					<Button
 						disabled={
 							isReviewClassLoading ||
-							(!formik.values.rating && !formik.values.message)
+							(!formik.values.rating && !formik.values.comment)
 						}
 						type='submit'
 						form='reviewForm'

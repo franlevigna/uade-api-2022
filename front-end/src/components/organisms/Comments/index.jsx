@@ -1,4 +1,3 @@
-import { useGetReviewsByProfessorID } from '../../../hooks/classes';
 import { useUserProfile } from '../../../store/profile';
 import { Comment } from '../../molecules/Comment';
 import { Loading } from '../../molecules/Loading';
@@ -19,6 +18,7 @@ import BlockIcon from '@mui/icons-material/Block';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import { useState } from 'react';
 import { DecideOnReviewModal } from '../../molecules/DecideOnReviewModal';
+import { useGetReviewsByProfessorID } from '../../../hooks/reviews';
 
 const CustomTableViewCol = (props) => {
 	return (
@@ -50,16 +50,17 @@ export const Comments = () => {
 		if (!dataGetReviewsByProfessorID) {
 			return [];
 		}
-		return dataGetReviewsByProfessorID.data
+		return dataGetReviewsByProfessorID.data.data
 			?.map((review) => {
-				if (review?.comment?.status === 'sent') {
+				if (review?.status === 'sent') {
 					return {
 						reviewID: review.id,
 						classID: review.classId,
-						studentName: review.studentName,
-						className: review.class.name,
-						message: review.comment.message,
-						fullReview: review,
+						studentName: `${review.subscription.user.firstName} ${review.subscription.user.lastName}`,
+						className: review.subscription.lesson.title,
+						message: review.comment,
+						rating: review.rating,
+						date: review.createdAt,
 					};
 				}
 				return null;
@@ -116,7 +117,7 @@ export const Comments = () => {
 									onClick={() => {
 										setDecideOnReviewModalData({
 											isOpen: true,
-											review: data[dataIndex]?.fullReview,
+											review: data[dataIndex],
 											action: 'approve',
 										});
 										handleClose();
@@ -134,7 +135,7 @@ export const Comments = () => {
 									onClick={() => {
 										setDecideOnReviewModalData({
 											isOpen: true,
-											review: data[dataIndex]?.fullReview,
+											review: data[dataIndex],
 											action: 'block',
 										});
 										handleClose();
@@ -167,7 +168,7 @@ export const Comments = () => {
 			return (
 				<TableRow>
 					<TableCell colSpan={rowData.length + 1}>
-						<Comment review={data[dataIndex].fullReview} />
+						<Comment review={data[dataIndex]} />
 					</TableCell>
 				</TableRow>
 			);

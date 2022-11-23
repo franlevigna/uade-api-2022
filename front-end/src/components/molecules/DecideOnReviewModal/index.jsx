@@ -6,10 +6,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
-import { useUpdateReview } from '../../../hooks/classes';
+
 import { displayErrorMessage } from '../../../utils';
 import { Loading } from '../Loading';
 import { Toast } from '../Toast';
+import { useUpdateReview } from '../../../hooks/reviews';
 
 export const DecideOnReviewModal = ({
 	handleRefetch,
@@ -19,30 +20,23 @@ export const DecideOnReviewModal = ({
 	const isBlock = decideOnReviewModalData.action === 'block';
 	const modalTitle = isBlock ? 'Bloquear comentario' : 'Aprobar comentario';
 	const modalMessage = isBlock
-		? `Por favor ingrese el motivo por que el que desea bloquear el comentario: "${decideOnReviewModalData.review?.comment.message}"`
-		: `Esta seguro que quiere aprobar el comentario: "${decideOnReviewModalData.review?.comment.message}"`;
+		? `Por favor ingrese el motivo por que el que desea bloquear el comentario: "${decideOnReviewModalData.review?.message}"`
+		: `Esta seguro que quiere aprobar el comentario: "${decideOnReviewModalData.review?.message}"`;
 	const modalConfirmLabel = isBlock ? 'Bloquear' : 'Aceptar';
 	const [disclaimer, setDisclaimer] = useState('');
 	const { isUpdateReviewLoading, updateReviewsMutation } = useUpdateReview();
 
 	const handleSubmit = async () => {
-		const review = decideOnReviewModalData.review;
 		const successMessage = isBlock
 			? 'Se ha bloqueado el comentario'
 			: 'Se ha aceptado el comentario';
 		const payload = {
-			comment: {
-				...(isBlock
-					? { ...review.comment, disclaimer, status: 'blocked' }
-					: {
-							...review.comment,
-							status: 'accepted',
-					  }),
-			},
+			commentDisclaimer: disclaimer || null,
+			status: isBlock ? 'blocked' : 'accepted',
 		};
 		try {
 			await updateReviewsMutation({
-				id: decideOnReviewModalData.review?.id,
+				id: decideOnReviewModalData.review?.reviewID,
 				payload,
 			});
 			Toast(successMessage);

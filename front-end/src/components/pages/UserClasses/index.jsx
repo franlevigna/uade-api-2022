@@ -2,7 +2,6 @@ import {
 	useDeleteClass,
 	useGetClassesByUser,
 	useUpdateClass,
-	useUpdateHiredClass,
 } from '../../../hooks/classes';
 import { useUserProfile } from '../../../store/profile';
 
@@ -33,6 +32,7 @@ import MUIDataTable, { TableViewCol } from 'mui-datatables';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { Loading } from '../../molecules/Loading';
+import { useUpdateHiredClass } from '../../../hooks/subscriptions';
 const CustomTableViewCol = (props) => {
 	return (
 		<Box id='TEST' sx={{ padding: '1rem' }}>
@@ -46,56 +46,56 @@ export const UserClasses = () => {
 		dataGetClassByUser,
 		refetchGetClassByUser,
 		isDataGetClassByUserLoading,
-	} = useGetClassesByUser(user.id, user.userType);
+	} = useGetClassesByUser(user.id);
 	const { updateClassMutation, isUpdateClassLoading } = useUpdateClass();
 	const { deleteClassMutation, isDeleteClassLoading } = useDeleteClass();
 	const { updateHiredClassMutation, isUpdateHiredClassLoading } =
 		useUpdateHiredClass();
 	const navigateTo = useNavigate();
 
-	const handlePublish = async (id, name) => {
+	const handlePublish = async (id, title) => {
 		const payload = {
 			status: 'published',
 		};
 		try {
 			await updateClassMutation({ id, payload });
-			Toast(`La clase ${name} ha sido publicada`);
+			Toast(`La clase ${title} ha sido publicada`);
 			refetchGetClassByUser();
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
 		}
 	};
-	const handleUnpublish = async (id, name) => {
+	const handleUnpublish = async (id, title) => {
 		const payload = {
 			status: 'unpublished',
 		};
 		try {
 			await updateClassMutation({ id, payload });
-			Toast(`La clase ${name} ha sido despublicada`);
+			Toast(`La clase ${title} ha sido despublicada`);
 			refetchGetClassByUser();
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
 		}
 	};
 
-	const handleDelete = async (id, name) => {
+	const handleDelete = async (id, title) => {
 		try {
 			await deleteClassMutation({ id });
-			Toast(`La clase ${name} ha sido eliminada`);
+			Toast(`La clase ${title} ha sido eliminada`);
 			refetchGetClassByUser();
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
 		}
 	};
 
-	const handleEnd = async (id, name, type) => {
+	const handleEnd = async (id, title, type) => {
 		const payload = {
 			status: type === 'finish' ? 'finished' : 'cancelled',
 		};
 		try {
 			await updateHiredClassMutation({ id, payload });
 			Toast(
-				`La clase ${name} ha sido ${
+				`La clase ${title} ha sido ${
 					type === 'finish' ? 'terminada' : 'cancelada'
 				}`
 			);
@@ -110,18 +110,19 @@ export const UserClasses = () => {
 			return [];
 		}
 		if (user.userType === userRoles.PROFESSOR) {
-			return dataGetClassByUser.data;
+			return dataGetClassByUser.data.data;
 		}
-		return dataGetClassByUser.data.map((item) => ({
-			...item.class,
+		return dataGetClassByUser.data.data.map((item) => ({
+			...item.lesson,
 			status: item.status,
-			studentID: item.id,
+			id: item.id,
+			lessonId: item.lesson.id,
 		}));
 	};
 	const data = getData();
 
 	const columns = [
-		{ label: 'Nombre', name: 'name' },
+		{ label: 'Nombre', name: 'title' },
 		{ label: 'Materia', name: 'subject' },
 		{ label: 'Descripción', name: 'description' },
 		{
@@ -168,10 +169,10 @@ export const UserClasses = () => {
 								{user.userType === userRoles.STUDENT
 									? [
 											<MenuItem
-												key={`viewClass-${rowData?.id}`}
+												key={`viewClass-${rowData?.lessonId}`}
 												onClick={() => {
 													navigateTo(
-														`/class/${rowData?.id}`
+														`/class/${rowData?.lessonId}`
 													);
 													handleClose();
 												}}
@@ -186,8 +187,8 @@ export const UserClasses = () => {
 													key={`finish-${rowData?.id}`}
 													onClick={() => {
 														handleEnd(
-															rowData?.studentID,
-															rowData?.name,
+															rowData?.id,
+															rowData?.title,
 															'finish'
 														);
 														handleClose();
@@ -204,8 +205,8 @@ export const UserClasses = () => {
 													key={`cancel-${rowData?.id}`}
 													onClick={() => {
 														handleEnd(
-															rowData?.studentID,
-															rowData?.name,
+															rowData?.id,
+															rowData?.title,
 															'cancel'
 														);
 														handleClose();
@@ -244,7 +245,7 @@ export const UserClasses = () => {
 													onClick={() => {
 														handlePublish(
 															rowData?.id,
-															rowData?.name
+															rowData?.title
 														);
 														handleClose();
 													}}
@@ -263,7 +264,7 @@ export const UserClasses = () => {
 													onClick={() => {
 														handleUnpublish(
 															rowData?.id,
-															rowData?.name
+															rowData?.title
 														);
 														handleClose();
 													}}
@@ -281,7 +282,7 @@ export const UserClasses = () => {
 												onClick={() => {
 													handleDelete(
 														rowData?.id,
-														rowData?.name
+														rowData?.title
 													);
 													handleClose();
 												}}

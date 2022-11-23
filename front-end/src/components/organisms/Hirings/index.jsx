@@ -1,7 +1,3 @@
-import {
-	useGetStudentsByProfessor,
-	useUpdateHiredClass,
-} from '../../../hooks/classes';
 import { useUserProfile } from '../../../store/profile';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -22,6 +18,9 @@ import { displayErrorMessage } from '../../../utils';
 import { useState } from 'react';
 import { Loading } from '../../molecules/Loading';
 import AddTaskIcon from '@mui/icons-material/AddTask';
+import { useUpdateHiredClass } from '../../../hooks/subscriptions';
+import { useGetStudentsByProfessor } from '../../../hooks/classes';
+
 const CustomTableViewCol = (props) => {
 	return (
 		<Box id='TEST' sx={{ padding: '1rem' }}>
@@ -101,7 +100,7 @@ export const Hirings = () => {
 		},
 		{
 			label: 'Telefono',
-			name: 'telNumber',
+			name: 'phoneNumber',
 			options: {
 				filter: false,
 			},
@@ -233,7 +232,8 @@ export const Hirings = () => {
 		print: false,
 		textLabels: {
 			body: {
-				noMatch: 'Aun no has contratado ninguna clase',
+				noMatch:
+					'Aun no tienes contrataciones pendientes de aprobación',
 				toolTip: 'Ordenar',
 				columnHeaderTooltip: (column) => `Orden para ${column.label}`,
 			},

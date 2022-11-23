@@ -22,12 +22,9 @@ exports.create = async function (req, res) {
           rating: req.body.rating,
           status: "sent", // when subscription is created status will always be sent,
           comment: req.body.comment,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         });
 
         return res.status(200).json({
-          status: 200,
           data: createdReview,
           message: "Review created successfully",
         });
@@ -37,10 +34,13 @@ exports.create = async function (req, res) {
           .json({ status: 404, message: "Subscription not found" });
       }
     } catch (e) {
-      console.log(e);
+      console.log("ERROR", e);
       return res.status(500).json({ status: 500, message: e });
     }
   }
+  return res
+    .status(403)
+    .json({ status: 500, message: "Only student can review a class" });
 };
 
 exports.update = async function (req, res) {
@@ -48,10 +48,10 @@ exports.update = async function (req, res) {
     const reviewFound = await review.findOne({
       where: { id: req.params.id },
     });
-
     if (reviewFound) {
       reviewFound.status = req.body.status || reviewFound.status;
-      reviewFound.updatedAt = new Date();
+      reviewFound.commentDisclaimer =
+        req.body.commentDisclaimer || reviewFound.commentDisclaimer;
 
       const savedReview = await reviewFound.save();
 
@@ -86,12 +86,7 @@ exports.getReviewsByProfessor = async function (req, res) {
         include: [
           {
             model: subscription,
-            include: [
-              {
-                model: lesson,
-                where: { teacherId: id },
-              },
-            ],
+            include: { all: true, nested: true },
           },
         ],
       });
@@ -117,15 +112,12 @@ exports.getNotificationsByUser = async function (req, res) {
         include: [
           {
             model: subscription,
-            where: { studentId: id },
-            include: { model: lesson },
+            include: { all: true, nested: true },
           },
         ],
       });
 
       return res.status(200).json({
-        status: 200,
-
         data: reviewsFound,
       });
     } catch (e) {

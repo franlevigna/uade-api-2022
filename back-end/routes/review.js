@@ -5,7 +5,11 @@ const Authorization = require("../helpers/auth");
 
 router.post("/create", Authorization, reviewsController.create);
 router.patch("/update/:id", Authorization, reviewsController.update);
-router.get("/user/", Authorization, reviewsController.getReviewsByProfessor);
+router.get(
+  "/professor/",
+  Authorization,
+  reviewsController.getReviewsByProfessor
+);
 router.get(
   "/student/",
   Authorization,

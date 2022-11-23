@@ -21,28 +21,21 @@ import { useFormik } from 'formik';
 import { Toast } from '../../molecules/Toast';
 import { displayErrorMessage } from '../../../utils';
 import { useCreateClass } from '../../../hooks/classes';
-import { useUserProfile } from '../../../store/profile';
 import { Loading } from '../../molecules/Loading';
 
 export const CreateClass = () => {
 	const { createClassMutation, isCreateClassLoading } = useCreateClass();
-	const { user } = useUserProfile();
 	const navigateTo = useNavigate();
 
 	const handleSubmit = async (values) => {
 		const payload = {
 			...values,
 			status: 'unpublished',
-			professor: {
-				id: user.id,
-				name: `${user.firstName} ${user.lastName}`,
-				experience: user.experience,
-			},
 		};
 		try {
 			await createClassMutation({ payload });
 			Toast(
-				`¡Enhorabuena! ¡La clase ${values.name} ha sido existomente creada!`
+				`¡Enhorabuena! ¡La clase ${values.title} ha sido existomente creada!`
 			);
 			navigateTo('/user/classes');
 		} catch (error) {
@@ -51,7 +44,7 @@ export const CreateClass = () => {
 	};
 	const formik = useFormik({
 		initialValues: {
-			name: '',
+			title: '',
 			subject: '',
 			description: '',
 			duration: '',
@@ -86,13 +79,13 @@ export const CreateClass = () => {
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField
-								name='name'
+								name='title'
 								required
 								fullWidth
 								id='className'
 								label='Nombre'
 								autoFocus
-								value={formik.values.name}
+								value={formik.values.title}
 								onChange={formik.handleChange}
 							/>
 						</Grid>
