@@ -15,8 +15,6 @@ import { useUserSession } from '../../../hooks/userSession';
 import { Toast } from '../../molecules/Toast';
 import { displayErrorMessage } from '../../../utils';
 import { useUserProfile } from '../../../store/profile';
-// eslint-disable-next-line camelcase
-import jwt_decode from 'jwt-decode';
 
 export const Login = () => {
 	const { setUserData } = useUserProfile();
@@ -25,14 +23,11 @@ export const Login = () => {
 	const handleSubmit = async (values) => {
 		try {
 			const {
-				// eslint-disable-next-line camelcase
-				data: { accessToken },
+				data: { data, accessToken },
 			} = await loginMutation({
 				payload: values,
 			});
-			const decoded = jwt_decode(accessToken);
-
-			setUserData(decoded);
+			setUserData(data);
 			storeAuthToken(accessToken);
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');

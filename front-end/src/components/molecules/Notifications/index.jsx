@@ -3,6 +3,7 @@ import {
 	Box,
 	Card,
 	CardContent,
+	CardHeader,
 	Divider,
 	IconButton,
 	Menu,
@@ -10,10 +11,18 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import { useGetNotificationsByUser } from '../../../hooks/reviews';
+import {
+	useGetNotificationsByUser,
+	useUpdateReview,
+} from '../../../hooks/reviews';
+import { Toast } from '../Toast';
+import { displayErrorMessage } from '../../../utils';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 
 export const Nottifications = ({ userID }) => {
-	const { dataGetNotificationsByUser } = useGetNotificationsByUser(userID);
+	const { dataGetNotificationsByUser, refetchGetNotificationsByUser } =
+		useGetNotificationsByUser(userID);
+	const { updateReviewsMutation } = useUpdateReview();
 	const [anchorEl, setAnchorEl] = useState(null);
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {
@@ -30,6 +39,7 @@ export const Nottifications = ({ userID }) => {
 		console.log(dataGetNotificationsByUser);
 		return dataGetNotificationsByUser.data.data.length
 			? dataGetNotificationsByUser.data.data.map((item) => ({
+					id: item.id,
 					className: item.subscription.lesson.title,
 					disclaimer: item.commentDisclaimer,
 					professor: `${item.subscription.lesson.user.firstName} ${item.subscription.lesson.user.lastName}`,
@@ -38,6 +48,17 @@ export const Nottifications = ({ userID }) => {
 	};
 
 	const data = getData();
+
+	const acknowledgeNotification = async (id) => {
+		const payload = { status: 'acknowledged' };
+		try {
+			await updateReviewsMutation({ id, payload });
+			refetchGetNotificationsByUser();
+			handleClose();
+		} catch (error) {
+			Toast(displayErrorMessage(error), 'error');
+		}
+	};
 
 	return dataGetNotificationsByUser ? (
 		<div>
@@ -70,15 +91,22 @@ export const Nottifications = ({ userID }) => {
 							sx={{ backgroundColor: 'transparent' }}
 							key={index}
 						>
+							<CardHeader
+								title={`Clase: ${notification.className}`}
+								action={
+									<IconButton
+										onClick={() =>
+											acknowledgeNotification(
+												notification.id
+											)
+										}
+									>
+										<CancelOutlinedIcon color='error' />
+									</IconButton>
+								}
+							/>
 							<CardContent>
-								<Typography
-									sx={{ fontSize: 14 }}
-									color='text.secondary'
-									gutterBottom
-								>
-									{`Clase: ${notification.className}`}
-								</Typography>
-								<Typography variant='h6' component='div'>
+								<Typography component='div'>
 									{`El profesor ${notification.professor} bloqueo tu comentario`}
 								</Typography>
 								<Typography

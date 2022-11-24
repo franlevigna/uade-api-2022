@@ -151,6 +151,7 @@ export const ProfileForm = () => {
 						<Grid item display='flex' alignItems='center'>
 							{!previewImg ? (
 								<Button
+									size='small'
 									fullWidth
 									variant='outlined'
 									component='label'
@@ -429,28 +430,6 @@ export const ProfileForm = () => {
 													// disabled={isRegisterLoading}
 												/>
 											</RadioGroup>
-										</Grid>
-										<Grid
-											item
-											xs={3}
-											display='flex'
-											alignItems='center'
-										>
-											<Button
-												fullWidth
-												variant='outlined'
-												component='label'
-												startIcon={<UploadFileIcon />}
-											>
-												Subir foto
-												<input
-													hidden
-													accept='image/*'
-													multiple={false}
-													type='file'
-													onChange={handleUpload}
-												/>
-											</Button>
 										</Grid>
 									</>
 								)}

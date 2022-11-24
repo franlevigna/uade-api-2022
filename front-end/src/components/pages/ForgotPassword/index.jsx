@@ -14,24 +14,27 @@ import { Toast } from '../../molecules/Toast';
 import { displayErrorMessage } from '../../../utils';
 import { useState } from 'react';
 import queryString from 'query-string';
-import { useUpdateUser } from '../../../hooks/users';
+import { useChangePassword, useForgotPassword } from '../../../hooks/users';
 
 export const ForgotPassword = () => {
 	const [showMessage, setShowMessage] = useState(false);
 	const navigateTo = useNavigate();
 	const location = useLocation();
-	const { updateUserMutation, isUpdateUserLoading } = useUpdateUser();
+	const { changePasswordMutation, isChangePasswordLoading } =
+		useChangePassword();
+	const { forgotPasswordMutation, isForgotPasswordLoading } =
+		useForgotPassword();
+
 	const parsedQuery = queryString.parse(location.search);
 	const token = parsedQuery.token;
 
 	const handleSubmit = async (values) => {
 		const payload = {
 			password: values.password,
+			access_token: token,
 		};
 		try {
-			await updateUserMutation({
-				// TOKEN SHOULD RETURN USER ID
-				id: 2,
+			await changePasswordMutation({
 				payload,
 			});
 			Toast(
@@ -44,8 +47,17 @@ export const ForgotPassword = () => {
 	};
 
 	const handleForgot = async (values) => {
-		// When back-end done will make a HTTP call
-		setShowMessage(true);
+		const payload = {
+			email: values.email,
+		};
+		try {
+			await forgotPasswordMutation({
+				payload,
+			});
+			setShowMessage(true);
+		} catch (error) {
+			Toast(displayErrorMessage(error), 'error');
+		}
 	};
 
 	const formik = useFormik({
@@ -53,7 +65,7 @@ export const ForgotPassword = () => {
 			email: '',
 		},
 		onSubmit: (values) => {
-			handleForgot();
+			handleForgot(values);
 		},
 	});
 
@@ -103,7 +115,7 @@ export const ForgotPassword = () => {
 							type='password'
 							id='password'
 							value={formikConfirm.values.password}
-							disabled={isUpdateUserLoading}
+							disabled={isChangePasswordLoading}
 							onChange={formikConfirm.handleChange}
 						/>
 						<TextField
@@ -115,7 +127,7 @@ export const ForgotPassword = () => {
 							type='password'
 							id='confirmPassword'
 							value={formikConfirm.values.confirmPassword}
-							disabled={isUpdateUserLoading}
+							disabled={isChangePasswordLoading}
 							onChange={formikConfirm.handleChange}
 						/>
 						<LoadingButton
@@ -124,10 +136,11 @@ export const ForgotPassword = () => {
 							fullWidth
 							disabled={
 								formikConfirm.values.confirmPassword !==
-								formikConfirm.values.password
+									formikConfirm.values.password ||
+								!formikConfirm.values.password
 							}
 							sx={{ mt: 3, mb: 2 }}
-							loading={isUpdateUserLoading}
+							loading={isChangePasswordLoading}
 						>
 							Restablecer contraseña
 						</LoadingButton>
@@ -177,6 +190,7 @@ export const ForgotPassword = () => {
 							onChange={formik.handleChange}
 						/>
 						<LoadingButton
+							loading={isForgotPasswordLoading}
 							type='submit'
 							variant='contained'
 							fullWidth

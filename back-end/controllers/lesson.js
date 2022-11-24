@@ -176,8 +176,6 @@ exports.getLessonsByUser = async function (req, res) {
     loggedUser: { userType, id },
   } = req;
 
-  console.log("TIPO ==>", userType);
-
   try {
     let lessonsFound;
 

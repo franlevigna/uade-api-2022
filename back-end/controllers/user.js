@@ -4,7 +4,7 @@ const user = require("../models").user;
 const jwt = require("jsonwebtoken");
 const transporter = require("../helpers/mailer");
 const EMAIL = require("../helpers/constants").EMAIL;
-const BASE_URL = require("../helpers/constants").BASE_URL;
+const UI_BASE_URL = require("../helpers/constants").UI_BASE_URL;
 const SECRET = require("../helpers/constants").SECRET;
 const CLOUDINARY_UPLOAD_PRESET =
   require("../helpers/constants").CLOUDINARY_UPLOAD_PRESET;
@@ -130,7 +130,7 @@ exports.forgotPassword = async function (req, res) {
       to: req.body.email,
       subject: "Seguí las instrucciones para cambiar tu contraseña ✔",
       text: "",
-      html: `<b>Por favor segui el siguiente <a href=${BASE_URL}forgot-password?${token}>link</a> para completar el proceso</b>`,
+      html: `<b>Por favor segui el siguiente <a taret="_blank" rel="noopener noreferrer" href=${UI_BASE_URL}forgot-password?token=${token}>link</a> para completar el proceso</b>`,
     });
 
     res.status(200).json({
