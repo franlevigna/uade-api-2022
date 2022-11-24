@@ -6,7 +6,6 @@ import {
 	getClassesByUser,
 	updateClass,
 	deleteClass,
-	getStudentsByProfessorId,
 } from '../services/CRUD/classes';
 
 export const useGetClasses = (parsedQuery) => {
@@ -96,27 +95,6 @@ export const useGetClassesByUser = (userID) => {
 		refetchGetClassByUser,
 		dataGetClassByUser,
 		isDataGetClassByUserLoading,
-		error,
-	};
-};
-
-export const useGetStudentsByProfessor = (userID) => {
-	const {
-		refetch: refetchGetStudentsByProfessor,
-		data: dataGetStudentsByProfessor,
-		isLoading: isDataGetStudentsByProfessorLoading,
-		error,
-	} = useQuery(
-		['getStudentsBy', userID],
-		() => getStudentsByProfessorId(userID),
-		{
-			enabled: true,
-		}
-	);
-	return {
-		refetchGetStudentsByProfessor,
-		dataGetStudentsByProfessor,
-		isDataGetStudentsByProfessorLoading,
 		error,
 	};
 };

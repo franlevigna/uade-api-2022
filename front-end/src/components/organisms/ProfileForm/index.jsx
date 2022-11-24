@@ -1,10 +1,12 @@
 import {
 	Avatar,
 	Box,
+	Button,
 	Container,
 	FormControlLabel,
 	FormLabel,
 	Grid,
+	IconButton,
 	Radio,
 	RadioGroup,
 	TextField,
@@ -18,20 +20,34 @@ import { textMapper, userRoles } from '../../../utils/enums';
 import { useUpdateUser } from '../../../hooks/users';
 import { Loading } from '../../molecules/Loading';
 import { Toast } from '../../molecules/Toast';
-import { displayErrorMessage } from '../../../utils';
+import { convertToBase64, displayErrorMessage } from '../../../utils';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useState } from 'react';
+import { useUserSession } from '../../../hooks/userSession';
 
 export const ProfileForm = () => {
+	const { storeAuthToken } = useUserSession();
 	const { user, setUserData } = useUserProfile();
 	const { updateUserMutation, isUpdateUserLoading } = useUpdateUser();
+	const [previewImg, setPreviewImg] = useState();
 
 	const handleSubmit = async (values) => {
 		try {
-			const { data } = await updateUserMutation({
-				id: user.id,
+			const {
+				data: { data, accessToken },
+			} = await updateUserMutation({
 				payload: values,
 			});
 			setUserData(data);
-			Toast('Perfil actualizado exitosamente!');
+			storeAuthToken(accessToken);
+			Toast(
+				!previewImg
+					? 'Perfil actualizado exitosamente!'
+					: 'Tu foto ha sido actualizada'
+			);
+			setPreviewImg(null);
 		} catch (error) {
 			Toast(displayErrorMessage(error), 'error');
 		}
@@ -39,7 +55,6 @@ export const ProfileForm = () => {
 
 	const formik = useFormik({
 		initialValues: {
-			id: user.id,
 			firstName: user.firstName,
 			lastName: user.lastName,
 			email: user.email,
@@ -61,6 +76,15 @@ export const ProfileForm = () => {
 			handleSubmit(values);
 		},
 	});
+
+	const handleUpload = async (e) => {
+		const newImage = e.target?.files?.[0];
+		if (newImage) {
+			const base64 = await convertToBase64(newImage);
+			setPreviewImg(base64);
+		}
+	};
+
 	return (
 		<Box
 			sx={{
@@ -116,11 +140,55 @@ export const ProfileForm = () => {
 				}}
 			>
 				<Stack spacing={2} sx={{ alignItems: 'center' }}>
-					<Avatar sx={{ width: '120px', height: '120px' }}>
+					<Avatar
+						src={previewImg || user.profileImage}
+						sx={{ width: '120px', height: '120px' }}
+					>
 						{user.firstName[0]}
 						{user.lastName[0]}
 					</Avatar>
-
+					<Grid container justifyContent='center' spacing={1}>
+						<Grid item display='flex' alignItems='center'>
+							{!previewImg ? (
+								<Button
+									fullWidth
+									variant='outlined'
+									component='label'
+									startIcon={<UploadFileIcon />}
+								>
+									{user.profileImage
+										? 'Cambiar foto'
+										: 'Subir foto'}
+									<input
+										hidden
+										accept='image/*'
+										multiple={false}
+										type='file'
+										onChange={handleUpload}
+									/>
+								</Button>
+							) : (
+								<>
+									<IconButton>
+										<CancelOutlinedIcon
+											color='error'
+											onClick={() => setPreviewImg(null)}
+										/>
+									</IconButton>
+									<IconButton>
+										<CheckCircleOutlineIcon
+											color='primary'
+											onClick={() =>
+												handleSubmit({
+													profileImage: previewImg,
+												})
+											}
+										/>
+									</IconButton>
+								</>
+							)}
+						</Grid>
+					</Grid>
 					<Typography variant='h5' component='div'>
 						{`${user.firstName} ${user.lastName}`}
 					</Typography>
@@ -361,6 +429,28 @@ export const ProfileForm = () => {
 													// disabled={isRegisterLoading}
 												/>
 											</RadioGroup>
+										</Grid>
+										<Grid
+											item
+											xs={3}
+											display='flex'
+											alignItems='center'
+										>
+											<Button
+												fullWidth
+												variant='outlined'
+												component='label'
+												startIcon={<UploadFileIcon />}
+											>
+												Subir foto
+												<input
+													hidden
+													accept='image/*'
+													multiple={false}
+													type='file'
+													onChange={handleUpload}
+												/>
+											</Button>
 										</Grid>
 									</>
 								)}

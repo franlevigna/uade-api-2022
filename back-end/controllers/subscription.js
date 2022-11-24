@@ -1,6 +1,39 @@
 const Sequelize = require("sequelize");
 const subscription = require("../models").subscription;
+const lesson = require("../models").lesson;
+const user = require("../models").user;
 const userTypes = require("../helpers/constants").userTypes;
+
+exports.getProffesorHirings = async function (req, res) {
+  const {
+    loggedUser: { userType, id },
+  } = req;
+
+  if (userType === userTypes.PROFESSOR) {
+    try {
+      const subscriptions = await subscription.findAll({
+        include: [
+          {
+            model: lesson,
+            where: { teacherId: id },
+          },
+          {
+            model: user,
+          },
+        ],
+      });
+      return res.status(200).json({
+        data: subscriptions,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ status: 400, message: error });
+    }
+  }
+  return res
+    .status(403)
+    .json({ message: "Only professor can access this resource" });
+};
 
 exports.create = async function (req, res) {
   const {

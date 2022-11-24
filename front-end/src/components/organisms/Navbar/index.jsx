@@ -110,7 +110,7 @@ export const Navbar = () => {
 							<Nottifications userID={user?.id} />
 						)}
 						<IconButton onClick={toggleDrawer}>
-							<Avatar>
+							<Avatar src={user.profileImage}>
 								{user.firstName[0]}
 								{user.lastName[0]}
 							</Avatar>

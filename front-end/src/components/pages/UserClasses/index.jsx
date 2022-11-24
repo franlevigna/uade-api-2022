@@ -120,7 +120,7 @@ export const UserClasses = () => {
 		}));
 	};
 	const data = getData();
-
+	console.log(data);
 	const columns = [
 		{ label: 'Nombre', name: 'title' },
 		{ label: 'Materia', name: 'subject' },

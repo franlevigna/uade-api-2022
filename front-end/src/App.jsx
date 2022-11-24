@@ -13,6 +13,10 @@ import { RouteViews } from './routes/RouteViews';
 const darkTheme = createTheme({
 	palette: {
 		mode: 'dark',
+		background: {
+			paper: '#161B22',
+			default: '#161B22',
+		},
 	},
 });
 

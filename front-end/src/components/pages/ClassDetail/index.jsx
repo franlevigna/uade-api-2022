@@ -25,6 +25,7 @@ export const ClassDetail = () => {
 	const [reviewModalData, setReviewModalData] = useState(
 		initialReviewModalData
 	);
+
 	const handleReviewOpen = (rating = 0) => {
 		setReviewModalData({ ...reviewModalData, rating, isOpen: true });
 	};
@@ -55,14 +56,13 @@ export const ClassDetail = () => {
 
 	const getRating = () => {
 		let ratingAVG = 0;
-		if (dataGetClassByID?.data.data.classes_reviews) {
-			dataGetClassByID?.data.data.classes_reviews.forEach((review) => {
+		if (dataGetClassByID?.data.data.reviews) {
+			dataGetClassByID?.data.data.reviews.forEach((review) => {
 				if (review.rating) {
 					ratingAVG = ratingAVG + review.rating;
 				}
 			});
-			ratingAVG =
-				ratingAVG / dataGetClassByID?.data.data.classes_reviews.length;
+			ratingAVG = ratingAVG / dataGetClassByID?.data.data.reviews.length;
 		}
 		return ratingAVG;
 	};
@@ -165,6 +165,8 @@ export const ClassDetail = () => {
 						}}
 					>
 						<Avatar
+							src={dataGetClassByID?.data.data.image}
+							variant='square'
 							sx={{
 								width: '120px',
 								height: '120px',

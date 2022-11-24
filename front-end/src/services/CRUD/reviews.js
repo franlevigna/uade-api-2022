@@ -13,7 +13,7 @@ export const getReviewsByProfessorID = () => {
 	return crudProfeFlix.get(`${BASE_URL}/professor`);
 };
 
-// Now is checking if any comment is in status blocked, later should be in user endpoint
+// Now is checking if any comment is in status blocked
 export const getUserNotifications = () => {
 	return crudProfeFlix.get(`${BASE_URL}/student`);
 };

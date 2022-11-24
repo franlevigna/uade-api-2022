@@ -3,7 +3,7 @@ import { updateUser } from '../services/CRUD/users';
 
 export const useUpdateUser = () => {
 	const { mutateAsync: updateUserMutation, isLoading: isUpdateUserLoading } =
-		useMutation(({ id, payload }) => updateUser(id, payload));
+		useMutation(({ payload }) => updateUser(payload));
 
 	return { updateUserMutation, isUpdateUserLoading };
 };

@@ -26,13 +26,9 @@ export const updateClass = (classID, payload) => {
 };
 
 export const deleteClass = (classID) => {
-	return crudProfeFlix.delete(`${BASE_URL}/delete/	${classID}`);
+	return crudProfeFlix.delete(`${BASE_URL}/delete/${classID}`);
 };
 
 export const getClassesByUser = (userID) => {
 	return crudProfeFlix.get(`${BASE_URL}/user/${userID}`);
-};
-
-export const getStudentsByProfessorId = (userID) => {
-	return crudProfeFlix.get(`${BASE_URL}/professor/${userID}/students`);
 };

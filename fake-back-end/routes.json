@@ -1,6 +1,0 @@
-{
-  "/classes/professor/:id": "/classes?professor.id=:id&_sort=id&_order=desc",
-  "/classes/professor/:id/students": "/classes?professor.id=:id&_embed=classes_students",
-  "/classes/student/:id": "/classes_students?userId=:id&_expand=class&_expand=user&_sort=id&_order=desc",
-  "/classes_reviews/professor/:id": "/classes_reviews?professorId=:id&_expand=class&_sort=id&_order=desc"
-}

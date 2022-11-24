@@ -6,9 +6,9 @@ export const useUserSession = () => {
 
 	return {
 		isLogged: Boolean(authCookie.accessToken),
-		storeAuthToken: (token) => [
-			setAuthCookie('accessToken', token, { path: '/', secure: true }),
-		],
+		storeAuthToken: (token) => {
+			setAuthCookie('accessToken', token, { path: '/', secure: true });
+		},
 		logOut: () => {
 			removeAuthCookie('accessToken', { path: '/' });
 		},

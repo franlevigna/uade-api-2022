@@ -73,7 +73,7 @@ exports.login = async function (req, res) {
       token = jwt.sign(
         {
           email: userFound.email,
-          user_type: userFound.user_type,
+          userType: userFound.userType,
           id: userFound.id,
           expiresIn: 86400,
         },
@@ -217,7 +217,7 @@ exports.update = async function (req, res) {
       const token = jwt.sign(
         {
           email: savedUser.email,
-          user_type: savedUser.user_type,
+          userType: savedUser.userType,
           id: savedUser.id,
           expiresIn: 86400,
         },

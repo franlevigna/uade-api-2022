@@ -38,9 +38,6 @@ module.exports = {
       description: {
         type: Sequelize.DataTypes.STRING,
       },
-      image: {
-        type: Sequelize.STRING,
-      },
       duration: {
         type: Sequelize.DataTypes.INTEGER,
       },

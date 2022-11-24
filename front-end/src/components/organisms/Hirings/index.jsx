@@ -18,8 +18,10 @@ import { displayErrorMessage } from '../../../utils';
 import { useState } from 'react';
 import { Loading } from '../../molecules/Loading';
 import AddTaskIcon from '@mui/icons-material/AddTask';
-import { useUpdateHiredClass } from '../../../hooks/subscriptions';
-import { useGetStudentsByProfessor } from '../../../hooks/classes';
+import {
+	useGetStudentsByProfessor,
+	useUpdateHiredClass,
+} from '../../../hooks/subscriptions';
 
 const CustomTableViewCol = (props) => {
 	return (
@@ -42,21 +44,18 @@ export const Hirings = () => {
 		if (!dataGetStudentsByProfessor) {
 			return [];
 		}
-		if (!dataGetStudentsByProfessor.data?.length) {
+		if (!dataGetStudentsByProfessor.data?.data?.length) {
 			return [];
 		}
-		const studentsByClass = dataGetStudentsByProfessor.data?.map((item) => {
-			return { students: item.classes_students, className: item.name };
-		});
-		const allStudents = [];
-		studentsByClass.forEach(({ students, className }) => {
-			students.forEach((student) => {
-				if (student) {
-					allStudents.push({ ...student, className });
-				}
-			});
-		});
-		return allStudents;
+		return dataGetStudentsByProfessor.data.data.map((subscription) => ({
+			id: subscription.id,
+			lessonName: subscription.lesson.title,
+			studentName: `${subscription.user.firstName} ${subscription.user.lastName}`,
+			message: subscription.message,
+			phoneNumber: subscription.user.phoneNumber,
+			contactSchedule: `De ${subscription.timeframeFrom}hs a ${subscription.timeframeTo}hs`,
+			status: subscription.status,
+		}));
 	};
 	const data = getData();
 
@@ -65,11 +64,13 @@ export const Hirings = () => {
 			finish: 'finished',
 			cancel: 'cancelled',
 			accept: 'accepted',
+			reject: 'rejected',
 		};
 		const message = {
 			finish: 'finalizada',
 			cancel: 'cancelada',
 			accept: 'aceptada',
+			reject: 'rechazada',
 		};
 		const payload = {
 			status: status[type],
@@ -83,7 +84,7 @@ export const Hirings = () => {
 		}
 	};
 	const columns = [
-		{ label: 'Clase', name: 'className' },
+		{ label: 'Clase', name: 'lessonName' },
 		{
 			label: 'Estudiante',
 			name: 'studentName',
@@ -163,7 +164,7 @@ export const Hirings = () => {
 												onClick={() => {
 													handleChange(
 														rowData?.id,
-														rowData?.classame,
+														rowData?.lessonName,
 														'finish'
 													);
 													handleClose();
@@ -181,7 +182,7 @@ export const Hirings = () => {
 												onClick={() => {
 													handleChange(
 														rowData?.id,
-														rowData?.className,
+														rowData?.lessonName,
 														'cancel'
 													);
 													handleClose();
@@ -195,13 +196,13 @@ export const Hirings = () => {
 												</ListItemText>
 											</MenuItem>,
 									  ]
-									: rowData?.status === 'requested' && (
+									: rowData?.status === 'requested' && [
 											<MenuItem
 												key={`accept-${rowData?.id}`}
 												onClick={() => {
 													handleChange(
 														rowData?.id,
-														rowData?.className,
+														rowData?.lessonName,
 														'accept'
 													);
 													handleClose();
@@ -213,8 +214,26 @@ export const Hirings = () => {
 												<ListItemText>
 													Aceptar
 												</ListItemText>
-											</MenuItem>
-									  )}
+											</MenuItem>,
+											<MenuItem
+												key={`reject-${rowData?.id}`}
+												onClick={() => {
+													handleChange(
+														rowData?.id,
+														rowData?.lessonName,
+														'reject'
+													);
+													handleClose();
+												}}
+											>
+												<ListItemIcon>
+													<CancelIcon fontSize='small' />
+												</ListItemIcon>
+												<ListItemText>
+													Rechazar
+												</ListItemText>
+											</MenuItem>,
+									  ]}
 							</Menu>
 						</div>
 					);

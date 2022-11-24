@@ -13,14 +13,18 @@ import {
 	MenuItem,
 	Button,
 	InputAdornment,
+	Avatar,
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Toast } from '../../molecules/Toast';
-import { displayErrorMessage } from '../../../utils';
+import { convertToBase64, displayErrorMessage } from '../../../utils';
 import { useGetClassByID, useUpdateClass } from '../../../hooks/classes';
 import { Loading } from '../../molecules/Loading';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
+import { useState } from 'react';
 
 export const EditClass = () => {
 	const { classID } = useParams();
@@ -28,10 +32,12 @@ export const EditClass = () => {
 		useGetClassByID(classID);
 	const { updateClassMutation, isUpdateClassLoading } = useUpdateClass();
 	const navigateTo = useNavigate();
+	const [previewImg, setPreviewImg] = useState();
 
 	const handleSubmit = async (values) => {
+		const payload = previewImg ? { ...values, image: previewImg } : values;
 		try {
-			await updateClassMutation({ id: classID, payload: values });
+			await updateClassMutation({ id: classID, payload });
 			Toast(`¡Enhorabuena! ¡La clase ${values.title} ha sido editada!`);
 			navigateTo('/user/classes');
 		} catch (error) {
@@ -54,6 +60,13 @@ export const EditClass = () => {
 			handleSubmit(values);
 		},
 	});
+	const handleUpload = async (e) => {
+		const newImage = e.target?.files?.[0];
+		if (newImage) {
+			const base64 = await convertToBase64(newImage);
+			setPreviewImg(base64);
+		}
+	};
 	return (
 		<Container component='main' maxWidth='xs'>
 			<Box
@@ -186,6 +199,37 @@ export const EditClass = () => {
 									),
 								}}
 							/>
+						</Grid>
+						<Grid
+							item
+							xs={6}
+							display='flex'
+							justifyContent='center'
+						>
+							<Avatar
+								variant='square'
+								src={previewImg}
+								sx={{ height: 64, width: 64 }}
+							>
+								<InsertPhotoOutlinedIcon />
+							</Avatar>
+						</Grid>
+						<Grid item xs={6} display='flex' alignItems='center'>
+							<Button
+								fullWidth
+								variant='outlined'
+								component='label'
+								startIcon={<UploadFileIcon />}
+							>
+								Subir foto
+								<input
+									hidden
+									accept='image/*'
+									multiple={false}
+									type='file'
+									onChange={handleUpload}
+								/>
+							</Button>
 						</Grid>
 					</Grid>
 					<LoadingButton

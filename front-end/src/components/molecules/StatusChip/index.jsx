@@ -8,6 +8,7 @@ export const StatusChip = ({ status }) => {
 		cancelled: 'error',
 		finished: 'info',
 		accepted: 'success',
+		rejected: 'error',
 	};
 	const labelMapper = {
 		unpublished: 'sin publicar',
@@ -16,6 +17,7 @@ export const StatusChip = ({ status }) => {
 		cancelled: 'cancelada',
 		finished: 'finalizada',
 		accepted: 'aceptada',
+		rejected: 'rechazada',
 	};
 
 	const chipColor = colorMapper[status] || '';
