@@ -7,7 +7,7 @@ export const getClasses = (parsedQuery) => {
 		title: parsedQuery?.q || null,
 		type: parsedQuery?.classType || null,
 		frequency: parsedQuery?.frequency || null,
-		ratingg: parsedQuery?.rating || null,
+		rating: parsedQuery?.rating || null,
 		subject: parsedQuery?.subject || null,
 	};
 	return crudProfeFlix.get(`${BASE_URL}/search`, { params });

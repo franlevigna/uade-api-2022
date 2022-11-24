@@ -36,7 +36,6 @@ export const Nottifications = ({ userID }) => {
 		if (!dataGetNotificationsByUser) {
 			return [];
 		}
-		console.log(dataGetNotificationsByUser);
 		return dataGetNotificationsByUser.data.data.length
 			? dataGetNotificationsByUser.data.data.map((item) => ({
 					id: item.id,

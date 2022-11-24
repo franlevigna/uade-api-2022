@@ -255,11 +255,10 @@ export const ClassDetail = () => {
 							Agregar comentario
 						</Button>
 					)}
-					{dataGetClassByID?.data.data?.classes_reviews
+					{dataGetClassByID?.data.data?.reviews
 						?.filter(
 							(review) =>
-								review.comment &&
-								review.comment?.status === 'accepted'
+								review.comment && review.status === 'accepted'
 						)
 						.sort((a, b) => {
 							return (
@@ -268,7 +267,18 @@ export const ClassDetail = () => {
 							);
 						})
 						.map((review) => (
-							<Comment key={review.id} review={review} />
+							<Comment
+								key={review.id}
+								review={{
+									reviewID: review.id,
+									classID: review.subscription.lesson.id,
+									studentName: `${review.subscription.user.firstName} ${review.subscription.user.lastName}`,
+									className: review.subscription.lesson.title,
+									message: review.comment,
+									rating: review.rating,
+									date: review.createdAt,
+								}}
+							/>
 						))}
 				</Box>
 			</Box>

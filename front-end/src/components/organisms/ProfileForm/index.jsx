@@ -65,7 +65,7 @@ export const ProfileForm = () => {
 				experience: user.experience,
 			}),
 			...(user.userType === userRoles.STUDENT && {
-				birthDate: user.birthDate,
+				birthDate: new Date(user.birthDate).toISOString().split('T')[0],
 				primary: user.experience,
 				secundary: user.secundary,
 				terciary: user.terciary,

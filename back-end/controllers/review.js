@@ -49,6 +49,7 @@ exports.update = async function (req, res) {
       where: { id: req.params.id },
     });
     if (reviewFound) {
+      reviewFound.rating = req.body.rating || reviewFound.rating;
       reviewFound.status = req.body.status || reviewFound.status;
       reviewFound.commentDisclaimer =
         req.body.commentDisclaimer || reviewFound.commentDisclaimer;

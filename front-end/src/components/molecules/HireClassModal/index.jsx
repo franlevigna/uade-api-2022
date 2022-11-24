@@ -57,8 +57,6 @@ export const HireClassModal = ({
 		},
 	});
 
-	console.log(formik.values.timeframeFrom);
-
 	return classData ? (
 		<div>
 			<Dialog open={isOpen} onClose={handleClose}>

@@ -157,6 +157,10 @@ exports.getLessonByID = async function (req, res, next) {
       include: {
         model: subscription,
         where: { lessonId: req.params.id },
+        include: {
+          all: true,
+          nested: true,
+        },
       },
     });
 
