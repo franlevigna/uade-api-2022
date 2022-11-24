@@ -63,6 +63,9 @@ module.exports = (sequelize, DataTypes) => {
       degree: {
         type: DataTypes.STRING,
       },
+      profileImage: {
+        type: DataTypes.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,

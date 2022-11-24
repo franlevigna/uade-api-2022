@@ -20,7 +20,7 @@ exports.create = async function (req, res) {
           subscriptionId: subscriptionFound.id,
           studentId: id,
           rating: req.body.rating,
-          status: "sent", // when subscription is created status will always be sent,
+          status: "sent", // when subscription is created status will always be sent
           comment: req.body.comment,
         });
 
@@ -28,11 +28,11 @@ exports.create = async function (req, res) {
           data: createdReview,
           message: "Review created successfully",
         });
-      } else {
-        return res
-          .status(404)
-          .json({ status: 404, message: "Subscription not found" });
       }
+
+      return res
+        .status(404)
+        .json({ status: 404, message: "Subscription not found" });
     } catch (e) {
       console.log("ERROR", e);
       return res.status(500).json({ status: 500, message: e });

@@ -6,6 +6,9 @@ const transporter = require("../helpers/mailer");
 const EMAIL = require("../helpers/constants").EMAIL;
 const BASE_URL = require("../helpers/constants").BASE_URL;
 const SECRET = require("../helpers/constants").SECRET;
+const CLOUDINARY_UPLOAD_PRESET =
+  require("../helpers/constants").CLOUDINARY_UPLOAD_PRESET;
+const { cloudinary } = require("../helpers/cloudinary");
 
 exports.create = async function (req, res) {
   let hashedPassword;
@@ -43,7 +46,6 @@ exports.create = async function (req, res) {
       SECRET
     );
     return res.status(200).json({
-      status: 200,
       data: createdUser,
       accessToken: token,
       message: "User created successfully",
@@ -70,12 +72,15 @@ exports.login = async function (req, res) {
     if (passwordValid) {
       token = jwt.sign(
         {
-          ...userFound.get(),
+          email: userFound.email,
+          user_type: userFound.user_type,
+          id: userFound.id,
           expiresIn: 86400,
         },
         SECRET
       );
-      res.status(200).json({ accessToken: token });
+
+      res.status(200).json({ data: userFound, accessToken: token });
     } else {
       res.status(400).json({ error: "Password Incorrect" });
     }
@@ -147,7 +152,7 @@ exports.changePassword = async function (req, res) {
     jwt.verify(req.body.access_token, SECRET, function (err, decoded) {
       if (err) {
         return res
-          .status(500)
+          .status(401)
           .send({ auth: false, message: "Invalid or expired token" });
       }
       jwt_decoded = decoded;
@@ -173,6 +178,64 @@ exports.changePassword = async function (req, res) {
     return res.status(500).json({
       status: 500,
       message: "Failed to change password",
+    });
+  }
+};
+
+exports.update = async function (req, res) {
+  try {
+    const userFound = await user.findOne({
+      where: {
+        id: req.loggedUser.id,
+      },
+    });
+
+    if (userFound) {
+      userFound.email = req.body.email || userFound.email;
+      userFound.phoneNumber = req.body.phoneNumber || userFound.phoneNumber;
+      userFound.firstName = req.body.firstName || userFound.firstName;
+      userFound.lastName = req.body.lastName || userFound.lastName;
+      userFound.password = req.body.password || userFound.password;
+      userFound.primary = req.body.primary || userFound.primary;
+      userFound.universitary = req.body.universitary || userFound.universitary;
+      userFound.secundary = req.body.secundary || userFound.secundary;
+      userFound.terciary = req.body.terciary || userFound.terciary;
+      userFound.birthDate = req.body.birthDate || userFound.birthDate;
+      userFound.experience = req.body.experience || userFound.experience;
+      userFound.degree = req.body.degree || userFound.degree;
+
+      const strImage = req.body.profileImage;
+      if (strImage) {
+        const uploadedResponse = await cloudinary.uploader.upload(strImage, {
+          upload_preset: CLOUDINARY_UPLOAD_PRESET,
+        });
+        userFound.profileImage = uploadedResponse.url;
+      }
+
+      const savedUser = await userFound.save();
+
+      const token = jwt.sign(
+        {
+          email: savedUser.email,
+          user_type: savedUser.user_type,
+          id: savedUser.id,
+          expiresIn: 86400,
+        },
+        SECRET
+      );
+
+      res.status(200).json({
+        status: 200,
+        data: savedUser,
+        accessToken: token,
+        message: "User updated successfully",
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({
+      status: 500,
+      message: "Failed to update user",
     });
   }
 };

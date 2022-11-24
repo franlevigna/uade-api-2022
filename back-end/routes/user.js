@@ -6,6 +6,7 @@ const Authorization = require("../helpers/auth");
 router.post("/create", usersController.create);
 router.post("/forgot-password", usersController.forgotPassword);
 router.patch("/change-password", usersController.changePassword);
+router.patch("/update", Authorization, usersController.update);
 router.post("/login", usersController.login);
 router.delete("/delete", Authorization, usersController.delete);
 
