@@ -6,6 +6,7 @@ import { FiltersDrawer } from '../../molecules/Drawer';
 import queryString from 'query-string';
 import { useGetClasses } from '../../../hooks/classes';
 import { Loading } from '../../molecules/Loading';
+import noResults from '../../../../assets/no-results.png';
 
 export const SearchResults = () => {
 	const [searchParams] = useSearchParams();
@@ -48,14 +49,18 @@ export const SearchResults = () => {
 					parsedQuery,
 				}}
 			>
-				<Typography
-					variant={'h4'}
-				>{`Resultados para: ${initialQuery}`}</Typography>
+				<Typography variant={'h4'}>{`${
+					!isDataGetClassesLoading &&
+					!dataGetClasses?.data.data.length
+						? 'Sin resultados'
+						: 'Resultados'
+				} para: ${initialQuery}`}</Typography>
 				<Divider sx={{ marginBottom: '1rem' }} />
 				<Grid
 					container
 					rowSpacing={{ xs: 2, sm: 2, md: 3 }}
 					columnSpacing={{ xs: 2, sm: 2, md: 3 }}
+					justifyContent='center'
 				>
 					{dataGetClasses?.data.data.map((c) => (
 						<Grid key={c.id} item xs={12} sm={12} md={12}>
@@ -77,6 +82,21 @@ export const SearchResults = () => {
 							/>
 						</Grid>
 					))}
+					{!isDataGetClassesLoading &&
+					!dataGetClasses?.data?.data?.length ? (
+						<Grid
+							item
+							sx={{
+								maxWidth: '60%',
+								filter: 'brightness(0.4)',
+								minHeight: 'calc(100vh - 200px)',
+								display: 'flex',
+								alignItems: 'center',
+							}}
+						>
+							<img src={noResults} alt='' width='100%' />
+						</Grid>
+					) : null}
 				</Grid>
 			</FiltersDrawer>
 			<Loading loading={isDataGetClassesLoading} />
