@@ -43,7 +43,7 @@ To run this project, you will need to add the following environment variables to
 
 `SECRET` = ""
 
-`EMAIL_USER` = "profeflix.mailer@gmail.com"
+`EMAIL_USER` = "example@email.com"
 
 `EMAIL_PASSWORD` = ""
 
