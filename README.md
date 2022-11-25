@@ -1,6 +1,13 @@
 # uade-api-2022
 
 # Profeflix
+1. [Features](#features)
+2. [Clone the project](#clone-the-project)
+3. [Run locally](#run-locally)
+4. [Environment Variables](#environment-variables)
+5. [Documentation](#documentation)
+6. [Tech Stack](#tech-stack)
+7. [ERD](#erd)
 
 
 ## Features
@@ -20,15 +27,46 @@ Common:
 - List lessons
 - Search by title, subject, type(individual, groupal), frequency(unique, weekly, monthly) and rating
 
-## Run Locally
-
-- Back-end
-
-Clone the project
+## Clone the project
 
 ```bash
   git clone https://github.com/franlevigna/uade-api-2022.git
 ```
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+- Back-end
+
+`SECRET` = ""
+
+`EMAIL_USER` = "profeflix.mailer@gmail.com"
+
+`EMAIL_PASSWORD` = ""
+
+`BASE_URL` = http://localhost:8000/
+
+`UI_BASE_URL` = http://127.0.0.1:5173/
+
+`CLOUDINARY_NAME` = dbvhvnear
+
+`CLOUDINARY_API_KEY` = ""
+
+`CLOUDINARY_API_SECRET` = ""
+
+`CLOUDINARY_UPLOAD_PRESET` = dev_preset
+
+- UI
+
+`VITE_BASE_URL` = http://localhost:8000/
+
+`VITE_CRUD_BASE_UR` = http://localhost:8000/
+
+
+## Run Locally
+
+- Back-end
 
 Go to the back-end folder
 
@@ -71,39 +109,6 @@ Start the server
 
 
 
-
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-- Back-end
-
-`SECRET` = ""
-
-`EMAIL_USER` = "profeflix.mailer@gmail.com"
-
-`EMAIL_PASSWORD` = ""
-
-`BASE_URL` = http://localhost:8000/
-
-`UI_BASE_URL` = http://127.0.0.1:5173/
-
-`CLOUDINARY_NAME` = dbvhvnear
-
-`CLOUDINARY_API_KEY` = ""
-
-`CLOUDINARY_API_SECRET` = ""
-
-`CLOUDINARY_UPLOAD_PRESET` = dev_preset
-
-- UI
-
-`VITE_BASE_URL` = http://localhost:8000/
-
-`VITE_CRUD_BASE_UR` = http://localhost:8000/
-
-
-
 ## Documentation
 
 [Endpoints documentation](https://documenter.getpostman.com/view/6179397/2s8YsnVvPH)
@@ -116,6 +121,11 @@ To run this project, you will need to add the following environment variables to
 **Server:** Node, Express
 
 **DB:** MySQL
+
+## ERD
+
+![ERD](https://user-images.githubusercontent.com/33434552/204020761-2842b727-9bd4-41d1-a3a3-c857a7957ff4.png)
+
 
 
 
