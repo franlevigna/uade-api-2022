@@ -68,7 +68,7 @@ To run this project, you will need to add the following environment variables to
 `VITE_CRUD_BASE_UR` = http://localhost:8000/
 
 ## Conexión con base de datos
-1. Abrir el archivo config.json ubicado en el directorio back-end/config:
+1. Open the config.json file located in the back-end/config directory
 
 ```bash
   "development": {
@@ -95,7 +95,7 @@ To run this project, you will need to add the following environment variables to
 }
 ```
 
-2. Dado que seteamos la variable de ambiente NODE_ENV en development configuraemos la base de datos en ese campo, reemplazar username, password, database y host con los deseados/enviados por alguno de los integrantes del equipo.
+2. Since we set the environment variable NODE_ENV = "development", we will configure everything in the "development" field by setting username, password, database, host, dialact with the desired target.
 
 
 ## Run Locally
