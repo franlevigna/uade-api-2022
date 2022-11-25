@@ -67,7 +67,7 @@ To run this project, you will need to add the following environment variables to
 
 `VITE_CRUD_BASE_UR` = http://localhost:8000/
 
-## Conexión con base de datos
+## Database connection settings:
 1. Open the config.json file located in the back-end/config directory
 
 ```bash
