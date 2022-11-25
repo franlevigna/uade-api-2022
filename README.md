@@ -1,8 +1,10 @@
 # uade-api-2022
+<img align="right" width="50" height="auto" src="https://user-images.githubusercontent.com/33434552/204025334-553dc7c3-0149-40ab-a3a0-679623e7c8ad.png">
+
 
 # Profeflix
 1. [Features](#features)
-2. [Clone the project](#clone-the-project)
+2. [Clone the project](#clone-the-project)![profeFlix]
 3. [Run locally](#run-locally)
 4. [Environment Variables](#environment-variables)
 5. [Documentation](#documentation)
@@ -123,9 +125,9 @@ Start the server
 **DB:** MySQL
 
 ## ERD
-
-![ERD](https://user-images.githubusercontent.com/33434552/204020761-2842b727-9bd4-41d1-a3a3-c857a7957ff4.png)
-
+<p align="center">
+  <img  src="https://user-images.githubusercontent.com/33434552/204020761-2842b727-9bd4-41d1-a3a3-c857a7957ff4.png">
+</p>
 
 
 
