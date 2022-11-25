@@ -47,7 +47,7 @@ app.use("/users", usersRouter);
 
 app.get("*", (req, res) =>
   res.status(200).send({
-    message: "Welcome to the beginning of nothingness.",
+    message: "Welcome to profeflix",
   })
 );
 const port = parseInt(process.env.PORT, 10) || 8000;

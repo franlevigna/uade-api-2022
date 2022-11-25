@@ -78,8 +78,6 @@ exports.getReviewsByProfessor = async function (req, res) {
     loggedUser: { userType, id },
   } = req;
 
-  console.log(id);
-
   if (userType === userTypes.PROFESSOR) {
     try {
       const reviewsFound = await review.findAll({
@@ -90,6 +88,7 @@ exports.getReviewsByProfessor = async function (req, res) {
             include: { all: true, nested: true },
           },
         ],
+        order: [["id", "DESC"]],
       });
       return res.status(200).json({
         status: 200,

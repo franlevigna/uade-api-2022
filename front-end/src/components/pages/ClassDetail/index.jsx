@@ -176,7 +176,11 @@ export const ClassDetail = () => {
 						<Rating
 							sx={{ flexGrow: 1 }}
 							name='read-only'
-							value={dataGetClassByID?.data.data.averageRating}
+							value={
+								Number(
+									dataGetClassByID?.data?.data?.averageRating
+								) ?? 0
+							}
 							readOnly={!isHired}
 							precision={0.5}
 							{...(isHired && {

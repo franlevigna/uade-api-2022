@@ -91,7 +91,7 @@ export const ClassCard = ({
 				<Rating
 					sx={{ flexGrow: 1 }}
 					name='read-only'
-					value={rating ? parseInt(rating) : 0}
+					value={Number(rating) ?? 0}
 					readOnly
 					precision={0.5}
 				/>

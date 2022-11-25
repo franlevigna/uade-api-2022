@@ -21,6 +21,7 @@ exports.getProffesorHirings = async function (req, res) {
             model: user,
           },
         ],
+        order: [["id", "DESC"]],
       });
       return res.status(200).json({
         data: subscriptions,

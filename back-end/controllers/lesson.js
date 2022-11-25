@@ -121,6 +121,7 @@ exports.search = async function (req, res) {
           ],
         },
       ],
+      order: [["id", "DESC"]],
       group: ["lesson.id"],
       ...(req.query.rating && {
         having: { averageRating: { [Op.gte]: req.query.rating } },
@@ -225,6 +226,7 @@ exports.getLessonsByUser = async function (req, res) {
       // If user is a professor, we can get classes directly from lessons table
       lessonsFound = await lesson.findAll({
         where: { teacherId: id },
+        order: [["id", "DESC"]],
       });
     } else {
       // otherwise, if user is student we need to get classes from subscription
@@ -234,6 +236,7 @@ exports.getLessonsByUser = async function (req, res) {
         include: {
           model: lesson,
         },
+        order: [["id", "DESC"]],
       });
     }
 
