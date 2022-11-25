@@ -64,6 +64,14 @@ exports.update = async function (req, res) {
           req.body.description || lessonFound.description;
         lessonFound.duration = req.body.duration || lessonFound.duration;
 
+        const strImage = req.body.image;
+        if (strImage) {
+          const uploadedResponse = await cloudinary.uploader.upload(strImage, {
+            upload_preset: CLOUDINARY_UPLOAD_PRESET,
+          });
+          lessonFound.image = uploadedResponse.url;
+        }
+
         const savedLesson = await lessonFound.save();
 
         return res.status(200).json({
