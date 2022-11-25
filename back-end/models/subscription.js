@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Subscription.belongsTo(models.lesson, { foreignKey: "lessonId" });
       Subscription.belongsTo(models.user, { foreignKey: "studentId" });
+      Subscription.hasOne(models.review, { foreignKey: "subscriptionId" });
     }
   }
   Subscription.init(

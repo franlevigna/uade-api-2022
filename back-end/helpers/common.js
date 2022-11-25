@@ -1,20 +1,11 @@
 const Op = require("sequelize").Op;
 
-const getClassesConditionBuilder = async (queryParams) => {
+const getClassesWhereConditionBuilder = async (queryParams) => {
   if (queryParams) {
     const type =
       queryParams.type != null
         ? {
             type: queryParams.type,
-          }
-        : {};
-
-    const rating =
-      queryParams.rating != null
-        ? {
-            rating: {
-              [Op.gte]: queryParams.rating,
-            },
           }
         : {};
 
@@ -51,7 +42,6 @@ const getClassesConditionBuilder = async (queryParams) => {
     return {
       ...frequency,
       ...subject,
-      ...rating,
       ...status,
       ...title,
       ...type,
@@ -59,4 +49,4 @@ const getClassesConditionBuilder = async (queryParams) => {
   } else return null;
 };
 
-module.exports = getClassesConditionBuilder;
+module.exports = getClassesWhereConditionBuilder;

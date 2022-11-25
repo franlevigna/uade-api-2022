@@ -4,7 +4,8 @@ const user = require("../models").user;
 const review = require("../models").review;
 const subscription = require("../models").subscription;
 const userTypes = require("../helpers/constants").userTypes;
-const getClassesConditionBuilder = require("../helpers/common");
+const getClassesWhereConditionBuilder = require("../helpers/common");
+const { Op } = require("sequelize");
 const CLOUDINARY_UPLOAD_PRESET =
   require("../helpers/constants").CLOUDINARY_UPLOAD_PRESET;
 const { cloudinary } = require("../helpers/cloudinary");
@@ -97,10 +98,33 @@ exports.update = async function (req, res) {
 
 exports.search = async function (req, res) {
   try {
-    const searchCondition = await getClassesConditionBuilder(req.query);
+    const searchCondition = await getClassesWhereConditionBuilder(req.query);
     const lessonsFound = await lesson.findAll({
+      attributes: {
+        include: [
+          [
+            Sequelize.fn("AVG", Sequelize.col("subscriptions.review.rating")),
+            "averageRating",
+          ],
+        ],
+      },
       where: searchCondition,
-      include: { model: user },
+      include: [
+        { model: user },
+        {
+          model: subscription,
+          include: [
+            {
+              model: review,
+            },
+            { model: user },
+          ],
+        },
+      ],
+      group: ["lesson.id"],
+      ...(req.query.rating && {
+        having: { averageRating: { [Op.gte]: req.query.rating } },
+      }),
     });
 
     return res.status(200).json({
@@ -152,33 +176,36 @@ exports.delete = async function (req, res) {
 };
 
 exports.getLessonByID = async function (req, res, next) {
+  // TODO clean / delete unnecessary data from response
+
   try {
     const lessonFound = await lesson.findOne({
+      attributes: {
+        include: [
+          [
+            Sequelize.fn("AVG", Sequelize.col("subscriptions.review.rating")),
+            "averageRating",
+          ],
+        ],
+      },
       where: { id: req.params.id },
-      include: [{ model: user }],
-    });
-
-    const subscriptions = await subscription.findAll({
-      include: {
-        model: lesson,
-        where: { id: req.params.id },
-      },
-    });
-    const reviews = await review.findAll({
-      include: {
-        model: subscription,
-        where: { lessonId: req.params.id },
-        include: {
-          all: true,
-          nested: true,
+      include: [
+        { model: user },
+        {
+          model: subscription,
+          include: [
+            {
+              model: review,
+            },
+            { model: user },
+          ],
         },
-      },
+      ],
+      group: ["subscriptions.id"],
     });
-
-    const result = { ...lessonFound.get(), reviews, subscriptions };
 
     return res.status(200).json({
-      data: result,
+      data: lessonFound,
     });
   } catch (e) {
     console.log(e);
