@@ -5,6 +5,9 @@ const review = require("../models").review;
 const subscription = require("../models").subscription;
 const userTypes = require("../helpers/constants").userTypes;
 const getClassesConditionBuilder = require("../helpers/common");
+const CLOUDINARY_UPLOAD_PRESET =
+  require("../helpers/constants").CLOUDINARY_UPLOAD_PRESET;
+const { cloudinary } = require("../helpers/cloudinary");
 
 exports.create = async function (req, res) {
   const {
