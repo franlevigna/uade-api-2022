@@ -4,7 +4,7 @@
 
 # Profeflix
 1. [Features](#features)
-2. [Clone the project](#clone-the-project)![profeFlix]
+2. [Clone the project](#clone-the-project)
 3. [Run locally](#run-locally)
 4. [Environment Variables](#environment-variables)
 5. [Documentation](#documentation)
