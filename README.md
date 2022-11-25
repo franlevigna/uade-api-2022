@@ -41,6 +41,8 @@ To run this project, you will need to add the following environment variables to
 
 - Back-end
 
+`NODE_ENV` = "development"
+
 `SECRET` = ""
 
 `EMAIL_USER` = "example@email.com"
@@ -64,6 +66,36 @@ To run this project, you will need to add the following environment variables to
 `VITE_BASE_URL` = http://localhost:8000/
 
 `VITE_CRUD_BASE_UR` = http://localhost:8000/
+
+## Conexión con base de datos
+1. Abrir el archivo config.json ubicado en el directorio back-end/config:
+
+```bash
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+```
+
+2. Dado que seteamos la variable de ambiente NODE_ENV en development configuraemos la base de datos en ese campo, reemplazar username, password, database y host con los deseados/enviados por alguno de los integrantes del equipo.
 
 
 ## Run Locally
