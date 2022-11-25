@@ -60,7 +60,7 @@ export const HireClassModal = ({
 	return classData ? (
 		<div>
 			<Dialog open={isOpen} onClose={handleClose}>
-				<DialogTitle>{`Contratar ${classData.name}`}</DialogTitle>
+				<DialogTitle>{`Contratar ${classData.title}`}</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
 						Para contratar esta clase, escribile al profesor con los

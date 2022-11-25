@@ -65,8 +65,10 @@ export const ProfileForm = () => {
 				experience: user.experience,
 			}),
 			...(user.userType === userRoles.STUDENT && {
-				birthDate: new Date(user.birthDate).toISOString().split('T')[0],
-				primary: user.experience,
+				birthDate: user.birthDate
+					? new Date(user.birthDate).toISOString().split('T')[0]
+					: '',
+				primary: user.primary,
 				secundary: user.secundary,
 				terciary: user.terciary,
 				universitary: user.universitary,
@@ -95,15 +97,15 @@ export const ProfileForm = () => {
 				gridTemplateRows: '100px auto auto ',
 				gridTemplateAreas: {
 					md: `
-"main  header header "
-"main profileForm profileForm "
-"main profileForm profileForm "
-`,
+					"main  header header "
+					"main profileForm profileForm "
+					"main profileForm profileForm "
+					`,
 					xs: `
-"header  header header "
-"main main main "
-"profileForm profileForm profileForm "
-`,
+					"header  header header "
+					"main main main "
+					"profileForm profileForm profileForm "
+					`,
 				},
 			}}
 		>
@@ -170,21 +172,19 @@ export const ProfileForm = () => {
 								</Button>
 							) : (
 								<>
-									<IconButton>
-										<CancelOutlinedIcon
-											color='error'
-											onClick={() => setPreviewImg(null)}
-										/>
+									<IconButton
+										onClick={() => setPreviewImg(null)}
+									>
+										<CancelOutlinedIcon color='error' />
 									</IconButton>
-									<IconButton>
-										<CheckCircleOutlineIcon
-											color='primary'
-											onClick={() =>
-												handleSubmit({
-													profileImage: previewImg,
-												})
-											}
-										/>
+									<IconButton
+										onClick={() =>
+											handleSubmit({
+												profileImage: previewImg,
+											})
+										}
+									>
+										<CheckCircleOutlineIcon color='primary' />
 									</IconButton>
 								</>
 							)}

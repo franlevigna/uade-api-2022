@@ -68,10 +68,11 @@ export const SearchResults = () => {
 									cost: c.cost,
 									frequency: c.frequency,
 									duration: c.duration,
-									rating: c.rating,
+									rating: c.averageRating,
 									type: c.type,
 									description: c.description,
 									subject: c.subject,
+									img: c.image,
 								}}
 							/>
 						</Grid>

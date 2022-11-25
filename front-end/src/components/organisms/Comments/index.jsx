@@ -61,6 +61,7 @@ export const Comments = () => {
 						message: review.comment,
 						rating: review.rating,
 						date: review.createdAt,
+						userImg: review.subscription.user.profileImage,
 					};
 				}
 				return null;

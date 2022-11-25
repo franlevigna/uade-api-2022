@@ -11,7 +11,11 @@ export const Comment = ({ review }) => {
 		<Paper style={{ padding: '40px 20px', marginBottom: '1rem' }}>
 			<Grid container wrap='nowrap' spacing={2}>
 				<Grid item>
-					<Avatar alt='Remy Sharp' />
+					<Avatar
+						sx={{ width: '60px', height: '60px' }}
+						src={review.userImg}
+						alt='Remy Sharp'
+					/>
 				</Grid>
 				<Grid justifyContent='left' item xs zeroMinWidth>
 					<Typography variant={'h6'} sx={{ textAlign: 'left' }}>

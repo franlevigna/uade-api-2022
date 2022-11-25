@@ -21,7 +21,7 @@ export const Home = () => {
 			>
 				<Loading loading={isDataGetClassesLoading} />
 				{dataGetClasses?.data.data.map((c) => (
-					<Grid key={c.id} item xs={12} sm={6} md={4}>
+					<Grid key={c.id} item xs={12} sm={12} md={6}>
 						<ClassCard
 							{...{
 								id: c.id,
@@ -30,10 +30,11 @@ export const Home = () => {
 								cost: c.cost,
 								frequency: c.frequency,
 								duration: c.duration,
-								rating: c.rating,
+								rating: c.averageRating,
 								type: c.type,
 								description: c.description,
 								subject: c.subject,
+								img: c.image,
 							}}
 						/>
 					</Grid>

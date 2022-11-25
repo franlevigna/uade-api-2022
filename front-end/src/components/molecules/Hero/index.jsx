@@ -6,8 +6,8 @@ export const Hero = () => {
 		<Box
 			sx={{
 				bgcolor: 'background.paper',
-				pt: 8,
-				pb: 6,
+				pt: 3,
+				pb: 3,
 			}}
 		>
 			<Container maxWidth='sm'>
@@ -19,10 +19,10 @@ export const Hero = () => {
 					gutterBottom
 				>
 					<img
-						height='200px'
+						height='150px'
 						alt='Profe flix'
 						src='\assets\profeFlix.svg'
-					 />
+					/>
 				</Typography>
 				<Typography
 					variant='h5'

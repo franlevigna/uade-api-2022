@@ -47,25 +47,21 @@ export const ClassDetail = () => {
 		  )
 		: null;
 	const isHired = subscription?.status === 'accepted';
-	const userReview =
-		subscription &&
-		dataGetClassByID?.data.data?.reviews?.find(
-			(review) => review.subscriptionId === subscription.id
-		);
+	const userReview = subscription?.review;
 	const canComment = isHired && (!userReview || !userReview?.comment);
 
-	const getRating = () => {
-		let ratingAVG = 0;
-		if (dataGetClassByID?.data.data.reviews) {
-			dataGetClassByID?.data.data.reviews.forEach((review) => {
-				if (review.rating) {
-					ratingAVG = ratingAVG + review.rating;
-				}
-			});
-			ratingAVG = ratingAVG / dataGetClassByID?.data.data.reviews.length;
-		}
-		return ratingAVG;
-	};
+	const allReviews = dataGetClassByID?.data.data.subscriptions
+		.filter((subscription) => subscription.review)
+		.map((subscription) => ({
+			reviewID: subscription.review.id,
+			studentName: `${subscription.user.firstName} ${subscription.user.lastName}`,
+			message: subscription.review.comment,
+			rating: subscription.review.rating,
+			date: subscription.review.createdAt,
+			userImg: subscription.user.profileImage,
+		}));
+
+	console.log(allReviews);
 
 	return (
 		<div>
@@ -180,10 +176,7 @@ export const ClassDetail = () => {
 						<Rating
 							sx={{ flexGrow: 1 }}
 							name='read-only'
-							value={
-								dataGetClassByID?.data.data.rating ||
-								getRating()
-							}
+							value={dataGetClassByID?.data.data.averageRating}
 							readOnly={!isHired}
 							precision={0.5}
 							{...(isHired && {
@@ -255,31 +248,9 @@ export const ClassDetail = () => {
 							Agregar comentario
 						</Button>
 					)}
-					{dataGetClassByID?.data.data?.reviews
-						?.filter(
-							(review) =>
-								review.comment && review.status === 'accepted'
-						)
-						.sort((a, b) => {
-							return (
-								new Date(b.comment.date) -
-								new Date(a.comment.date)
-							);
-						})
-						.map((review) => (
-							<Comment
-								key={review.id}
-								review={{
-									reviewID: review.id,
-									classID: review.subscription.lesson.id,
-									studentName: `${review.subscription.user.firstName} ${review.subscription.user.lastName}`,
-									className: review.subscription.lesson.title,
-									message: review.comment,
-									rating: review.rating,
-									date: review.createdAt,
-								}}
-							/>
-						))}
+					{allReviews?.map((review) => (
+						<Comment key={review.id} review={review} />
+					))}
 				</Box>
 			</Box>
 		</div>
